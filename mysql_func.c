@@ -14,7 +14,7 @@ int connect_mysql()
     /* Change me */
     char *server = "localhost";
     char *user = "root";
-    char *password = "";
+    char *password = "eruch1xx";
     char *database = "myber";
 
     conn = mysql_init(NULL);
@@ -94,6 +94,26 @@ int login(char *user, char *pw)
 {
     char query[256];
     sprintf(query, "SELECT username FROM users WHERE username = '%s' AND password = '%s' AND blocked = 0", user, pw);
+
+    if (mysql_query(conn, query))
+    {
+        fprintf(stderr, "mysql_query() failed: %s\n", mysql_error(conn));
+        return -1;
+    }
+
+    res = mysql_store_result(conn);
+    MYSQL_ROW row = mysql_fetch_row(res);
+    int success = (row != NULL);
+    mysql_free_result(res);
+    return success;
+}
+
+int register_user(char *user, char *nama, char *pw)
+{
+    char query[256];
+
+    sprintf(query, "INSERT INTO users (username, nama, password) VALUES ('%s', '%s', '%s')", user, nama, pw);
+    //sprintf(query, "SELECT username FROM users WHERE username = '%s' AND password = '%s' AND blocked = 0", user, pw);
 
     if (mysql_query(conn, query))
     {
