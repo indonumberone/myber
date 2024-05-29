@@ -62,6 +62,8 @@ void login(GtkWidget *widget, gpointer data)
     g_print("Username: %s\n", username);
     g_print("Password: %s\n", password);
 
+    // printf("User: %s, Pw: %s", username, password);
+
     // Hide the login window
     gtk_widget_hide(login_window);
 
