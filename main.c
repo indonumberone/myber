@@ -6,6 +6,7 @@
 
 void loginin(GtkWidget *, gpointer);
 void login_as_customers(GtkWidget *, gpointer);
+void go_back_to_home(GtkWidget *, gpointer);
 void destroy(GtkWidget *, gpointer);
 void create_welcome_window(GtkWidget *);
 void create_customers_login_window(GtkWidget *);
@@ -28,6 +29,7 @@ int main(int argc, char *argv[]) {
     GtkWidget *login_admin_button;
     GtkWidget *image;
     GtkWidget *banner_label;
+    GtkWidget *info_label;
 
     gtk_init(&argc, &argv);
     login_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -49,11 +51,21 @@ int main(int argc, char *argv[]) {
 
     banner_label = gtk_label_new("Selamat Datang di Myber-Indonesia!");
     PangoAttrList *attr_list = pango_attr_list_new();
-    PangoAttribute *attr_size = pango_attr_size_new_absolute(30 * PANGO_SCALE); // Set size to 20
+    PangoAttribute *attr_size = pango_attr_size_new_absolute(30 * PANGO_SCALE);
     pango_attr_list_insert(attr_list, attr_size);
     gtk_label_set_attributes(GTK_LABEL(banner_label), attr_list);
     pango_attr_list_unref(attr_list);
     gtk_box_pack_start(GTK_BOX(vbox), banner_label, TRUE, TRUE, 0);
+
+    info_label = gtk_label_new("Sudah punya akun? Silahkan login.");
+    PangoAttrList *attr_list_additional = pango_attr_list_new();
+    PangoAttribute *attr_size_additional = pango_attr_size_new_absolute(19 * PANGO_SCALE); 
+    PangoAttribute *attr_weight_additional = pango_attr_weight_new(PANGO_WEIGHT_BOLD);   
+    pango_attr_list_insert(attr_list_additional, attr_size_additional);
+    pango_attr_list_insert(attr_list_additional, attr_weight_additional);
+    gtk_label_set_attributes(GTK_LABEL(info_label), attr_list_additional);
+    pango_attr_list_unref(attr_list_additional);
+    gtk_box_pack_start(GTK_BOX(vbox), info_label, TRUE, TRUE, 0);
 
     // Create login button
     login_customers_button = gtk_button_new_with_label("Login sebagai customers");
@@ -99,6 +111,7 @@ void create_customers_login_window(GtkWidget *parent_window)
         GtkWidget *username_label;
         GtkWidget *password_label;
         GtkWidget *login_button;
+        GtkWidget *back_button;
         GtkWidget *image;
         GtkWidget *banner_label;
 
@@ -138,7 +151,18 @@ void create_customers_login_window(GtkWidget *parent_window)
         g_signal_connect(G_OBJECT(login_button), "clicked", G_CALLBACK(loginin), NULL);
         gtk_box_pack_start(GTK_BOX(vbox), login_button, TRUE, TRUE, 0);
 
+        back_button = gtk_button_new_with_label("Kembali ke halaman awal");
+        g_signal_connect(G_OBJECT(back_button), "clicked", G_CALLBACK(go_back_to_home), NULL);
+        gtk_box_pack_start(GTK_BOX(vbox), back_button, TRUE, TRUE, 0);
+
         gtk_widget_show_all(customers_login_window);
+}
+
+void go_back_to_home(GtkWidget *widget, gpointer data)
+{
+    GtkWidget *current_window = GTK_WIDGET(data);
+    gtk_widget_hide(current_window);
+    gtk_widget_show_all(login_window); 
 }
 
 void create_welcome_window(GtkWidget *parent_window)
