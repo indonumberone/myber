@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <mysql.h>
 #include "mysql_func.h"
+
+// gcc `pkg-config --cflags gtk+-3.0` -o p p.c `pkg-config --libs gtk+-3.0`
 MYSQL *conn;
 MYSQL_RES *res;
 MYSQL_ROW row;
