@@ -1,5 +1,5 @@
 #include <gtk/gtk.h>
-
+#include "mysql_func.h"
 #define WINDOW_SIZE 50
 
 void login(GtkWidget *, gpointer);
@@ -12,6 +12,10 @@ GtkWidget *login_window;
 
 int main(int argc, char *argv[])
 {
+    if ((connect_mysql()) == 0)
+    {
+        printf("sukses");
+    }
     GtkWidget *vbox;
     GtkWidget *username_label;
     GtkWidget *password_label;
