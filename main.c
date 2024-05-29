@@ -1,8 +1,10 @@
 #include <gtk/gtk.h>
+#include <stdio.h>
+// #include <string.h>
 #include "mysql_func.h"
 #define WINDOW_SIZE 50
 
-void login(GtkWidget *, gpointer);
+void loginin(GtkWidget *, gpointer);
 void destroy(GtkWidget *, gpointer);
 void create_welcome_window(GtkWidget *);
 
@@ -47,7 +49,7 @@ int main(int argc, char *argv[])
 
     // Create login button
     login_button = gtk_button_new_with_label("Login");
-    g_signal_connect(G_OBJECT(login_button), "clicked", G_CALLBACK(login), NULL);
+    g_signal_connect(G_OBJECT(login_button), "clicked", G_CALLBACK(loginin), NULL);
     gtk_box_pack_start(GTK_BOX(vbox), login_button, TRUE, TRUE, 0);
 
     gtk_widget_show_all(login_window);
@@ -56,7 +58,7 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-void login(GtkWidget *widget, gpointer data)
+void loginin(GtkWidget *widget, gpointer data)
 {
     const gchar *username = gtk_entry_get_text(GTK_ENTRY(username_entry));
     const gchar *password = gtk_entry_get_text(GTK_ENTRY(password_entry));
