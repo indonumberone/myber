@@ -88,10 +88,10 @@ int main(int argc, char *argv[])
     // pango_attr_list_unref(attr_list_additional);
     // gtk_box_pack_start(GTK_BOX(vbox), create_label, TRUE, TRUE, 0);
     // Create login button
-    login_customers_button = gtk_button_new_with_label("Login sebagai customers");
+    login_customers_button = gtk_button_new_with_label("Login AS CUSTOMERS");
     g_signal_connect(G_OBJECT(login_customers_button), "clicked", G_CALLBACK(login_as_customers), intine_window);
     gtk_box_pack_start(GTK_BOX(vbox), login_customers_button, TRUE, TRUE, 0);
-    login_customers_button = gtk_button_new_with_label("Login sebagai customers");
+    login_customers_button = gtk_button_new_with_label("Login AS ADMIN ");
     g_signal_connect(G_OBJECT(login_customers_button), "clicked", G_CALLBACK(login_as_customers), intine_window);
     gtk_box_pack_start(GTK_BOX(vbox), login_customers_button, TRUE, TRUE, 0);
 
