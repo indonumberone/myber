@@ -4,7 +4,7 @@
 #include "mysql_func.h"
 #define WINDOW_SIZE 50
 
-void loginin(GtkWidget *, gpointer);
+void login_process_user(GtkWidget *, gpointer);
 void login_as_customers(GtkWidget *, gpointer);
 void go_back_to_home(GtkWidget *, gpointer);
 void destroy(GtkWidget *, gpointer);
@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
     gtk_box_pack_start(GTK_BOX(vbox), login_customers_button, TRUE, TRUE, 0);
 
     login_customers_button = gtk_button_new_with_label("Login sebagai admin");
-    g_signal_connect(G_OBJECT(login_customers_button), "clicked", G_CALLBACK(loginin), intine_window);
+    g_signal_connect(G_OBJECT(login_customers_button), "clicked", G_CALLBACK(login_process_user), intine_window);
     gtk_box_pack_start(GTK_BOX(vbox), login_customers_button, TRUE, TRUE, 0);
 
     gtk_widget_show_all(intine_window);
@@ -91,7 +91,7 @@ void login_as_customers(GtkWidget *widget, gpointer data)
     create_customers_login_window(intine_window);
 }
 
-void loginin(GtkWidget *widget, gpointer data)
+void login_process_user(GtkWidget *widget, gpointer data)
 {
 
     GtkWidget *current_window = GTK_WIDGET(data);
@@ -149,7 +149,7 @@ void create_customers_login_window(GtkWidget *parent_window)
     gtk_box_pack_start(GTK_BOX(vbox), password_entry, TRUE, TRUE, 0);
 
     login_button = gtk_button_new_with_label("Login");
-    g_signal_connect(G_OBJECT(login_button), "clicked", G_CALLBACK(loginin), NULL);
+    g_signal_connect(G_OBJECT(login_button), "clicked", G_CALLBACK(login_process_user), NULL);
     gtk_box_pack_start(GTK_BOX(vbox), login_button, TRUE, TRUE, 0);
 
     back_button = gtk_button_new_with_label("Kembali ke halaman awal");
