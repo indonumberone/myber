@@ -14,7 +14,7 @@ int connect_mysql()
     /* Change me */
     char *server = "localhost";
     char *user = "root";
-    char *password = "eruch1xx";
+    char *password = "";
     char *database = "myber";
 
     conn = mysql_init(NULL);
@@ -131,22 +131,7 @@ int register_user(char *user, char *nama, char *pw)
 int blocked(char *user)
 {
     char query[256];
-    sprintf(query, "update users set blocked = 1 where username = '%s'", user);
-    if (mysql_query(conn, query))
-    {
-        {
-            fprintf(stderr, "mysql_query() failed: %s\n", mysql_error(conn));
-            mysql_close(conn);
-            return 1;
-        }
-    }
-    return 0;
-}
-
-int freeblock(char *user)
-{
-    char query[256];
-    sprintf(query, "update users set blocked = 0 where username = '%s'", user);
+    sprintf(query, "UPDATE users SET blocked =1 ,blocked_until = CURRENT_TIMESTAMP() + INTERVAL 1 MINUTE WHERE username = '%s'", user);
     if (mysql_query(conn, query))
     {
         {
@@ -187,3 +172,6 @@ int test()
     }
     mysql_free_result(res);
 }
+
+// set global event_scheduler = 1;
+/* CREATE EVENT check_blocked ON SCHEDULE EVERY 1 MINUTE DO update users set blocked = 0 where blocked_until < current_timestamp();*/

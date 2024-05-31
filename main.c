@@ -4,6 +4,7 @@
 #include "mysql_func.h"
 #define WINDOW_SIZE 50
 
+// void myCSS(void);
 void login_process_user(GtkWidget *, gpointer);
 void login_as_customers(GtkWidget *, gpointer);
 void go_back_to_home(GtkWidget *, gpointer);
@@ -39,7 +40,7 @@ int main(int argc, char *argv[])
     GtkWidget *create_label;
     GtkWidget *info_label;
     GtkWidget *create_akun;
-
+    // myCSS();
     gtk_init(&argc, &argv);
     intine_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
@@ -105,6 +106,24 @@ int main(int argc, char *argv[])
     return 0;
 }
 
+// void myCSS(void)
+// {
+//     GtkCssProvider *provider;
+//     GdkDisplay *display;
+//     GdkScreen *screen;
+
+//     provider = gtk_css_provider_new();
+//     display = gdk_display_get_default();
+//     screen = gdk_display_get_default_screen(display);
+//     gtk_style_context_add_provider_for_screen(screen, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+//     const gchar *myCssFile = "style.css";
+//     GError *error = 0;
+
+//     gtk_css_provider_load_from_file(provider, g_file_new_for_path(myCssFile), &error);
+//     g_object_unref(provider);
+// }
+
 void login_as_customers(GtkWidget *widget, gpointer data)
 {
     GtkWidget *current_window = GTK_WIDGET(data);
@@ -120,21 +139,36 @@ void create_user_go(GtkWidget *widget, gpointer data)
 
 void login_process_user(GtkWidget *widget, gpointer data)
 {
+    static int try;
 
     GtkWidget *current_window = GTK_WIDGET(data);
     gtk_widget_hide(customers_login_window);
 
     const gchar *username = gtk_entry_get_text(GTK_ENTRY(username_entry));
     const gchar *password = gtk_entry_get_text(GTK_ENTRY(password_entry));
-
+    if (try > 2)
+    {
+        blocked(username);
+        printf("hayooo");
+    }
     g_print("Username: %s\n", username);
     g_print("Password: %s\n", password);
 
-    int hasil = login_user(username, username, password);
-    printf("hasil %d\n", hasil);
-    // printf("User: %s, Pw: %s", username, password);
+    int hasil = login_user(username, password);
+    if (hasil == 0)
+    {
+        // test = gtk_label_new(try);
+        try++;
+        gtk_widget_show_all(customers_login_window);
+    }
+    else if (hasil == 1)
+    {
+        create_welcome_window(customers_login_window);
+    }
 
-    create_welcome_window(customers_login_window);
+    printf("hasil %d try %d\n", hasil, try);
+
+    // printf("User: %s, Pw: %s", username, password);
 }
 void create_user(GtkWidget *widget, gpointer data)
 {
