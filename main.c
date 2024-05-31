@@ -152,7 +152,7 @@ void create_customers_login_window(GtkWidget *parent_window)
         gtk_box_pack_start(GTK_BOX(vbox), login_button, TRUE, TRUE, 0);
 
         back_button = gtk_button_new_with_label("Kembali ke halaman awal");
-        g_signal_connect(G_OBJECT(back_button), "clicked", G_CALLBACK(go_back_to_home), NULL);
+        g_signal_connect(G_OBJECT(back_button), "clicked", G_CALLBACK(go_back_to_home), customers_login_window);
         gtk_box_pack_start(GTK_BOX(vbox), back_button, TRUE, TRUE, 0);
 
         gtk_widget_show_all(customers_login_window);
