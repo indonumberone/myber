@@ -12,7 +12,7 @@ void create_welcome_window(GtkWidget *);
 void create_customers_login_window(GtkWidget *);
 void create_customer_register_window(GtkWidget *parent_window);
 void create_user(GtkWidget *widget, gpointer data);
-void create_user_tes(GtkWidget *widget, gpointer data);
+void create_user_go(GtkWidget *widget, gpointer data);
 
 GtkWidget *customers_login_window;
 GtkWidget *username_entry;
@@ -36,6 +36,7 @@ int main(int argc, char *argv[])
     GtkWidget *login_admin_button;
     GtkWidget *image;
     GtkWidget *banner_label;
+    GtkWidget *create_label;
     GtkWidget *info_label;
     GtkWidget *create_akun;
 
@@ -75,7 +76,9 @@ int main(int argc, char *argv[])
     pango_attr_list_unref(attr_list_additional);
     gtk_box_pack_start(GTK_BOX(vbox), info_label, TRUE, TRUE, 0);
 
-    // create_label = gtk_label_new("Belum Punya akun? Silahkan register");
+    create_label = gtk_label_new("Belum Punya akun? Silahkan register");
+
+    gtk_box_pack_start(GTK_BOX(vbox), create_label, TRUE, TRUE, 0);
     // PangoAttrList *attr_list_additional = pango_attr_list_new();
     // PangoAttribute *attr_size_additional = pango_attr_size_new_absolute(19 * PANGO_SCALE);
     // PangoAttribute *attr_weight_additional = pango_attr_weight_new(PANGO_WEIGHT_BOLD);
@@ -92,8 +95,8 @@ int main(int argc, char *argv[])
     g_signal_connect(G_OBJECT(login_customers_button), "clicked", G_CALLBACK(login_as_customers), intine_window);
     gtk_box_pack_start(GTK_BOX(vbox), login_customers_button, TRUE, TRUE, 0);
 
-    create_akun = gtk_button_new_with_label("test akun");
-    g_signal_connect(G_OBJECT(create_akun), "clicked", G_CALLBACK(create_user_tes), intine_window);
+    create_akun = gtk_button_new_with_label("BUAT AKUN");
+    g_signal_connect(G_OBJECT(create_akun), "clicked", G_CALLBACK(create_user_go), intine_window);
     gtk_box_pack_start(GTK_BOX(vbox), create_akun, TRUE, TRUE, 0);
 
     gtk_widget_show_all(intine_window);
@@ -108,7 +111,7 @@ void login_as_customers(GtkWidget *widget, gpointer data)
     gtk_widget_hide(current_window);
     create_customers_login_window(intine_window);
 }
-void create_user_tes(GtkWidget *widget, gpointer data)
+void create_user_go(GtkWidget *widget, gpointer data)
 {
     GtkWidget *current_window = GTK_WIDGET(data);
     gtk_widget_hide(current_window);
