@@ -130,9 +130,8 @@ void login_process_user(GtkWidget *widget, gpointer data)
     g_print("Username: %s\n", username);
     g_print("Password: %s\n", password);
 
-    int hasil = register_user(username, username, password);
+    int hasil = login_user(username, username, password);
     printf("hasil %d\n", hasil);
-
     // printf("User: %s, Pw: %s", username, password);
 
     create_welcome_window(customers_login_window);
@@ -196,7 +195,7 @@ void create_customers_login_window(GtkWidget *parent_window)
     gtk_box_pack_start(GTK_BOX(vbox), password_entry, TRUE, TRUE, 0);
 
     login_button = gtk_button_new_with_label("Login");
-    g_signal_connect(G_OBJECT(login_button), "clicked", G_CALLBACK(login_process_user), NULL);
+    g_signal_connect(G_OBJECT(login_button), "clicked", G_CALLBACK(login_process_user), customers_login_window);
     gtk_box_pack_start(GTK_BOX(vbox), login_button, TRUE, TRUE, 0);
 
     back_button = gtk_button_new_with_label("Kembali ke halaman awal");

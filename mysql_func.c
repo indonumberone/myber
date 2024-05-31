@@ -90,10 +90,10 @@ int check_block(char *user)
     return 0;
 }
 
-int login(char *user, char *pw)
+int login_user(char *user, char *pw)
 {
     char query[256];
-    sprintf(query, "SELECT username FROM users WHERE username = '%s' AND password = '%s' AND blocked = 0", user, pw);
+    sprintf(query, "SELECT username FROM users WHERE username = '%s' AND password = '%s' AND blocked = 0 AND ADMIN = 0", user, pw);
 
     if (mysql_query(conn, query))
     {
@@ -113,7 +113,7 @@ int register_user(char *user, char *nama, char *pw)
     char query[256];
 
     sprintf(query, "INSERT INTO users (username, nama, password) VALUES ('%s', '%s', '%s')", user, nama, pw);
-    //sprintf(query, "SELECT username FROM users WHERE username = '%s' AND password = '%s' AND blocked = 0", user, pw);
+    // sprintf(query, "SELECT username FROM users WHERE username = '%s' AND password = '%s' AND blocked = 0", user, pw);
 
     if (mysql_query(conn, query))
     {
