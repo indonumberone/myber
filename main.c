@@ -214,10 +214,10 @@ void create_customer_register_window(GtkWidget *parent_window)
     GtkWidget *image;
     GtkWidget *banner_label;
     customer_register_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    g_signal_connect(customers_login_window, "destroy", G_CALLBACK(destroy), NULL);
-    gtk_container_set_border_width(GTK_CONTAINER(customers_login_window), WINDOW_SIZE);
+    g_signal_connect(customer_register_window, "destroy", G_CALLBACK(destroy), NULL);
+    gtk_container_set_border_width(GTK_CONTAINER(customer_register_window), WINDOW_SIZE);
     vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
-    gtk_container_add(GTK_CONTAINER(customers_login_window), vbox);
+    gtk_container_add(GTK_CONTAINER(customer_register_window), vbox);
     // dikek i banner gambar
     image = gtk_image_new_from_file("assets/login_cust.png");
     gtk_box_pack_start(GTK_BOX(vbox), image, TRUE, TRUE, 0);
