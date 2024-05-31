@@ -11,4 +11,4 @@ ${PROG}: ${PROG}.c
 	${CC} -Wall ${CFLAGS} -o ${PROG} ${PROG1}.c ${PROG}.c ${LIBS} ${MYSQL1} ${MYSQL2} 
 
 clean:
-	rm ${PROG} ${PROG1}
+	rm ${PROG}
