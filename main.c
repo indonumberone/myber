@@ -76,17 +76,6 @@ int main(int argc, char *argv[])
     pango_attr_list_unref(attr_list_additional);
     gtk_box_pack_start(GTK_BOX(vbox), info_label, TRUE, TRUE, 0);
 
-    create_label = gtk_label_new("Belum Punya akun? Silahkan register");
-
-    gtk_box_pack_start(GTK_BOX(vbox), create_label, TRUE, TRUE, 0);
-    // PangoAttrList *attr_list_additional = pango_attr_list_new();
-    // PangoAttribute *attr_size_additional = pango_attr_size_new_absolute(19 * PANGO_SCALE);
-    // PangoAttribute *attr_weight_additional = pango_attr_weight_new(PANGO_WEIGHT_BOLD);
-    // pango_attr_list_insert(attr_list_additional, attr_size_additional);
-    // pango_attr_list_insert(attr_list_additional, attr_weight_additional);
-    // gtk_label_set_attributes(GTK_LABEL(create_label), attr_list_additional);
-    // pango_attr_list_unref(attr_list_additional);
-    // gtk_box_pack_start(GTK_BOX(vbox), create_label, TRUE, TRUE, 0);
     // Create login button
     login_customers_button = gtk_button_new_with_label("LOGIN AS CUSTOMERS");
     g_signal_connect(G_OBJECT(login_customers_button), "clicked", G_CALLBACK(login_as_customers), intine_window);
@@ -95,7 +84,18 @@ int main(int argc, char *argv[])
     g_signal_connect(G_OBJECT(login_customers_button), "clicked", G_CALLBACK(login_as_customers), intine_window);
     gtk_box_pack_start(GTK_BOX(vbox), login_customers_button, TRUE, TRUE, 0);
 
-    create_akun = gtk_button_new_with_label("CREATE ACCOUNT");
+    create_label = gtk_label_new("Belum Punya akun? Silahkan register");
+    gtk_box_pack_start(GTK_BOX(vbox), create_label, TRUE, TRUE, 0);
+    PangoAttrList *attr_list_info_lagi = pango_attr_list_new();
+    PangoAttribute *attr_size_info_lagi = pango_attr_size_new_absolute(15 * PANGO_SCALE);
+    PangoAttribute *attr_weight_info_lagi = pango_attr_style_new(PANGO_STYLE_ITALIC);
+    pango_attr_list_insert(attr_list_info_lagi, attr_size_info_lagi);
+    pango_attr_list_insert(attr_list_info_lagi, attr_weight_info_lagi);
+    gtk_label_set_attributes(GTK_LABEL(create_label), attr_list_info_lagi);
+    pango_attr_list_unref(attr_list_info_lagi);
+    gtk_box_pack_start(GTK_BOX(vbox), create_label, TRUE, TRUE, 0);
+
+    create_akun = gtk_button_new_with_label("BUAT AKUN");
     g_signal_connect(G_OBJECT(create_akun), "clicked", G_CALLBACK(create_user_go), intine_window);
     gtk_box_pack_start(GTK_BOX(vbox), create_akun, TRUE, TRUE, 0);
 
@@ -221,7 +221,7 @@ void create_customer_register_window(GtkWidget *parent_window)
     vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
     gtk_container_add(GTK_CONTAINER(customer_register_window), vbox);
     // dikek i banner gambar
-    image = gtk_image_new_from_file("assets/login_cust.png");
+    image = gtk_image_new_from_file("assets/register_cust.png");
     gtk_box_pack_start(GTK_BOX(vbox), image, TRUE, TRUE, 0);
 
     banner_label = gtk_label_new("Create Your Account !!");
