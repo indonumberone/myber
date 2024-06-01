@@ -112,23 +112,6 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-// void myCSS(void)
-// {
-//     GtkCssProvider *provider;
-//     GdkDisplay *display;
-//     GdkScreen *screen;
-
-//     provider = gtk_css_provider_new();
-//     display = gdk_display_get_default();
-//     screen = gdk_display_get_default_screen(display);
-//     gtk_style_context_add_provider_for_screen(screen, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-
-//     const gchar *myCssFile = "style.css";
-//     GError *error = 0;
-
-//     gtk_css_provider_load_from_file(provider, g_file_new_for_path(myCssFile), &error);
-//     g_object_unref(provider);
-// }
 
 void login_as_customers(GtkWidget *widget, gpointer data)
 {
@@ -399,7 +382,7 @@ void create_customer_register_window(GtkWidget *parent_window)
     gtk_box_pack_start(GTK_BOX(vbox), password_entry, TRUE, TRUE, 0);
 
     login_button = gtk_button_new_with_label("Create Account");
-    g_signal_connect(G_OBJECT(login_button), "clicked", G_CALLBACK(create_welcome_window), customer_register_window);
+    g_signal_connect(G_OBJECT(login_button), "clicked", G_CALLBACK(create_user), customer_register_window);
     gtk_box_pack_start(GTK_BOX(vbox), login_button, TRUE, TRUE, 0);
 
     back_button = gtk_button_new_with_label("Kembali ke halaman awal");
