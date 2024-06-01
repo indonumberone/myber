@@ -4,14 +4,11 @@
 #include <mysql.h>
 #include "mysql_func.h"
 
-// gcc `pkg-config --cflags gtk+-3.0` -o p p.c `pkg-config --libs gtk+-3.0`
 MYSQL *conn;
 MYSQL_RES *res;
 MYSQL_ROW row;
 int connect_mysql()
 {
-
-    /* Change me */
 
     char *server = "localhost";
     char *user = "root";
@@ -20,7 +17,7 @@ int connect_mysql()
 
     conn = mysql_init(NULL);
 
-    /* Connect to database */
+    /* Konek ke database */
     if (!mysql_real_connect(conn, server,
                             user, password, database, 0, NULL, 0))
     {

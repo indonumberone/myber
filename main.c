@@ -142,7 +142,6 @@ void login_process_admin(GtkWidget *widget, gpointer data)
 
     if (check_user(username) == 0)
     {
-        printf("gak onk");
         gchar *alert_block = g_strdup_printf("User tidak ditemukan");
         gtk_label_set_text(GTK_LABEL(banner_label), alert_block);
         g_free(alert_block);
@@ -163,12 +162,7 @@ void login_process_admin(GtkWidget *widget, gpointer data)
             create_welcome_window(admin_login_window);
         }
 
-        printf("hasil %d \n", hasil);
     }
-    // g_print("Username: %s\n", username);
-    // g_print("Password: %s\n", password);
-
-    // printf("User: %s, Pw: %s", username, password);
 }
 void login_process_user(GtkWidget *widget, gpointer data)
 {
@@ -181,7 +175,6 @@ void login_process_user(GtkWidget *widget, gpointer data)
     const gchar *password = gtk_entry_get_text(GTK_ENTRY(password_entry));
     if (check_user(username) == 0)
     {
-        printf("gak onk");
         gchar *alert_block = g_strdup_printf("User tidak ditemukan");
         gtk_label_set_text(GTK_LABEL(banner_label), alert_block);
         g_free(alert_block);
@@ -235,7 +228,6 @@ void create_user(GtkWidget *widget, gpointer data)
     g_print("Password: %s\n", password);
 
     int hasil = register_user(username, name, password);
-    printf("hasil %d\n", hasil);
 
     // printf("User: %s, Pw: %s", username, password);
 
