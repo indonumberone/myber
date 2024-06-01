@@ -105,9 +105,11 @@ int check_user(char *user)
     res = mysql_store_result(conn);
     MYSQL_ROW row = mysql_fetch_row(res);
     int success = (row != NULL);
+    if (success) printf("%s \n", row[0]);
     mysql_free_result(res);
     return success;
 }
+
 
 int login_user(char *user, char *pw)
 {

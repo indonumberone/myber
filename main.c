@@ -166,7 +166,7 @@ void login_process_admin(GtkWidget *widget, gpointer data)
     {
 
         blocked(username);
-        gchar *alert_block = g_strdup_printf("Anda di blokir!\nSilahkan coba dalam beberapa menit");
+        gchar *alert_block = g_strdup_printf("Anda di blokir! Tunggu beberapa menit");
         gtk_label_set_text(GTK_LABEL(banner_label), alert_block);
         g_free(alert_block);
 
@@ -217,7 +217,7 @@ void login_process_user(GtkWidget *widget, gpointer data)
         {
 
             blocked(username);
-            gchar *alert_block = g_strdup_printf("Anda di blokir!\nSilahkan coba dalam beberapa menit");
+            gchar *alert_block = g_strdup_printf("Anda di blokir! Tunggu beberapa menit");
             gtk_label_set_text(GTK_LABEL(banner_label), alert_block);
             g_free(alert_block);
 
