@@ -152,7 +152,6 @@ void register_user(char *user, char *nama, char *pw)
     if (mysql_query(conn, query))
     {
         fprintf(stderr, "mysql_query() failed: %s\n", mysql_error(conn));
-        return -1;
     }
 }
 
