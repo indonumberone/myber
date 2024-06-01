@@ -12,7 +12,7 @@ int connect_mysql()
 
     char *server = "localhost";
     char *user = "root";
-    char *password = "eruch1xx";
+    char *password = "myber";
     char *database = "myber";
 
     conn = mysql_init(NULL);
