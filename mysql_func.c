@@ -14,7 +14,7 @@ int connect_mysql()
     /* Change me */
     char *server = "localhost";
     char *user = "root";
-    char *password = "";
+    char *password = "eruch1xx";
     char *database = "myber";
 
     conn = mysql_init(NULL);
