@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1717229078.1879 "c:/Users/muqsith barru/OneDrive/Desktop/projectku/myber/docs/tes.tex" "tes.pdf" "tes" 1717229079.01619 0
+["pdflatex"] 1717229566.69116 "c:/Users/muqsith barru/OneDrive/Desktop/projectku/myber/docs/tes.tex" "tes.pdf" "tes" 1717229567.51231 0
   "../assets/banner.png" 1717160216 44052 f2b97de82fdf5eace9c1c316b34c18c5 ""
   "C:/Users/muqsith barru/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1717228996 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/muqsith barru/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1200.pk" 1716737151 14064 ddcffaf12d9893788f5b0d8b7160649a ""
@@ -81,10 +81,10 @@
   "C:/Users/muqsith barru/AppData/Local/Programs/MiKTeX/tex/latex/refcount/refcount.sty" 1576433952 9878 9e94e8fa600d95f9c7731bb21dfb67a4 ""
   "C:/Users/muqsith barru/AppData/Local/Programs/MiKTeX/tex/latex/rerunfilecheck/rerunfilecheck.sty" 1657800696 9714 ba3194bd52c8499b3f1e3eb91d409670 ""
   "C:/Users/muqsith barru/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "c:/Users/muqsith barru/OneDrive/Desktop/projectku/myber/docs/tes.tex" 1717229076 2616 884f5366f5ff724cec4351b0fd8a9d28 ""
-  "tes.aux" 1717229078 1062 b0f44f7055b282c8643bc21e117ecc5d "pdflatex"
-  "tes.out" 1717229078 570 71bf9962e8a4063aef3811f55c6fe33a "pdflatex"
-  "tes.tex" 1717229076 2616 884f5366f5ff724cec4351b0fd8a9d28 ""
+  "c:/Users/muqsith barru/OneDrive/Desktop/projectku/myber/docs/tes.tex" 1717229566 2544 884f5366f5ff724cec4351b0fd8a9d28 ""
+  "tes.aux" 1717229567 1062 b0f44f7055b282c8643bc21e117ecc5d "pdflatex"
+  "tes.out" 1717229567 570 71bf9962e8a4063aef3811f55c6fe33a "pdflatex"
+  "tes.tex" 1717229566 2544 884f5366f5ff724cec4351b0fd8a9d28 ""
   (generated)
   "tes.aux"
   "tes.log"
