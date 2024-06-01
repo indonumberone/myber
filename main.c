@@ -112,7 +112,6 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-
 void login_as_customers(GtkWidget *widget, gpointer data)
 {
     GtkWidget *current_window = GTK_WIDGET(data);
@@ -161,7 +160,6 @@ void login_process_admin(GtkWidget *widget, gpointer data)
         {
             create_welcome_window(admin_login_window);
         }
-
     }
 }
 void login_process_user(GtkWidget *widget, gpointer data)
@@ -229,7 +227,7 @@ void create_user(GtkWidget *widget, gpointer data)
 
     register_user(username, name, password);
 
-    // printf("User: %s, Pw: %s", username, password);
+    printf("User: %s, Pw: %s", username, password);
 
     create_welcome_window(current_window);
 }

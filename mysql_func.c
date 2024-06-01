@@ -142,7 +142,7 @@ int login_admin(char *user, char *pw)
     return success;
 }
 
-int register_user(char *user, char *nama, char *pw)
+void register_user(char *user, char *nama, char *pw)
 {
     char query[256];
 
@@ -154,12 +154,6 @@ int register_user(char *user, char *nama, char *pw)
         fprintf(stderr, "mysql_query() failed: %s\n", mysql_error(conn));
         return -1;
     }
-
-    res = mysql_store_result(conn);
-    MYSQL_ROW row = mysql_fetch_row(res);
-    int success = (row != NULL);
-    mysql_free_result(res);
-    return success;
 }
 
 int blocked(char *user)
