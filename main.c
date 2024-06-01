@@ -7,10 +7,12 @@
 // void myCSS(void);
 void login_process_user(GtkWidget *, gpointer);
 void login_as_customers(GtkWidget *, gpointer);
+void login_as_admin(GtkWidget *widget, gpointer data);
+void login_admin_process_user(GtkWidget *widget, gpointer data);
 void go_back_to_home(GtkWidget *, gpointer);
 void destroy(GtkWidget *, gpointer);
 void create_welcome_window(GtkWidget *);
-void create_customers_login_window(GtkWidget *);
+void create_login_window(GtkWidget *);
 void create_customer_register_window(GtkWidget *parent_window);
 void create_user(GtkWidget *widget, gpointer data);
 void create_user_go(GtkWidget *widget, gpointer data);
@@ -82,7 +84,7 @@ int main(int argc, char *argv[])
     g_signal_connect(G_OBJECT(login_customers_button), "clicked", G_CALLBACK(login_as_customers), intine_window);
     gtk_box_pack_start(GTK_BOX(vbox), login_customers_button, TRUE, TRUE, 0);
     login_customers_button = gtk_button_new_with_label("LOGIN AS ADMIN ");
-    g_signal_connect(G_OBJECT(login_customers_button), "clicked", G_CALLBACK(login_as_customers), intine_window);
+    g_signal_connect(G_OBJECT(login_customers_button), "clicked", G_CALLBACK(login_as_admin), intine_window);
     gtk_box_pack_start(GTK_BOX(vbox), login_customers_button, TRUE, TRUE, 0);
 
     create_label = gtk_label_new("Belum Punya akun? Silahkan register");
@@ -128,7 +130,13 @@ void login_as_customers(GtkWidget *widget, gpointer data)
 {
     GtkWidget *current_window = GTK_WIDGET(data);
     gtk_widget_hide(current_window);
-    create_customers_login_window(intine_window);
+    create_login_window(intine_window);
+}
+void login_as_admin(GtkWidget *widget, gpointer data)
+{
+    GtkWidget *current_window = GTK_WIDGET(data);
+    gtk_widget_hide(current_window);
+    create_login_window(intine_window);
 }
 void create_user_go(GtkWidget *widget, gpointer data)
 {
@@ -170,6 +178,41 @@ void login_process_user(GtkWidget *widget, gpointer data)
 
     // printf("User: %s, Pw: %s", username, password);
 }
+
+void login_admin_process_user(GtkWidget *widget, gpointer data)
+{
+    static int try;
+
+    GtkWidget *current_window = GTK_WIDGET(data);
+    gtk_widget_hide(customers_login_window);
+
+    const gchar *username = gtk_entry_get_text(GTK_ENTRY(username_entry));
+    const gchar *password = gtk_entry_get_text(GTK_ENTRY(password_entry));
+    if (try > 2)
+    {
+        blocked(username);
+        printf("hayooo");
+    }
+    g_print("Username: %s\n", username);
+    g_print("Password: %s\n", password);
+
+    int hasil = login_user(username, password);
+    if (hasil == 0)
+    {
+        // test = gtk_label_new(try);
+        try++;
+        gtk_widget_show_all(customers_login_window);
+    }
+    else if (hasil == 1)
+    {
+        create_welcome_window(customers_login_window);
+    }
+
+    printf("hasil %d try %d\n", hasil, try);
+
+    // printf("User: %s, Pw: %s", username, password);
+}
+
 void create_user(GtkWidget *widget, gpointer data)
 {
     GtkWidget *current_window = GTK_WIDGET(data);
@@ -191,7 +234,7 @@ void create_user(GtkWidget *widget, gpointer data)
     create_welcome_window(customers_login_window);
 }
 
-void create_customers_login_window(GtkWidget *parent_window)
+void create_login_window(GtkWidget *parent_window)
 {
     GtkWidget *vbox;
     GtkWidget *username_label;
@@ -200,6 +243,8 @@ void create_customers_login_window(GtkWidget *parent_window)
     GtkWidget *back_button;
     GtkWidget *image;
     GtkWidget *banner_label;
+
+    printf("apalah %s\n", parent_window);
     customers_login_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     g_signal_connect(customers_login_window, "destroy", G_CALLBACK(destroy), NULL);
     gtk_container_set_border_width(GTK_CONTAINER(customers_login_window), WINDOW_SIZE);
