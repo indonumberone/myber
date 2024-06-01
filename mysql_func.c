@@ -12,6 +12,7 @@ int connect_mysql()
 {
 
     /* Change me */
+    
     char *server = "localhost";
     char *user = "root";
     char *password = "eruch1xx";
