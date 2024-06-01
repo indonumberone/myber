@@ -105,16 +105,34 @@ int check_user(char *user)
     res = mysql_store_result(conn);
     MYSQL_ROW row = mysql_fetch_row(res);
     int success = (row != NULL);
-    if (success) printf("%s \n", row[0]);
+    if (success)
+        printf("%s \n", row[0]);
     mysql_free_result(res);
     return success;
 }
 
-
 int login_user(char *user, char *pw)
 {
     char query[256];
-    sprintf(query, "SELECT username FROM users WHERE username = '%s' AND password = '%s' AND blocked = 0 AND ADMIN = 0", user, pw);
+    sprintf(query, "SELECT username FROM users WHERE username = '%s' AND password = '%s' AND blocked = 0 AND admin = 0", user, pw);
+
+    if (mysql_query(conn, query))
+    {
+        fprintf(stderr, "mysql_query() failed: %s\n", mysql_error(conn));
+        return -1;
+    }
+
+    res = mysql_store_result(conn);
+    MYSQL_ROW row = mysql_fetch_row(res);
+    int success = (row != NULL);
+    mysql_free_result(res);
+    return success;
+}
+
+int login_admin(char *user, char *pw)
+{
+    char query[256];
+    sprintf(query, "SELECT username FROM users WHERE username = '%s' AND password = '%s' AND admin = 1", user, pw);
 
     if (mysql_query(conn, query))
     {
