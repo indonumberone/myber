@@ -28,7 +28,7 @@ int connect_mysql()
         exit(1);
     }
 
-    printf("sukses connect....\n");
+    printf("[db] Berhasil terhubung ke MySQL....\n");
     return 0;
     // if (mysql_query(conn, "SELECT * FROM users"))
     // {
@@ -105,8 +105,6 @@ int check_user(char *user)
     res = mysql_store_result(conn);
     MYSQL_ROW row = mysql_fetch_row(res);
     int success = (row != NULL);
-    if (success)
-        printf("%s \n", row[0]);
     mysql_free_result(res);
     return success;
 }
