@@ -217,7 +217,7 @@ void login_process_user(GtkWidget *widget, gpointer data)
 void create_user(GtkWidget *widget, gpointer data)
 {
     GtkWidget *current_window = GTK_WIDGET(data);
-    gtk_widget_hide(customers_login_window);
+    gtk_widget_hide(current_window);
 
     const gchar *username = gtk_entry_get_text(GTK_ENTRY(username_entry));
     const gchar *name = gtk_entry_get_text(GTK_ENTRY(name_entry));
@@ -227,11 +227,11 @@ void create_user(GtkWidget *widget, gpointer data)
     g_print("Name: %s\n", name);
     g_print("Password: %s\n", password);
 
-    int hasil = register_user(username, name, password);
+    register_user(username, name, password);
 
     // printf("User: %s, Pw: %s", username, password);
 
-    create_welcome_window(customers_login_window);
+    create_welcome_window(current_window);
 }
 
 void create_login_admin_window(GtkWidget *parent_window)
