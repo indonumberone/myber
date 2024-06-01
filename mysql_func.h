@@ -1,6 +1,7 @@
 
 int connect_mysql();
 int check_block(char *user);
+int check_user(char *user);
 int login_user(char *user, char *pw);
 int register_user(char *user, char *nama, char *pw);
 int blocked(char *user);

@@ -157,14 +157,16 @@ void login_process_admin(GtkWidget *widget, gpointer data)
 
     const gchar *username = gtk_entry_get_text(GTK_ENTRY(username_entry));
     const gchar *password = gtk_entry_get_text(GTK_ENTRY(password_entry));
+
     int hasil = login_user(username, password);
     g_print("Username: %s\n", username);
     g_print("Password: %s\n", password);
+
     if (try < 1)
     {
 
         blocked(username);
-        gchar *alert_block = g_strdup_printf("Anda di blokir,silahkan coba dalam beberapa menit");
+        gchar *alert_block = g_strdup_printf("Anda di blokir!\nSilahkan coba dalam beberapa menit");
         gtk_label_set_text(GTK_LABEL(banner_label), alert_block);
         g_free(alert_block);
 
@@ -174,7 +176,7 @@ void login_process_admin(GtkWidget *widget, gpointer data)
     {
         // test = gtk_label_new(try);
         try--;
-        gchar *percobaan = g_strdup_printf("username atau password salah");
+        gchar *percobaan = g_strdup_printf("Username atau Password salah!");
         gtk_label_set_text(GTK_LABEL(banner_label), percobaan);
         g_free(percobaan);
         gtk_widget_show_all(customers_login_window);
@@ -197,36 +199,46 @@ void login_process_user(GtkWidget *widget, gpointer data)
 
     const gchar *username = gtk_entry_get_text(GTK_ENTRY(username_entry));
     const gchar *password = gtk_entry_get_text(GTK_ENTRY(password_entry));
-    int hasil = login_user(username, password);
-    g_print("Username: %s\n", username);
-    g_print("Password: %s\n", password);
-    if (try < 1)
+    if (check_user(username) == 0)
     {
-
-        blocked(username);
-        gchar *alert_block = g_strdup_printf("Anda di blokir,silahkan coba dalam beberapa menit");
+        printf("gak onk");
+        gchar *alert_block = g_strdup_printf("User tidak ditemukan");
         gtk_label_set_text(GTK_LABEL(banner_label), alert_block);
         g_free(alert_block);
 
         gtk_widget_show_all(customers_login_window);
     }
-    else if (hasil == 0)
+    else
     {
-        // test = gtk_label_new(try);
-        try--;
-        gchar *percobaan = g_strdup_printf("username atau password salah");
-        gtk_label_set_text(GTK_LABEL(banner_label), percobaan);
-        g_free(percobaan);
-        gtk_widget_show_all(customers_login_window);
-    }
-    else if (hasil == 1)
-    {
-        create_welcome_window(customers_login_window);
-    }
+        int hasil = login_user(username, password);
+        g_print("Username: %s\n", username);
+        g_print("Password: %s\n", password);
+        if (try < 1)
+        {
 
-    printf("hasil %d try %d\n", hasil, try);
+            blocked(username);
+            gchar *alert_block = g_strdup_printf("Anda di blokir!\nSilahkan coba dalam beberapa menit");
+            gtk_label_set_text(GTK_LABEL(banner_label), alert_block);
+            g_free(alert_block);
 
-    // printf("User: %s, Pw: %s", username, password);
+            gtk_widget_show_all(customers_login_window);
+        }
+        else if (hasil == 0)
+        {
+            // test = gtk_label_new(try);
+            try--;
+            gchar *percobaan = g_strdup_printf("Username atau Password salah!");
+            gtk_label_set_text(GTK_LABEL(banner_label), percobaan);
+            g_free(percobaan);
+            gtk_widget_show_all(customers_login_window);
+        }
+        else if (hasil == 1)
+        {
+            create_welcome_window(customers_login_window);
+        }
+
+        printf("hasil %d try %d\n", hasil, try);
+    }
 }
 
 void login_admin_process_user(GtkWidget *widget, gpointer data)
@@ -300,7 +312,7 @@ void create_login_admin_window(GtkWidget *parent_window)
     vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
     gtk_container_add(GTK_CONTAINER(admin_login_window), vbox);
     // dikek i banner gambar
-    image = gtk_image_new_from_file("assets/login_cust.png");
+    image = gtk_image_new_from_file("assets/login_admin.png");
     gtk_box_pack_start(GTK_BOX(vbox), image, TRUE, TRUE, 0);
 
     banner_label = gtk_label_new("Silahkan Login Sebagai Admin");

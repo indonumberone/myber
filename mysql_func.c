@@ -12,7 +12,7 @@ int connect_mysql()
 {
 
     /* Change me */
-    
+
     char *server = "localhost";
     char *user = "root";
     char *password = "eruch1xx";
@@ -89,6 +89,24 @@ int check_block(char *user)
     }
     mysql_free_result(res);
     return 0;
+}
+
+int check_user(char *user)
+{
+    char query[256];
+    sprintf(query, "SELECT username FROM users WHERE username = '%s'", user);
+
+    if (mysql_query(conn, query))
+    {
+        fprintf(stderr, "mysql_query() failed: %s\n", mysql_error(conn));
+        return -1;
+    }
+
+    res = mysql_store_result(conn);
+    MYSQL_ROW row = mysql_fetch_row(res);
+    int success = (row != NULL);
+    mysql_free_result(res);
+    return success;
 }
 
 int login_user(char *user, char *pw)
