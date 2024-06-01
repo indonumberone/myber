@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
     {
         if ((connect_mysql()) == 0)
         {
-            printf("[db] Berhasil terhubung ke MySQL");
+            printf("[db] Berhasil terhubung ke MySQL..\n");
         }
     }
     GtkWidget *vbox;
