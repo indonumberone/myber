@@ -416,7 +416,8 @@ void print_user_info()
     printf("IsAdmin: %d\n", current_user.is_admin);
 }
 
-void logout_memory() {
+void logout_memory()
+{
     memset(&current_user, 0, sizeof(UserDetails));
 }
 
@@ -432,44 +433,38 @@ void show_history_penjualan(GtkWidget *widget, gpointer data)
 
 void create_welcome_window(GtkWidget *parent_window)
 {
+
     GtkWidget *vbox;
-    GtkWidget *hbox;
-    GtkWidget *sidebar;
+    GtkWidget *vbox2;
+    GtkWidget *label;
+    GtkWidget *welcome_window;
+    GtkWidget *stackSideBar;
+    GtkWidget *grid;
+    GtkWidget *stack;
     GtkWidget *penjualan_button;
     GtkWidget *history_penjualan_button;
-    GtkWidget *label;
-    GtkWidget *logout_button;
 
     welcome_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(welcome_window), "Welcome Window");
+    gtk_window_set_default_size(GTK_WINDOW(welcome_window), 900, 600);
+    gtk_container_set_border_width(GTK_CONTAINER(welcome_window), 10);
 
-    g_signal_connect(welcome_window, "destroy", G_CALLBACK(destroy), NULL);
+    grid = gtk_grid_new();
+    gtk_grid_set_row_homogeneous(GTK_GRID(grid), TRUE);
+    gtk_grid_set_column_homogeneous(GTK_GRID(grid), TRUE);
+    gtk_container_add(GTK_CONTAINER(welcome_window), grid);
 
-    gtk_container_set_border_width(GTK_CONTAINER(welcome_window), WINDOW_SIZE);
+    stackSideBar = gtk_stack_sidebar_new();
+    gtk_grid_attach(GTK_GRID(grid), stackSideBar, 0, 0, 1, 1);
 
-    gtk_window_set_default_size(GTK_WINDOW(welcome_window), 600, 400);
-    gtk_window_set_resizable(GTK_WINDOW(welcome_window), TRUE);
+    stack = gtk_stack_new();
+    gtk_grid_attach(GTK_GRID(grid), stack, 1, 0, 1, 1);
 
-    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
-    gtk_container_add(GTK_CONTAINER(welcome_window), hbox);
-
-    sidebar = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
-    gtk_box_pack_start(GTK_BOX(hbox), sidebar, FALSE, FALSE, 0);
-
-    penjualan_button = gtk_button_new_with_label("Penjualan");
-    g_signal_connect(G_OBJECT(penjualan_button), "clicked", G_CALLBACK(show_penjualan), NULL);
-    gtk_box_pack_start(GTK_BOX(sidebar), penjualan_button, FALSE, FALSE, 0);
-
-    history_penjualan_button = gtk_button_new_with_label("History");
-    g_signal_connect(G_OBJECT(history_penjualan_button), "clicked", G_CALLBACK(show_history_penjualan), NULL);
-    gtk_box_pack_start(GTK_BOX(sidebar), history_penjualan_button, FALSE, FALSE, 0);
-
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
-    gtk_box_pack_start(GTK_BOX(hbox), vbox, TRUE, TRUE, 0);
+    gtk_stack_sidebar_set_stack(GTK_STACK_SIDEBAR(stackSideBar), GTK_STACK(stack));
+    // dikek i banner gambar
 
     char selamat_datang[256];
     sprintf(selamat_datang, "Selamat datang, %s!", current_user.name);
-
     label = gtk_label_new(NULL);
     gtk_label_set_text(GTK_LABEL(label), selamat_datang);
     PangoAttrList *attr_list = pango_attr_list_new();
@@ -477,19 +472,32 @@ void create_welcome_window(GtkWidget *parent_window)
     pango_attr_list_insert(attr_list, attr_size);
     gtk_label_set_attributes(GTK_LABEL(label), attr_list);
     pango_attr_list_unref(attr_list);
-    gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
 
-    content_area = gtk_label_new("Ini isi konten rek.");
-    gtk_box_pack_start(GTK_BOX(vbox), content_area, TRUE, TRUE, 0);
+    GtkWidget *image = gtk_image_new_from_file("assets/logo_welcome.png");
+    gtk_box_pack_start(GTK_BOX(grid), image, TRUE, TRUE, 0);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+    GtkWidget *welcom = gtk_label_new("Welcome!");
+    banner_label = gtk_label_new("test");
 
-    logout_button = gtk_button_new_with_label("Check User");
-    g_signal_connect(G_OBJECT(logout_button), "clicked", G_CALLBACK(print_user_info), NULL);
-    gtk_box_pack_start(GTK_BOX(vbox), logout_button, FALSE, FALSE, 0);
+    vbox2 = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+    gtk_box_pack_start(GTK_BOX(vbox2), image, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(vbox2), label, TRUE, TRUE, 0);
 
-    logout_button = gtk_button_new_with_label("Logout (Hapus data user)"); // logout sakjane, tapi sek hapus user data tok gurung hapus window
-    g_signal_connect(G_OBJECT(logout_button), "clicked", G_CALLBACK(go_logout_user), NULL);
-    gtk_box_pack_start(GTK_BOX(vbox), logout_button, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(vbox), banner_label, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(vbox), welcom, TRUE, TRUE, 0);
+    gtk_stack_add_named(GTK_STACK(stack), vbox2, "home");
 
+    penjualan_button = gtk_button_new_with_label("Penjualan");
+    g_signal_connect(G_OBJECT(penjualan_button), "clicked", G_CALLBACK(show_penjualan), NULL);
+
+    history_penjualan_button = gtk_button_new_with_label("History");
+    g_signal_connect(G_OBJECT(history_penjualan_button), "clicked", G_CALLBACK(show_history_penjualan), NULL);
+
+    gtk_stack_add_titled(GTK_STACK(stack), vbox, "menu1", "menu ke 1");
+
+    gtk_stack_add_titled(GTK_STACK(stack), penjualan_button, "menu2", "menu ke 2");
+
+    g_signal_connect(welcome_window, "destroy", G_CALLBACK(destroy), NULL);
     gtk_widget_show_all(welcome_window);
 }
 
