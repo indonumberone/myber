@@ -443,6 +443,7 @@ void create_welcome_window(GtkWidget *parent_window)
     GtkWidget *stack;
     GtkWidget *penjualan_button;
     GtkWidget *history_penjualan_button;
+    GtkWidget *testarray;
 
     welcome_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(welcome_window), "Welcome Window");
@@ -462,7 +463,8 @@ void create_welcome_window(GtkWidget *parent_window)
 
     gtk_stack_sidebar_set_stack(GTK_STACK_SIDEBAR(stackSideBar), GTK_STACK(stack));
     // dikek i banner gambar
-
+    // testarray[1] = gtk_label_new("iki array ke 1");
+    // testarray[2] = gtk_label_new("iki array ke 2");
     char selamat_datang[256];
     sprintf(selamat_datang, "Selamat datang, %s!", current_user.name);
     label = gtk_label_new(NULL);

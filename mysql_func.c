@@ -8,6 +8,19 @@
 MYSQL *conn;
 MYSQL_RES *res;
 MYSQL_ROW row;
+// turu
+struct data_penerbangan
+{
+    char no_penerbangan[NULL],
+        char makapai[NULL],
+        char kelas[NULL],
+        char asal[NULL],
+        char tujuan[NULL],
+        // char date[NULL],
+        char pukul[NULL],
+        int harga,
+};
+
 int connect_mysql()
 {
 
@@ -215,6 +228,7 @@ int test()
     }
 
     int num_fields = mysql_num_fields(res);
+
     while ((row = mysql_fetch_row(res)))
     {
         for (int i = 0; i < num_fields; i++)
