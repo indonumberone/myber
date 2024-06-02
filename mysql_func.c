@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <mysql.h>
 #include "mysql_func.h"
+#include "userinfo.h"
 
 MYSQL *conn;
 MYSQL_RES *res;
@@ -106,10 +107,28 @@ int check_user(char *user)
     return success;
 }
 
-int login_user(char *user, char *pw)
+// int login_user(char *user, char *pw)
+// {
+//     char query[256];
+//     sprintf(query, "SELECT username FROM users WHERE username = '%s' AND password = '%s' AND blocked = 0 AND admin = 0", user, pw);
+
+//     if (mysql_query(conn, query))
+//     {
+//         fprintf(stderr, "mysql_query() failed: %s\n", mysql_error(conn));
+//         return -1;
+//     }
+
+//     res = mysql_store_result(conn);
+//     MYSQL_ROW row = mysql_fetch_row(res);
+//     int success = (row != NULL);
+//     mysql_free_result(res);
+//     return success;
+// }
+
+int login_user(char *user, char *pw, UserDetails *user_details)
 {
     char query[256];
-    sprintf(query, "SELECT username FROM users WHERE username = '%s' AND password = '%s' AND blocked = 0 AND admin = 0", user, pw);
+    sprintf(query, "SELECT username, nama, admin FROM users WHERE username = '%s' AND password = '%s' AND blocked = 0 AND admin = 0", user, pw);
 
     if (mysql_query(conn, query))
     {
@@ -120,6 +139,14 @@ int login_user(char *user, char *pw)
     res = mysql_store_result(conn);
     MYSQL_ROW row = mysql_fetch_row(res);
     int success = (row != NULL);
+
+    if (success)
+    {
+        strcpy(user_details->username, row[0]);
+        strcpy(user_details->name, row[1]);
+        user_details->is_admin = atoi(row[2]);
+    }
+
     mysql_free_result(res);
     return success;
 }
