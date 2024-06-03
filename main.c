@@ -11,7 +11,8 @@ void login_as_admin(GtkWidget *widget, gpointer data);
 void go_back_to_home(GtkWidget *, gpointer);
 void go_logout_user(GtkWidget *, gpointer);
 void destroy(GtkWidget *, gpointer);
-void create_welcome_window(GtkWidget *);
+void create_welcome_user_window(GtkWidget *);
+void create_welcome_admin_window(GtkWidget *);
 void create_login_user_window(GtkWidget *);
 void create_customer_register_window(GtkWidget *parent_window);
 void create_user(GtkWidget *widget, gpointer data);
@@ -164,7 +165,7 @@ void login_process_admin(GtkWidget *widget, gpointer data)
         }
         else if (hasil == 1)
         {
-            create_welcome_window(admin_login_window);
+            create_welcome_admin_window(admin_login_window);
         }
     }
 }
@@ -214,7 +215,7 @@ void login_process_user(GtkWidget *widget, gpointer data)
         else if (hasil == 1)
         {
             current_user = user_details;
-            create_welcome_window(customers_login_window);
+            create_welcome_user_window(customers_login_window);
         }
 
         printf("hasil %d try %d\n", hasil, try);
@@ -431,7 +432,7 @@ void show_history_penjualan(GtkWidget *widget, gpointer data)
     gtk_label_set_text(GTK_LABEL(content_area), "Ini adalah halaman History Penjualan.");
 }
 
-void create_welcome_window(GtkWidget *parent_window)
+void create_welcome_user_window(GtkWidget *parent_window)
 {
 
     GtkWidget *vbox;
@@ -474,7 +475,7 @@ void create_welcome_window(GtkWidget *parent_window)
     pango_attr_list_insert(attr_list, attr_size);
     gtk_label_set_attributes(GTK_LABEL(label), attr_list);
     pango_attr_list_unref(attr_list);
-
+    GtkWidget *tanggalan = gtk_calendar_new();
     GtkWidget *image = gtk_image_new_from_file("assets/logo_welcome.png");
     gtk_box_pack_start(GTK_BOX(grid), image, TRUE, TRUE, 0);
     vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
@@ -484,6 +485,7 @@ void create_welcome_window(GtkWidget *parent_window)
     vbox2 = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
     gtk_box_pack_start(GTK_BOX(vbox2), image, TRUE, TRUE, 0);
     gtk_box_pack_start(GTK_BOX(vbox2), label, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(vbox2), tanggalan, TRUE, TRUE, 0);
 
     gtk_box_pack_start(GTK_BOX(vbox), banner_label, TRUE, TRUE, 0);
     gtk_box_pack_start(GTK_BOX(vbox), welcom, TRUE, TRUE, 0);
@@ -503,28 +505,85 @@ void create_welcome_window(GtkWidget *parent_window)
     gtk_widget_show_all(welcome_window);
 }
 
-// void create_welcome_window(GtkWidget *parent_window)
-// {
+void create_welcome_admin_window(GtkWidget *parent_window)
+{
 
-//     GtkWidget *vbox;
-//     GtkWidget *label;
+    GtkWidget *data_history;
+    GtkWidget *data_input;
+    GtkWidget *hdata_history;
+    GtkWidget *hdata_input;
+    GtkWidget *testinput;
+    GtkWidget *label;
+    GtkWidget *welcome_window;
+    GtkWidget *stackSideBar;
+    GtkWidget *grid;
+    GtkWidget *stack;
+    GtkWidget *penjualan_button;
+    GtkWidget *history_penjualan_button;
+    GtkWidget *testarray;
 
-//     welcome_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    welcome_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_title(GTK_WINDOW(welcome_window), "Admin Panel");
+    gtk_window_set_default_size(GTK_WINDOW(welcome_window), 900, 600);
+    gtk_container_set_border_width(GTK_CONTAINER(welcome_window), 10);
 
-//     g_signal_connect(welcome_window, "destroy", G_CALLBACK(destroy), NULL);
+    grid = gtk_grid_new();
+    gtk_grid_set_row_homogeneous(GTK_GRID(grid), TRUE);
+    gtk_grid_set_column_homogeneous(GTK_GRID(grid), TRUE);
+    gtk_container_add(GTK_CONTAINER(welcome_window), grid);
 
-//     gtk_container_set_border_width(GTK_CONTAINER(welcome_window), WINDOW_SIZE);
+    stackSideBar = gtk_stack_sidebar_new();
+    gtk_grid_attach(GTK_GRID(grid), stackSideBar, 0, 0, 1, 1);
 
-//     // Create a vertical box container
-//     vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
-//     gtk_container_add(GTK_CONTAINER(welcome_window), vbox);
+    stack = gtk_stack_new();
+    gtk_grid_attach(GTK_GRID(grid), stack, 1, 0, 1, 1);
+    gtk_stack_sidebar_set_stack(GTK_STACK_SIDEBAR(stackSideBar), GTK_STACK(stack));
 
-//     // Create welcome label
-//     label = gtk_label_new("Welcome!");
-//     gtk_box_pack_start(GTK_BOX(vbox), label, TRUE, TRUE, 0);
+    // dikek i banner gambar
+    // testarray[1] = gtk_label_new("iki array ke 1");
+    // testarray[2] = gtk_label_new("iki array ke 2");
+    char selamat_datang[256];
+    sprintf(selamat_datang, "Selamat datang admin, %s!", current_user.name);
+    label = gtk_label_new(NULL);
+    gtk_label_set_text(GTK_LABEL(label), selamat_datang);
+    PangoAttrList *attr_list = pango_attr_list_new();
+    PangoAttribute *attr_size = pango_attr_size_new_absolute(20 * PANGO_SCALE);
+    pango_attr_list_insert(attr_list, attr_size);
+    gtk_label_set_attributes(GTK_LABEL(label), attr_list);
+    pango_attr_list_unref(attr_list);
 
-//     gtk_widget_show_all(welcome_window);
-// }
+    hdata_history = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
+    hdata_input = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
+    data_input = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+    data_history = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+    gtk_box_pack_start(GTK_BOX(data_input), hdata_input, TRUE, FALSE, 0);
+
+    GtkWidget *image = gtk_image_new_from_file("assets/logo_welcome.png");
+    gtk_box_pack_start(GTK_BOX(grid), image, TRUE, TRUE, 0);
+
+    banner_label = gtk_label_new("tes iput:");
+    testinput = gtk_entry_new();
+    GtkWidget *test11 = gtk_label_new("tes iput:");
+    GtkWidget *test1 = gtk_entry_new();
+    gtk_box_pack_start(GTK_BOX(hdata_input), banner_label, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(hdata_input), testinput, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(hdata_input), test11, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(hdata_input), test1, TRUE, TRUE, 0);
+
+    // gtk_box_pack_start(GTK_BOX(data_history), image, TRUE, TRUE, 0);
+    // gtk_box_pack_start(GTK_BOX(data_history), label, TRUE, TRUE, 0);
+
+    // gtk_box_pack_start(GTK_BOX(data_input), banner_label, TRUE, TRUE, 0);
+    // gtk_box_pack_start(GTK_BOX(data_input), welcom, TRUE, TRUE, 0);
+    // gtk_stack_add_named(GTK_STACK(stack), vbox2, "home");
+
+    gtk_stack_add_titled(GTK_STACK(stack), data_input, "inputdata", "input data penerbangan");
+
+    gtk_stack_add_titled(GTK_STACK(stack), data_history, "historydata", "history data users");
+
+    g_signal_connect(welcome_window, "destroy", G_CALLBACK(destroy), NULL);
+    gtk_widget_show_all(welcome_window);
+}
 
 void destroy(GtkWidget *widget, gpointer data)
 {
