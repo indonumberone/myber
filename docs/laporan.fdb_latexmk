@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1717520139.55303 "/home/chitanda/Mei24/myber/docs/laporan.tex" "laporan.pdf" "laporan" 1717520140.46082 0
-  "/home/chitanda/Mei24/myber/docs/laporan.tex" 1717520138.71037 9046 789b59ff622888357755a4dd04beb072 ""
+["pdflatex"] 1717520551.44622 "/home/chitanda/Mei24/myber/docs/laporan.tex" "laporan.pdf" "laporan" 1717520552.31037 0
+  "/home/chitanda/Mei24/myber/docs/laporan.tex" 1717520549.28619 9047 123c17c19e42a71fdd2d68f08f1cac95 ""
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1716849630 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1716849630 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1716849630 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
@@ -47,10 +47,10 @@
   "/usr/share/texmf-dist/tex/latex/amsmath/amstext.sty" 1716849630 2444 0d0c1ee65478277e8015d65b86983da2 ""
   "/usr/share/texmf-dist/tex/latex/atveryend/atveryend.sty" 1716849630 19336 ce7ae9438967282886b3b036cfad1e4d ""
   "/usr/share/texmf-dist/tex/latex/auxhook/auxhook.sty" 1716849630 3935 57aa3c3e203a5c2effb4d2bd2efbc323 ""
+  "/usr/share/texmf-dist/tex/latex/base/article.cls" 1716849630 20144 147463a6a579f4597269ef9565205cfe ""
   "/usr/share/texmf-dist/tex/latex/base/atbegshi-ltx.sty" 1716849630 3045 273c666a54e60b9f730964f431a56c1b ""
   "/usr/share/texmf-dist/tex/latex/base/atveryend-ltx.sty" 1716849630 2462 6bc53756156dbd71c1ad550d30a3b93f ""
   "/usr/share/texmf-dist/tex/latex/base/inputenc.sty" 1716849630 5048 425739d70251273bf93e3d51f3c40048 ""
-  "/usr/share/texmf-dist/tex/latex/base/report.cls" 1716849630 23203 f5d913095ece2233436f0e628619cd37 ""
   "/usr/share/texmf-dist/tex/latex/base/size12.clo" 1716849630 8449 f07039d8e4e89f21078d9b5137579bfc ""
   "/usr/share/texmf-dist/tex/latex/caption/caption.sty" 1716849630 56128 c2ccf1a29d78c33bc553880402e4fb9a ""
   "/usr/share/texmf-dist/tex/latex/caption/caption3.sty" 1716849630 72619 ee90b6612147680fd73c3b1406a74245 ""
@@ -95,9 +95,9 @@
   "Makefile.png" 1717516918.5892 47109 3e75196a77cb12eb17cadafa80e9d6c3 ""
   "Register.png" 1717519836.87339 66405 55f7285db08c6e137795218bdb05ef31 ""
   "Welcome.png" 1717516918.5902 364005 71c669d3d924deb305814a113f521c8f ""
-  "laporan.aux" 1717520140.38935 3154 b452fb1abf02c4ee3affd789c98a943b "pdflatex"
-  "laporan.out" 1717520140.39035 2211 a4ce3a5120b683208b5e61c737356c4d "pdflatex"
-  "laporan.tex" 1717520138.71037 9046 789b59ff622888357755a4dd04beb072 ""
+  "laporan.aux" 1717520552.24916 3086 cb75c834f4c29ba51e9c67202d151f49 "pdflatex"
+  "laporan.out" 1717520552.25016 2159 0326eeb859fa45bf0221cd23bc8072e2 "pdflatex"
+  "laporan.tex" 1717520549.28619 9047 123c17c19e42a71fdd2d68f08f1cac95 ""
   (generated)
   "laporan.aux"
   "laporan.log"
