@@ -533,10 +533,10 @@ void create_welcome_admin_window(GtkWidget *parent_window)
     gtk_container_add(GTK_CONTAINER(welcome_window), grid);
 
     stackSideBar = gtk_stack_sidebar_new();
-    gtk_grid_attach(GTK_GRID(grid), stackSideBar, 0, 0, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), stackSideBar, 0, 0, 1, 5);
 
     stack = gtk_stack_new();
-    gtk_grid_attach(GTK_GRID(grid), stack, 1, 0, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), stack, 1, 0, 4, 4);
     gtk_stack_sidebar_set_stack(GTK_STACK_SIDEBAR(stackSideBar), GTK_STACK(stack));
 
     // dikek i banner gambar
