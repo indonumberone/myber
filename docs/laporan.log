@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.5.31)  4 JUN 2024 23:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.5.31)  4 JUN 2024 23:55
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -374,7 +374,7 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count309
-<Logo_PENS.png, id=56, 392.46625pt x 373.395pt>
+<Logo_PENS.png, id=68, 392.46625pt x 373.395pt>
 File: Logo_PENS.png Graphic file (type png)
 <use Logo_PENS.png>
 Package pdftex.def Info: Logo_PENS.png  used on input line 29.
@@ -387,7 +387,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has b
                    \relax 
 l.79 
       [1{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-<./Makefile.png, id=72, 723.45282pt x 268.00125pt>
+<./Makefile.png, id=84, 723.45282pt x 268.00125pt>
 File: ./Makefile.png Graphic file (type png)
 <use ./Makefile.png>
 Package pdftex.def Info: ./Makefile.png  used on input line 105.
@@ -397,42 +397,59 @@ File: lstlang1.sty 2024/02/21 1.10 listings language file
 ) (/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/02/21 1.10 listings language file
 )
-<./Make.png, id=78, 739.26187pt x 87.32625pt>
+<./Make.png, id=90, 739.26187pt x 87.32625pt>
 File: ./Make.png Graphic file (type png)
 <use ./Make.png>
 Package pdftex.def Info: ./Make.png  used on input line 119.
 (pdftex.def)             Requested size: 452.9679pt x 53.50745pt.
-<./Main.png, id=79, 737.75626pt x 137.7647pt>
+<./Main.png, id=91, 737.75626pt x 137.7647pt>
 File: ./Main.png Graphic file (type png)
 <use ./Main.png>
 Package pdftex.def Info: ./Main.png  used on input line 133.
 (pdftex.def)             Requested size: 452.9679pt x 84.58498pt.
-<./Welcome.png, id=80, 877.02657pt x 625.58719pt>
+<./Welcome.png, id=92, 877.02657pt x 625.58719pt>
 File: ./Welcome.png Graphic file (type png)
 <use ./Welcome.png>
 Package pdftex.def Info: ./Welcome.png  used on input line 144.
 (pdftex.def)             Requested size: 452.9679pt x 323.11171pt.
- [3 <./Makefile.png> <./Make.png> <./Main.png>] [4 <./Welcome.png>] (./laporan.aux)
+ [3 <./Makefile.png> <./Make.png> <./Main.png>]
+<./Register.png, id=107, 461.47406pt x 584.93532pt>
+File: ./Register.png Graphic file (type png)
+<use ./Register.png>
+Package pdftex.def Info: ./Register.png  used on input line 154.
+(pdftex.def)             Requested size: 194.77287pt x 246.87608pt.
+<./Login.png, id=108, 460.72125pt x 532.23843pt>
+File: ./Login.png Graphic file (type png)
+<use ./Login.png>
+Package pdftex.def Info: ./Login.png  used on input line 164.
+(pdftex.def)             Requested size: 194.77287pt x 225.00044pt.
+ [4 <./Welcome.png> <./Register.png>]
+<./Login_admin.png, id=117, 457.71pt x 500.62032pt>
+File: ./Login_admin.png Graphic file (type png)
+<use ./Login_admin.png>
+Package pdftex.def Info: ./Login_admin.png  used on input line 174.
+(pdftex.def)             Requested size: 194.77287pt x 213.032pt.
+ [5 <./Login.png> <./Login_admin.png>] [6] (./laporan.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
 Package rerunfilecheck Info: File `laporan.out' has not changed.
-(rerunfilecheck)             Checksum: FB2AC02ED54D1B3113FB48D6C362133A;1638.
+(rerunfilecheck)             Checksum: A4CE3A5120B683208B5E61C737356C4D;2211.
  ) 
 Here is how much of TeX's memory you used:
- 12811 strings out of 476076
- 198006 string characters out of 5793775
+ 12843 strings out of 476076
+ 198606 string characters out of 5793775
  1935187 words of memory out of 5000000
- 34762 multiletter control sequences out of 15000+600000
+ 34786 multiletter control sequences out of 15000+600000
  564406 words of font info for 58 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  75i,7n,79p,696b,1133s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on laporan.pdf (5 pages, 510108 bytes).
+Output written on laporan.pdf (7 pages, 616503 bytes).
 PDF statistics:
- 138 PDF objects out of 1000 (max. 8388607)
- 107 compressed objects within 2 object streams
- 26 named destinations out of 1000 (max. 500000)
- 130 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 170 PDF objects out of 1000 (max. 8388607)
+ 131 compressed objects within 2 object streams
+ 34 named destinations out of 1000 (max. 500000)
+ 169 words of extra memory for PDF output out of 10000 (max. 10000000)
 
