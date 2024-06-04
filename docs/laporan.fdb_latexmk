@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1717487841.77537 "c:/Users/muqsith barru/OneDrive/Desktop/projectku/myber/docs/laporan.tex" "laporan.pdf" "laporan" 1717487842.54718 0
+["pdflatex"] 1717490029.34815 "c:/Users/muqsith barru/OneDrive/Desktop/projectku/myber/docs/laporan.tex" "laporan.pdf" "laporan" 1717490030.14888 0
   "../assets/banner.png" 1717257747 44052 f2b97de82fdf5eace9c1c316b34c18c5 ""
   "C:/Users/muqsith barru/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1717228996 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/muqsith barru/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1200.pk" 1716737151 14064 ddcffaf12d9893788f5b0d8b7160649a ""
@@ -83,10 +83,10 @@
   "C:/Users/muqsith barru/AppData/Local/Programs/MiKTeX/tex/latex/rerunfilecheck/rerunfilecheck.sty" 1657800696 9714 ba3194bd52c8499b3f1e3eb91d409670 ""
   "C:/Users/muqsith barru/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "Logo_PENS.png" 1717257747 48667 1d1905849629bcdfb98760e3e773a1c3 ""
-  "c:/Users/muqsith barru/OneDrive/Desktop/projectku/myber/docs/laporan.tex" 1717487840 3748 ece28316638cfb5da19b81198f0913fc ""
-  "laporan.aux" 1717487842 1266 a45daa66480c77ecd2b521d8002b046e "pdflatex"
-  "laporan.out" 1717487842 695 851158cd6749720bcaa372498bbfc0e1 "pdflatex"
-  "laporan.tex" 1717487840 3748 ece28316638cfb5da19b81198f0913fc ""
+  "c:/Users/muqsith barru/OneDrive/Desktop/projectku/myber/docs/laporan.tex" 1717490028 4165 e2826e0d98cb1716f32c179799b23d24 ""
+  "laporan.aux" 1717490029 1380 446bf95d41b2f183e7ff50e82ec59f0d "pdflatex"
+  "laporan.out" 1717490030 771 39ee1f7e45881891f6391600155da698 "pdflatex"
+  "laporan.tex" 1717490028 4165 e2826e0d98cb1716f32c179799b23d24 ""
   (generated)
   "laporan.aux"
   "laporan.log"
