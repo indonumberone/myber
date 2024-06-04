@@ -58,6 +58,8 @@ GtkWidget *asal;
 GtkWidget *tujuan;
 
 GtkWidget *jadwal_keberangakatan_button;
+GtkWidget *jadwal_kedatangan_button;
+
 GtkWidget *jam_spinner;
 GtkWidget *menit_spinner;
 GtkWidget *jam_tiba;
@@ -670,6 +672,8 @@ GtkWidget *create_input_data_page(GtkWidget *parent_window, FormData *form_data)
     jam_spinner = gtk_spin_button_new_with_range(0, 23, 1);
     menit_spinner = gtk_spin_button_new_with_range(0, 59, 1);
 
+    GtkWidget *jadwal_kedatangan_label = gtk_label_new("Jadwal Penerbangan:");
+    jadwal_kedatangan_button = gtk_button_new_with_label("tanggal");
     GtkWidget *save_button = gtk_button_new_with_label("Simpan");
     g_signal_connect(save_button, "clicked", G_CALLBACK(on_save_button_clicked), form_data);
     GtkWidget *waktu_keberangakatan = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
