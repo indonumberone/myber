@@ -59,6 +59,11 @@ GtkWidget *tujuan;
 
 GtkWidget *jadwal_keberangakatan_button;
 
+GtkWidget *no_penerbangan_pesawat_entry;
+GtkWidget *nama_asal_entry;
+GtkWidget *nama_tujuan_entry;
+GtkListStore *kelas_entry;
+
 GtkWidget *jam_brangkat;
 GtkWidget *menit_brangkat;
 GtkWidget *jam_tes;
@@ -613,7 +618,7 @@ void on_save_button_clicked(GtkWidget *button, gpointer data)
 
 GtkWidget *create_input_data_page(GtkWidget *parent_window, FormData *form_data)
 {
-    GtkWidget *no_penerbangan_pesawat_entry;
+
     GtkWidget *nama_maskapai_mark;
     GtkListStore *nama_maskapai_entry;
     GtkCellRenderer *renderer_maskapai;
@@ -621,10 +626,9 @@ GtkWidget *create_input_data_page(GtkWidget *parent_window, FormData *form_data)
 
     GtkWidget *nama_kelas_mark;
     GtkWidget *kelas_mark;
-    GtkListStore *kelas_entry;
+
     GtkCellRenderer *renderer_kelas;
-    GtkWidget *nama_asal_entry;
-    GtkWidget *nama_tujuan_entry;
+
     GtkTreeIter list_kelas;
 
     GtkWidget *data_input = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
