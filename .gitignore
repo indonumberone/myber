@@ -1,9 +1,9 @@
 test.c
 main
-docs/laporan.aux
-docs/laporan.fdb+_latexmk
-docs/laporan.fls
-docs/laporan.log
-docs/laporan.out
-docs/laporan.synctex.gz
+/docs/laporan.aux
+/docs/laporan.fdb+_latexmk
+/docs/laporan.fls
+/docs/laporan.log
+/docs/laporan.out
+/docs/laporan.synctex.gz
 .vscode/
