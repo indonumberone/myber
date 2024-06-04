@@ -66,12 +66,12 @@ GtkListStore *kelas_entry;
 
 GtkWidget *jam_keberangkatan;
 GtkWidget *menit_keberangkatan;
+GtkWidget *jam_kedatangan;
+GtkWidget *menit_kedatangan;
 GtkWidget *jam_tes;
 GtkWidget *jam_tiba;
 GtkWidget *waktu_tiba;
 GtkWidget *jadwal_kedatangan_button;
-GtkWidget *jam_datang;
-GtkWidget *menit_datang;
 GtkWidget *waktu_datang;
 GtkWidget *harga;
 
@@ -89,7 +89,7 @@ void maskapai_list(GtkComboBox *combo, gpointer user_data)
         model = gtk_combo_box_get_model(combo);
         gtk_tree_model_iter_nth_child(model, &iter, NULL, index);
         gtk_tree_model_get(model, &iter, 0, &entry_maskapai, -1);
-        // g_print("%s\n", buf);
+        // g_print("%s\n", entry_maskapai);
         // sprintf(nama_maskapai_new, "%s", buf);
         // nama_maskapai_new = buf;
         // g_free(buf);
@@ -610,19 +610,30 @@ void on_save_button_clicked(GtkWidget *button, gpointer data)
 {
     // FormData *form_data = (FormData *)data;
 
-    const gchar *nama_maskapai = gtk_entry_get_text(GTK_ENTRY(nama_maskapai_entry));
-    const gchar *nama_asal_entry = gtk_entry_get_text(GTK_ENTRY(nama_maskapai_entry));
-    const gchar *nama_tujuan_entry = gtk_entry_get_text(GTK_ENTRY(nama_maskapai_entry));
-    // const gchar *jadwal- = gtk_button_get_label(GTK_BUTTON(jadwal_keberangakatan_button));
-    gint jam = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(jam_brangkat));
-    gint menit = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(menit_brangkat));
+   
+  const gchar *nama_asal = gtk_entry_get_text(GTK_ENTRY(nama_asal_entry));
+  const gchar *nama_tujuan = gtk_entry_get_text(GTK_ENTRY(nama_tujuan_entry));
+ const gchar *jadwal_berangkat = gtk_button_get_label(GTK_BUTTON(jadwal_keberangakatan_button));
+ const gchar *jadwal_datang = gtk_button_get_label(GTK_BUTTON(jadwal_kedatangan_button));
 
-    g_print("maskapai: %s\n", entry_maskapai);
-    g_print("kelas: %s\n", entry_kelas);
-    g_print("asal: %s\n", nama_asal_entry);
-    g_print("jadwal: %s\n", nama_asal_entry);
-    g_print("jam berangkat: %02d:%02d\n", jam, menit);
-    // g_free(buf);
+   //const gchar *nama_tujuan_entry = gtk_entry_get_text(GTK_ENTRY(maskapaine_entry));
+   gint jam_berangkat = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(jam_keberangkatan));
+   gint menit_berangkat = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(menit_keberangkatan));
+   gint jam_kedatangannya = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(jam_kedatangan));
+   gint menit_kedatangannya = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(menit_kedatangan));
+
+    g_print("Maskapai: %s\n", entry_maskapai);
+    g_print("Kelas: %s\n", entry_kelas);
+    g_print("Asal: %s\n", nama_asal);
+    g_print("Tujuan: %s\n", nama_tujuan);
+    g_print("jadwal berangkat: %s\n", jadwal_berangkat);
+    g_print("jam berangkat: %02d:%02d\n", jam_berangkat, menit_berangkat);
+    g_print("jadwal datang: %s\n", jadwal_datang);
+   g_print("jam datang: %02d:%02d\n", jam_kedatangannya, menit_kedatangannya);
+    // g_print("kelas: %s\n", entry);
+    // g_print("asal: %s\n", nama_asal_entry);
+    // g_print("jam berangkat: %02d:%02d\n", jam, menit);
+    // // g_free(buf);
 }
 
 // void insertmaskapai(GtkWidget **nama_maskapai_entry, GtkTreeIter **list_maskapai)
@@ -728,13 +739,13 @@ GtkWidget *create_input_data_page(GtkWidget *parent_window, FormData *form_data)
     jam_keberangkatan = gtk_spin_button_new_with_range(0, 23, 1);
     menit_keberangkatan = gtk_spin_button_new_with_range(0, 59, 1);
 
-    GtkWidget *jadwal_kedatangan_label = gtk_label_new("Jadwal Penerbangan:");
+    GtkWidget *jadwal_kedatangan_label = gtk_label_new("Jadwal Kedatangan:");
     jadwal_kedatangan_button = gtk_button_new_with_label("tanggal");
     g_signal_connect(jadwal_kedatangan_button, "clicked", G_CALLBACK(show_calendar), parent_window);
 
-    GtkWidget *jam_kedatangan_label = gtk_label_new("Jam Penerbangan:");
-    jam_datang = gtk_spin_button_new_with_range(0, 23, 1);
-    menit_datang = gtk_spin_button_new_with_range(0, 59, 1);
+    GtkWidget *jam_kedatangan_label = gtk_label_new("Jam Kedatangan:");
+    jam_kedatangan = gtk_spin_button_new_with_range(0, 23, 1);
+    menit_kedatangan = gtk_spin_button_new_with_range(0, 59, 1);
 
     GtkWidget *save_button = gtk_button_new_with_label("Simpan");
     g_signal_connect(save_button, "clicked", G_CALLBACK(on_save_button_clicked), form_data);
@@ -761,8 +772,8 @@ GtkWidget *create_input_data_page(GtkWidget *parent_window, FormData *form_data)
     gtk_box_pack_start(GTK_BOX(data_input), jadwal_kedatangan_button, FALSE, FALSE, 5);
     gtk_box_pack_start(GTK_BOX(data_input), jam_kedatangan_label, FALSE, FALSE, 5);
     gtk_box_pack_start(GTK_BOX(data_input), waktu_kedatangan, FALSE, FALSE, 5);
-    gtk_box_pack_start(GTK_BOX(waktu_kedatangan), jam_datang, FALSE, FALSE, 10);
-    gtk_box_pack_start(GTK_BOX(waktu_kedatangan), menit_datang, FALSE, FALSE, 10);
+    gtk_box_pack_start(GTK_BOX(waktu_kedatangan), jam_kedatangan, FALSE, FALSE, 10);
+    gtk_box_pack_start(GTK_BOX(waktu_kedatangan), menit_kedatangan, FALSE, FALSE, 10);
     gtk_box_pack_start(GTK_BOX(data_input), save_button, FALSE, FALSE, 5);
     g_signal_connect(nama_maskapai_mark, "changed", G_CALLBACK(maskapai_list), NULL);
     g_signal_connect(nama_kelas_mark, "changed", G_CALLBACK(kelas_list), NULL);
