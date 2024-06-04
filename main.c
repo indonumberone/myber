@@ -673,6 +673,7 @@ GtkWidget *create_input_data_page(GtkWidget *parent_window, FormData *form_data)
     GtkWidget *save_button = gtk_button_new_with_label("Simpan");
     g_signal_connect(save_button, "clicked", G_CALLBACK(on_save_button_clicked), form_data);
     GtkWidget *waktu_keberangakatan = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
+    GtkWidget *waktu_kedatangan = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
 
     gtk_box_pack_start(GTK_BOX(data_input), no_penerbangan_pesawat_label, FALSE, FALSE, 5);
     gtk_box_pack_start(GTK_BOX(data_input), no_penerbangan_pesawat_entry, FALSE, FALSE, 5);
