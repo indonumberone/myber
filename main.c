@@ -70,6 +70,22 @@ GtkWidget *menit_datang;
 GtkWidget *waktu_datang;
 GtkWidget *harga;
 
+void cb_combo_change(GtkComboBox *combo, gpointer user_data)
+{
+    gint index = gtk_combo_box_get_active(combo);
+    if (index)
+    { // we need some string to be displayed
+        GtkTreeModel *model;
+        GtkTreeIter iter;
+        gchar *buf;
+        model = gtk_combo_box_get_model(combo);
+        gtk_tree_model_iter_nth_child(model, &iter, NULL, index);
+        gtk_tree_model_get(model, &iter, 0, &buf, -1);
+        g_print("%s\n", buf);
+        g_free(buf);
+    }
+}
+
 int main(int argc, char *argv[])
 {
     {
@@ -712,7 +728,9 @@ GtkWidget *create_input_data_page(GtkWidget *parent_window, FormData *form_data)
     gtk_box_pack_start(GTK_BOX(waktu_kedatangan), jam_datang, FALSE, FALSE, 10);
     gtk_box_pack_start(GTK_BOX(waktu_kedatangan), menit_datang, FALSE, FALSE, 10);
     gtk_box_pack_start(GTK_BOX(data_input), save_button, FALSE, FALSE, 5);
-    // g_signal_connect(nama_maskapai_entry, "changed", G_CALLBACK(cb_combo_change), NULL);
+    g_signal_connect(nama_maskapai_mark, "changed", G_CALLBACK(cb_combo_change), NULL);
+    g_signal_connect(nama_kelas_mark, "changed", G_CALLBACK(cb_combo_change), NULL);
+
     return data_input;
 }
 
