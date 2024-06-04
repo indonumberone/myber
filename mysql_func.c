@@ -4,6 +4,7 @@
 #include <mysql.h>
 #include "mysql_func.h"
 #include "userinfo.h"
+#include "flightdata.h"
 
 MYSQL *conn;
 MYSQL_RES *res;
@@ -162,6 +163,32 @@ int login_user(char *user, char *pw, UserDetails *user_details)
 
     mysql_free_result(res);
     return success;
+}
+
+void insert_flight_data(char *asal, char *tujuan)
+{
+    char query[256];
+
+    sprintf(query, "INSERT INTO test values('%s', '%s');", asal, tujuan);
+
+    if (mysql_query(conn, query))
+    {
+        fprintf(stderr, "mysql_query() failed: %s\n", mysql_error(conn));
+    }
+
+    // res = mysql_store_result(conn);
+    // MYSQL_ROW row = mysql_fetch_row(res);
+    // int success = (row != NULL);
+
+    // if (success)
+    // {
+    //     strcpy(user_details->username, row[0]);
+    //     strcpy(user_details->name, row[1]);
+    //     user_details->is_admin = atoi(row[2]);
+    // }
+
+    // mysql_free_result(res);
+    // return success;
 }
 
 int login_admin(char *user, char *pw)

@@ -3,6 +3,7 @@
 // #include <string.h>
 #include "mysql_func.h"
 #include "userinfo.h"
+#include "flightdata.h"
 #define WINDOW_SIZE 50
 
 void login_process_user(GtkWidget *, gpointer);
@@ -24,23 +25,9 @@ void logout_memory();
 void print_user_info();
 void insertmaskapai(GtkWidget *nama_maskapai_entry, GtkTreeIter list_maskapai);
 
-typedef struct
-{
-    GtkWidget *no_penerbangan;
-    GtkWidget *nama_maskapai_entry;
-    GtkWidget *kelas;
-    GtkWidget *asal;
-    GtkWidget *tujuan;
-    GtkWidget *jadwal_button;
-    GtkWidget *jam_spinner;
-    GtkWidget *menit_spinner;
-    GtkWidget *jam_tiba;
-    GtkWidget *waktu_tiba;
-    GtkWidget *harga;
-} FormData;
-
-FormData current_data;
+FlightDetails current_data;
 UserDetails current_user;
+
 GtkWidget *customers_login_window;
 GtkWidget *admin_login_window;
 GtkWidget *username_entry;
@@ -609,18 +596,16 @@ void show_calendar(GtkWidget *button, gpointer data)
 void on_save_button_clicked(GtkWidget *button, gpointer data)
 {
     // FormData *form_data = (FormData *)data;
+    const gchar *nama_asal = gtk_entry_get_text(GTK_ENTRY(nama_asal_entry));
+    const gchar *nama_tujuan = gtk_entry_get_text(GTK_ENTRY(nama_tujuan_entry));
+    const gchar *jadwal_berangkat = gtk_button_get_label(GTK_BUTTON(jadwal_keberangakatan_button));
+    const gchar *jadwal_datang = gtk_button_get_label(GTK_BUTTON(jadwal_kedatangan_button));
 
-   
-  const gchar *nama_asal = gtk_entry_get_text(GTK_ENTRY(nama_asal_entry));
-  const gchar *nama_tujuan = gtk_entry_get_text(GTK_ENTRY(nama_tujuan_entry));
- const gchar *jadwal_berangkat = gtk_button_get_label(GTK_BUTTON(jadwal_keberangakatan_button));
- const gchar *jadwal_datang = gtk_button_get_label(GTK_BUTTON(jadwal_kedatangan_button));
-
-   //const gchar *nama_tujuan_entry = gtk_entry_get_text(GTK_ENTRY(maskapaine_entry));
-   gint jam_berangkat = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(jam_keberangkatan));
-   gint menit_berangkat = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(menit_keberangkatan));
-   gint jam_kedatangannya = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(jam_kedatangan));
-   gint menit_kedatangannya = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(menit_kedatangan));
+    // const gchar *nama_tujuan_entry = gtk_entry_get_text(GTK_ENTRY(maskapaine_entry));
+    gint jam_berangkat = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(jam_keberangkatan));
+    gint menit_berangkat = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(menit_keberangkatan));
+    gint jam_kedatangannya = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(jam_kedatangan));
+    gint menit_kedatangannya = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(menit_kedatangan));
 
     g_print("Maskapai: %s\n", entry_maskapai);
     g_print("Kelas: %s\n", entry_kelas);
@@ -629,7 +614,20 @@ void on_save_button_clicked(GtkWidget *button, gpointer data)
     g_print("jadwal berangkat: %s\n", jadwal_berangkat);
     g_print("jam berangkat: %02d:%02d\n", jam_berangkat, menit_berangkat);
     g_print("jadwal datang: %s\n", jadwal_datang);
-   g_print("jam datang: %02d:%02d\n", jam_kedatangannya, menit_kedatangannya);
+    g_print("jam datang: %02d:%02d\n", jam_kedatangannya, menit_kedatangannya);
+
+    
+    insert_flight_data(nama_asal, nama_tujuan);
+    // strcpy(flight_details.asal, nama_asal);
+    // strcpy(flight_details.tujuan, nama_tujuan);
+
+    // flight_details.asal = nama_asal;
+    // flight_details.tujuan = nama_asal;
+
+    // strcpy(flight_details->asal, nama_asal);
+    // strcpy(flight_details->tujuan, nama_asal);
+    // insert_flight_data(&flight_details);
+
     // g_print("kelas: %s\n", entry);
     // g_print("asal: %s\n", nama_asal_entry);
     // g_print("jam berangkat: %02d:%02d\n", jam, menit);
@@ -655,7 +653,7 @@ void on_save_button_clicked(GtkWidget *button, gpointer data)
 //     gtk_list_store_set(nama_maskapai_entry, *list_maskapai, 0, "AirAsia", -1);
 // }
 
-GtkWidget *create_input_data_page(GtkWidget *parent_window, FormData *form_data)
+GtkWidget *create_input_data_page(GtkWidget *parent_window)
 {
 
     GtkWidget *nama_maskapai_mark;
@@ -748,7 +746,7 @@ GtkWidget *create_input_data_page(GtkWidget *parent_window, FormData *form_data)
     menit_kedatangan = gtk_spin_button_new_with_range(0, 59, 1);
 
     GtkWidget *save_button = gtk_button_new_with_label("Simpan");
-    g_signal_connect(save_button, "clicked", G_CALLBACK(on_save_button_clicked), form_data);
+    g_signal_connect(save_button, "clicked", G_CALLBACK(on_save_button_clicked), NULL);
     GtkWidget *waktu_keberangakatan = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
     GtkWidget *waktu_kedatangan = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
 
@@ -844,7 +842,7 @@ void create_welcome_admin_window(GtkWidget *parent_window)
     GtkWidget *history_penjualan_button;
     GtkWidget *testarray;
 
-    FormData form_data;
+    // FormData form_data;
 
     welcome_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(welcome_window), "Admin Panel");
@@ -896,7 +894,7 @@ void create_welcome_admin_window(GtkWidget *parent_window)
     // gtk_box_pack_start(GTK_BOX(data_input), banner_label, TRUE, TRUE, 0);
     // gtk_box_pack_start(GTK_BOX(data_input), welcom, TRUE, TRUE, 0);
     gtk_stack_add_named(GTK_STACK(stack), vbox, "home");
-    GtkWidget *input_data_page = create_input_data_page(welcome_window, &form_data);
+    GtkWidget *input_data_page = create_input_data_page(welcome_window);
     // GtkWidget *input_data_page = create_input_data_page();
     gtk_stack_add_titled(GTK_STACK(stack), input_data_page, "inputdata", "Input Data Penerbangan");
 
