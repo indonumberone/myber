@@ -551,13 +551,17 @@ void create_welcome_admin_window(GtkWidget *parent_window)
     pango_attr_list_insert(attr_list, attr_size);
     gtk_label_set_attributes(GTK_LABEL(label), attr_list);
     pango_attr_list_unref(attr_list);
-
+    GtkWidget *testh = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
     hdata_history = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
     hdata_input = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
-    data_input = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
-    data_history = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+    data_input = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
+    data_history = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
     gtk_box_pack_start(GTK_BOX(data_input), hdata_input, TRUE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(data_input), testh, TRUE, FALSE, 0);
+    penjualan_button = gtk_button_new_with_label("Penjualan");
+    g_signal_connect(G_OBJECT(penjualan_button), "clicked", G_CALLBACK(show_penjualan), NULL);
 
+    gtk_box_pack_start(GTK_BOX(data_input), testh, TRUE, FALSE, 0);
     GtkWidget *image = gtk_image_new_from_file("assets/logo_welcome.png");
     gtk_box_pack_start(GTK_BOX(grid), image, TRUE, TRUE, 0);
 
@@ -567,8 +571,8 @@ void create_welcome_admin_window(GtkWidget *parent_window)
     GtkWidget *test1 = gtk_entry_new();
     gtk_box_pack_start(GTK_BOX(hdata_input), banner_label, TRUE, TRUE, 0);
     gtk_box_pack_start(GTK_BOX(hdata_input), testinput, TRUE, TRUE, 0);
-    gtk_box_pack_start(GTK_BOX(hdata_input), test11, TRUE, TRUE, 0);
-    gtk_box_pack_start(GTK_BOX(hdata_input), test1, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(testh), test11, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(testh), test1, TRUE, TRUE, 0);
 
     // gtk_box_pack_start(GTK_BOX(data_history), image, TRUE, TRUE, 0);
     // gtk_box_pack_start(GTK_BOX(data_history), label, TRUE, TRUE, 0);
@@ -579,7 +583,7 @@ void create_welcome_admin_window(GtkWidget *parent_window)
 
     gtk_stack_add_titled(GTK_STACK(stack), data_input, "inputdata", "input data penerbangan");
 
-    gtk_stack_add_titled(GTK_STACK(stack), data_history, "historydata", "history data users");
+    gtk_stack_add_titled(GTK_STACK(stack), hdata_input, "historydata", "history data users");
 
     g_signal_connect(welcome_window, "destroy", G_CALLBACK(destroy), NULL);
     gtk_widget_show_all(welcome_window);
