@@ -64,8 +64,8 @@ GtkWidget *nama_asal_entry;
 GtkWidget *nama_tujuan_entry;
 GtkListStore *kelas_entry;
 
-GtkWidget *jam_brangkat;
-GtkWidget *menit_brangkat;
+GtkWidget *jam_keberangkatan;
+GtkWidget *menit_keberangkatan;
 GtkWidget *jam_tes;
 GtkWidget *jam_tiba;
 GtkWidget *waktu_tiba;
@@ -592,15 +592,16 @@ void on_save_button_clicked(GtkWidget *button, gpointer data)
     // FormData *form_data = (FormData *)data;
 
     const gchar *nama_maskapai = gtk_entry_get_text(GTK_ENTRY(nama_maskapai_entry));
-    const gchar *nama_asal_entry = gtk_entry_get_text(GTK_ENTRY(nama_maskapai_entry));
-    const gchar *nama_tujuan_entry = gtk_entry_get_text(GTK_ENTRY(nama_maskapai_entry));
-   // const gchar *jadwal- = gtk_button_get_label(GTK_BUTTON(jadwal_keberangakatan_button));
-    gint jam = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(jam_brangkat));
-    gint menit = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(menit_brangkat));
+    const gchar *asalnya = gtk_entry_get_text(GTK_ENTRY(nama_asal_entry));
+    const gchar *tujuannya = gtk_entry_get_text(GTK_ENTRY(nama_tujuan_entry));
+    const gchar *jadwal = gtk_button_get_label(GTK_BUTTON(jadwal_keberangakatan_button));
+    gint jam = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(jam_keberangkatan));
+    gint menit = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(menit_keberangkatan));
 
     g_print("maskapai: %s\n", buf);
-    g_print("asal: %s\n", nama_asal_entry);
-    g_print("jadwal: %s\n", nama_asal_entry);
+    g_print("asal: %s\n", asalnya);
+    g_print("tujuan: %s\n", tujuannya);
+    g_print("jadwal: %s\n", jadwal);
     g_print("jam berangkat: %02d:%02d\n", jam, menit);
     // g_free(buf);
 
@@ -699,12 +700,12 @@ GtkWidget *create_input_data_page(GtkWidget *parent_window, FormData *form_data)
     gtk_combo_box_set_active(GTK_COMBO_BOX(nama_kelas_mark), 0);
 
     GtkWidget *jadwal_keberangakatan_label = gtk_label_new("Jadwal Penerbangan:");
-    jadwal_keberangakatan_button = gtk_button_new_with_label("tanggale");
+    jadwal_keberangakatan_button = gtk_button_new_with_label("Pilih Jadwal Keberangkatan");
     g_signal_connect(jadwal_keberangakatan_button, "clicked", G_CALLBACK(show_calendar), parent_window);
 
     GtkWidget *jam_keberangakatan_label = gtk_label_new("Jam Penerbangan:");
-    jam_brangkat = gtk_spin_button_new_with_range(0, 23, 1);
-    menit_brangkat = gtk_spin_button_new_with_range(0, 59, 1);
+    jam_keberangkatan = gtk_spin_button_new_with_range(0, 23, 1);
+    menit_keberangkatan = gtk_spin_button_new_with_range(0, 59, 1);
 
     GtkWidget *jadwal_kedatangan_label = gtk_label_new("Jadwal Penerbangan:");
     jadwal_kedatangan_button = gtk_button_new_with_label("tanggal");
@@ -733,8 +734,8 @@ GtkWidget *create_input_data_page(GtkWidget *parent_window, FormData *form_data)
     gtk_box_pack_start(GTK_BOX(data_input), jadwal_keberangakatan_button, FALSE, FALSE, 5);
     gtk_box_pack_start(GTK_BOX(data_input), jam_keberangakatan_label, FALSE, FALSE, 5);
     gtk_box_pack_start(GTK_BOX(data_input), waktu_keberangakatan, FALSE, FALSE, 5);
-    gtk_box_pack_start(GTK_BOX(waktu_keberangakatan), jam_brangkat, FALSE, FALSE, 10);
-    gtk_box_pack_start(GTK_BOX(waktu_keberangakatan), menit_brangkat, FALSE, FALSE, 10);
+    gtk_box_pack_start(GTK_BOX(waktu_keberangakatan), jam_keberangkatan, FALSE, FALSE, 10);
+    gtk_box_pack_start(GTK_BOX(waktu_keberangakatan), menit_keberangkatan, FALSE, FALSE, 10);
     gtk_box_pack_start(GTK_BOX(data_input), jadwal_kedatangan_label, FALSE, FALSE, 5);
     gtk_box_pack_start(GTK_BOX(data_input), jadwal_kedatangan_button, FALSE, FALSE, 5);
     gtk_box_pack_start(GTK_BOX(data_input), jam_kedatangan_label, FALSE, FALSE, 5);
