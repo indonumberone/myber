@@ -75,6 +75,8 @@ GtkWidget *menit_datang;
 GtkWidget *waktu_datang;
 GtkWidget *harga;
 
+gchar *buf;
+
 void cb_combo_change(GtkComboBox *combo, gpointer user_data)
 {
     gint index = gtk_combo_box_get_active(combo);
@@ -82,12 +84,14 @@ void cb_combo_change(GtkComboBox *combo, gpointer user_data)
     { // we need some string to be displayed
         GtkTreeModel *model;
         GtkTreeIter iter;
-        gchar *buf;
+        // gchar *buf;
         model = gtk_combo_box_get_model(combo);
         gtk_tree_model_iter_nth_child(model, &iter, NULL, index);
         gtk_tree_model_get(model, &iter, 0, &buf, -1);
-        g_print("%s\n", buf);
-        g_free(buf);
+        // g_print("%s\n", buf);
+        // sprintf(nama_maskapai_new, "%s", buf);
+        // nama_maskapai_new = buf;
+        // g_free(buf);
     }
 }
 
@@ -588,13 +592,19 @@ void on_save_button_clicked(GtkWidget *button, gpointer data)
     // FormData *form_data = (FormData *)data;
 
     const gchar *nama_maskapai = gtk_entry_get_text(GTK_ENTRY(nama_maskapai_entry));
-    const gchar *jadwal = gtk_button_get_label(GTK_BUTTON(jadwal_keberangakatan_button));
+    const gchar *nama_asal_entry = gtk_entry_get_text(GTK_ENTRY(nama_maskapai_entry));
+    const gchar *nama_tujuan_entry = gtk_entry_get_text(GTK_ENTRY(nama_maskapai_entry));
+   // const gchar *jadwal- = gtk_button_get_label(GTK_BUTTON(jadwal_keberangakatan_button));
     gint jam = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(jam_brangkat));
     gint menit = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(menit_brangkat));
 
-    g_print("maskapai: %s\n", nama_maskapai);
-    g_print("jadwal: %s\n", jadwal);
-    g_print("jame: %02d:%02d\n", jam, menit);
+    g_print("maskapai: %s\n", buf);
+    g_print("asal: %s\n", nama_asal_entry);
+    g_print("jadwal: %s\n", nama_asal_entry);
+    g_print("jam berangkat: %02d:%02d\n", jam, menit);
+    // g_free(buf);
+
+
 }
 
 // void insertmaskapai(GtkWidget **nama_maskapai_entry, GtkTreeIter **list_maskapai)
