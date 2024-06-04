@@ -31,6 +31,7 @@ typedef struct
     GtkWidget *menit_spinner;
 } FormData;
 
+FormData current_data;
 UserDetails current_user;
 GtkWidget *customers_login_window;
 GtkWidget *admin_login_window;
@@ -42,6 +43,10 @@ GtkWidget *welcome_window;
 GtkWidget *customer_register_window;
 GtkWidget *banner_label;
 GtkWidget *content_area;
+GtkWidget *nama_maskapai_entry;
+GtkWidget *jadwal_button;
+GtkWidget *jam_spinner;
+GtkWidget *menit_spinner;
 
 int main(int argc, char *argv[])
 {
@@ -537,12 +542,12 @@ void show_calendar(GtkWidget *button, gpointer data)
 
 void on_save_button_clicked(GtkWidget *button, gpointer data)
 {
-    FormData *form_data = (FormData *)data;
+    // FormData *form_data = (FormData *)data;
 
-    const gchar *nama_maskapai = gtk_entry_get_text(GTK_ENTRY(form_data->nama_maskapai_entry));
-    const gchar *jadwal = gtk_button_get_label(GTK_BUTTON(form_data->jadwal_button));
-    gint jam = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(form_data->jam_spinner));
-    gint menit = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(form_data->menit_spinner));
+    const gchar *nama_maskapai = gtk_entry_get_text(GTK_ENTRY(nama_maskapai_entry));
+    const gchar *jadwal = gtk_button_get_label(GTK_BUTTON(jadwal_button));
+    gint jam = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(jam_spinner));
+    gint menit = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(menit_spinner));
 
     g_print("maskapai: %s\n", nama_maskapai);
     g_print("jadwal: %s\n", jadwal);
@@ -551,34 +556,34 @@ void on_save_button_clicked(GtkWidget *button, gpointer data)
 
 GtkWidget *create_input_data_page(GtkWidget *parent_window, FormData *form_data)
 {
+
     GtkWidget *data_input = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
 
     GtkWidget *nama_maskapai_label = gtk_label_new("Nama Maskapai:");
-    form_data->nama_maskapai_entry = gtk_entry_new();
+    nama_maskapai_entry = gtk_entry_new();
 
     GtkWidget *jadwal_label = gtk_label_new("Jadwal Penerbangan:");
-    form_data->jadwal_button = gtk_button_new_with_label("tanggale");
-    g_signal_connect(form_data->jadwal_button, "clicked", G_CALLBACK(show_calendar), parent_window);
+    jadwal_button = gtk_button_new_with_label("tanggale");
+    g_signal_connect(jadwal_button, "clicked", G_CALLBACK(show_calendar), parent_window);
 
     GtkWidget *jam_label = gtk_label_new("Jam Penerbangan:");
-    form_data->jam_spinner = gtk_spin_button_new_with_range(0, 23, 1);
-    form_data->menit_spinner = gtk_spin_button_new_with_range(0, 59, 1);
+    jam_spinner = gtk_spin_button_new_with_range(0, 23, 1);
+    menit_spinner = gtk_spin_button_new_with_range(0, 59, 1);
 
     GtkWidget *save_button = gtk_button_new_with_label("Simpan");
     g_signal_connect(save_button, "clicked", G_CALLBACK(on_save_button_clicked), form_data);
 
     gtk_box_pack_start(GTK_BOX(data_input), nama_maskapai_label, FALSE, FALSE, 5);
-    gtk_box_pack_start(GTK_BOX(data_input), form_data->nama_maskapai_entry, FALSE, FALSE, 5);
+    gtk_box_pack_start(GTK_BOX(data_input), nama_maskapai_entry, FALSE, FALSE, 5);
     gtk_box_pack_start(GTK_BOX(data_input), jadwal_label, FALSE, FALSE, 5);
-    gtk_box_pack_start(GTK_BOX(data_input), form_data->jadwal_button, FALSE, FALSE, 5);
+    gtk_box_pack_start(GTK_BOX(data_input), jadwal_button, FALSE, FALSE, 5);
     gtk_box_pack_start(GTK_BOX(data_input), jam_label, FALSE, FALSE, 5);
-    gtk_box_pack_start(GTK_BOX(data_input), form_data->jam_spinner, FALSE, FALSE, 5);
-    gtk_box_pack_start(GTK_BOX(data_input), form_data->menit_spinner, FALSE, FALSE, 5);
+    gtk_box_pack_start(GTK_BOX(data_input), jam_spinner, FALSE, FALSE, 5);
+    gtk_box_pack_start(GTK_BOX(data_input), menit_spinner, FALSE, FALSE, 5);
     gtk_box_pack_start(GTK_BOX(data_input), save_button, FALSE, FALSE, 5);
 
     return data_input;
 }
-
 
 GtkWidget *create_input_data_page_gaksido(GtkWidget *parent_window)
 {
