@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.5.26)  4 JUN 2024 15:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.5.26)  4 JUN 2024 18:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -345,7 +345,7 @@ Package hyperref Info: Link coloring OFF on input line 14.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-<Logo_PENS.png, id=35, 392.46625pt x 373.395pt>
+<Logo_PENS.png, id=39, 392.46625pt x 373.395pt>
 File: Logo_PENS.png Graphic file (type png)
 <use Logo_PENS.png>
 Package pdftex.def Info: Logo_PENS.png  used on input line 24.
@@ -353,43 +353,40 @@ Package pdftex.def Info: Logo_PENS.png  used on input line 24.
 [1
 
 {C:/Users/muqsith barru/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./Logo_PENS.png>]
-Overfull \hbox (8.03113pt too wide) in paragraph at lines 79--80
-\OT1/cmr/m/n/12 LaTeX san-gat berguna un-tuk menulis ru-mus matem-atika dan meny-isip-kan gam-bar. Berikut
- []
-
-<../assets/banner.png, id=46, 501.875pt x 282.05376pt>
-File: ../assets/banner.png Graphic file (type png)
-<use ../assets/banner.png>
-Package pdftex.def Info: ../assets/banner.png  used on input line 87.
-(pdftex.def)             Requested size: 226.48395pt x 127.28453pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.96 
-      [1] [2 <../assets/banner.png>] (laporan.aux)
+l.90     \item \texttt
+                      {amsmath} untuk menulis rumus matematika. [1]
+Overfull \hbox (8.03113pt too wide) in paragraph at lines 98--99
+\OT1/cmr/m/n/12 LaTeX san-gat berguna un-tuk menulis ru-mus matem-atika dan meny-isip-kan gam-bar. Berikut
+ []
+
+<../assets/banner.png, id=55, 501.875pt x 282.05376pt>
+File: ../assets/banner.png Graphic file (type png)
+<use ../assets/banner.png>
+Package pdftex.def Info: ../assets/banner.png  used on input line 106.
+(pdftex.def)             Requested size: 226.48395pt x 127.28453pt.
+[2 <../assets/banner.png>] (laporan.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
 Package rerunfilecheck Info: File `laporan.out' has not changed.
-(rerunfilecheck)             Checksum: 39EE1F7E45881891F6391600155DA698;771.
+(rerunfilecheck)             Checksum: 0AD62E12547AC26DCE02EF33208E0615;944.
  ) 
 Here is how much of TeX's memory you used:
- 11036 strings out of 474486
- 178678 string characters out of 5739943
- 1932542 words of memory out of 5000000
- 33196 multiletter control sequences out of 15000+600000
+ 11038 strings out of 474486
+ 178712 string characters out of 5739943
+ 1933542 words of memory out of 5000000
+ 33197 multiletter control sequences out of 15000+600000
  565100 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,7n,79p,455b,483s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,7n,79p,387b,509s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\muqsith barru\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/muqsith barru/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/muqsith barru/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/muqsith barru/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/muqsith barru/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/muqsith barru/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/muqsith barru/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/muqsith barru/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on laporan.pdf (3 pages, 195927 bytes).
+Output written on laporan.pdf (3 pages, 199761 bytes).
 PDF statistics:
- 103 PDF objects out of 1000 (max. 8388607)
- 14 named destinations out of 1000 (max. 500000)
- 75 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 107 PDF objects out of 1000 (max. 8388607)
+ 15 named destinations out of 1000 (max. 500000)
+ 83 words of extra memory for PDF output out of 10000 (max. 10000000)
 
