@@ -58,12 +58,16 @@ GtkWidget *asal;
 GtkWidget *tujuan;
 
 GtkWidget *jadwal_keberangakatan_button;
-GtkWidget *jadwal_kedatangan_button;
 
-GtkWidget *jam_spinner;
-GtkWidget *menit_spinner;
+GtkWidget *jam_brangkat;
+GtkWidget *menit_brangkat;
+GtkWidget *jam_tes;
 GtkWidget *jam_tiba;
 GtkWidget *waktu_tiba;
+GtkWidget *jadwal_kedatangan_button;
+GtkWidget *jam_datang;
+GtkWidget *menit_datang;
+GtkWidget *waktu_datang;
 GtkWidget *harga;
 
 int main(int argc, char *argv[])
@@ -564,8 +568,8 @@ void on_save_button_clicked(GtkWidget *button, gpointer data)
 
     const gchar *nama_maskapai = gtk_entry_get_text(GTK_ENTRY(nama_maskapai_entry));
     const gchar *jadwal = gtk_button_get_label(GTK_BUTTON(jadwal_keberangakatan_button));
-    gint jam = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(jam_spinner));
-    gint menit = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(menit_spinner));
+    gint jam = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(jam_brangkat));
+    gint menit = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(menit_brangkat));
 
     g_print("maskapai: %s\n", nama_maskapai);
     g_print("jadwal: %s\n", jadwal);
@@ -669,11 +673,17 @@ GtkWidget *create_input_data_page(GtkWidget *parent_window, FormData *form_data)
     g_signal_connect(jadwal_keberangakatan_button, "clicked", G_CALLBACK(show_calendar), parent_window);
 
     GtkWidget *jam_keberangakatan_label = gtk_label_new("Jam Penerbangan:");
-    jam_spinner = gtk_spin_button_new_with_range(0, 23, 1);
-    menit_spinner = gtk_spin_button_new_with_range(0, 59, 1);
+    jam_brangkat = gtk_spin_button_new_with_range(0, 23, 1);
+    menit_brangkat = gtk_spin_button_new_with_range(0, 59, 1);
 
     GtkWidget *jadwal_kedatangan_label = gtk_label_new("Jadwal Penerbangan:");
     jadwal_kedatangan_button = gtk_button_new_with_label("tanggal");
+    g_signal_connect(jadwal_kedatangan_button, "clicked", G_CALLBACK(show_calendar), parent_window);
+
+    GtkWidget *jam_kedatangan_label = gtk_label_new("Jam Penerbangan:");
+    jam_datang = gtk_spin_button_new_with_range(0, 23, 1);
+    menit_datang = gtk_spin_button_new_with_range(0, 59, 1);
+
     GtkWidget *save_button = gtk_button_new_with_label("Simpan");
     g_signal_connect(save_button, "clicked", G_CALLBACK(on_save_button_clicked), form_data);
     GtkWidget *waktu_keberangakatan = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
@@ -693,10 +703,14 @@ GtkWidget *create_input_data_page(GtkWidget *parent_window, FormData *form_data)
     gtk_box_pack_start(GTK_BOX(data_input), jadwal_keberangakatan_button, FALSE, FALSE, 5);
     gtk_box_pack_start(GTK_BOX(data_input), jam_keberangakatan_label, FALSE, FALSE, 5);
     gtk_box_pack_start(GTK_BOX(data_input), waktu_keberangakatan, FALSE, FALSE, 5);
-    // gtk_box_set_center_widget(data_input, waktu);
-    // gtk_box_get_center_widget(waktu);
-    gtk_box_pack_start(GTK_BOX(waktu_keberangakatan), jam_spinner, FALSE, FALSE, 10);
-    gtk_box_pack_start(GTK_BOX(waktu_keberangakatan), menit_spinner, FALSE, FALSE, 10);
+    gtk_box_pack_start(GTK_BOX(waktu_keberangakatan), jam_brangkat, FALSE, FALSE, 10);
+    gtk_box_pack_start(GTK_BOX(waktu_keberangakatan), menit_brangkat, FALSE, FALSE, 10);
+    gtk_box_pack_start(GTK_BOX(data_input), jadwal_kedatangan_label, FALSE, FALSE, 5);
+    gtk_box_pack_start(GTK_BOX(data_input), jadwal_kedatangan_button, FALSE, FALSE, 5);
+    gtk_box_pack_start(GTK_BOX(data_input), jam_kedatangan_label, FALSE, FALSE, 5);
+    gtk_box_pack_start(GTK_BOX(data_input), waktu_kedatangan, FALSE, FALSE, 5);
+    gtk_box_pack_start(GTK_BOX(waktu_kedatangan), jam_datang, FALSE, FALSE, 10);
+    gtk_box_pack_start(GTK_BOX(waktu_kedatangan), menit_datang, FALSE, FALSE, 10);
     gtk_box_pack_start(GTK_BOX(data_input), save_button, FALSE, FALSE, 5);
     // g_signal_connect(nama_maskapai_entry, "changed", G_CALLBACK(cb_combo_change), NULL);
     return data_input;
@@ -796,35 +810,27 @@ void create_welcome_admin_window(GtkWidget *parent_window)
     pango_attr_list_insert(attr_list, attr_size);
     gtk_label_set_attributes(GTK_LABEL(label), attr_list);
     pango_attr_list_unref(attr_list);
-    GtkWidget *testh = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
+
+    GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
     hdata_history = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
     hdata_input = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
     data_input = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
     data_history = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
-    gtk_box_pack_start(GTK_BOX(data_input), hdata_input, TRUE, FALSE, 0);
-    gtk_box_pack_start(GTK_BOX(data_input), testh, TRUE, FALSE, 0);
     penjualan_button = gtk_button_new_with_label("Penjualan");
     g_signal_connect(G_OBJECT(penjualan_button), "clicked", G_CALLBACK(show_penjualan), NULL);
 
-    gtk_box_pack_start(GTK_BOX(data_input), testh, TRUE, FALSE, 0);
     GtkWidget *image = gtk_image_new_from_file("assets/logo_welcome.png");
-    gtk_box_pack_start(GTK_BOX(grid), image, TRUE, TRUE, 0);
-
-    banner_label = gtk_label_new("tes iput:");
-    testinput = gtk_entry_new();
-    GtkWidget *test11 = gtk_label_new("tes iput:");
-    GtkWidget *test1 = gtk_entry_new();
-    gtk_box_pack_start(GTK_BOX(hdata_input), banner_label, TRUE, TRUE, 0);
-    gtk_box_pack_start(GTK_BOX(hdata_input), testinput, TRUE, TRUE, 0);
-    gtk_box_pack_start(GTK_BOX(testh), test11, TRUE, TRUE, 0);
-    gtk_box_pack_start(GTK_BOX(testh), test1, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(vbox), image, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
+    // gtk_box_pack_start(GTK_BOX(testh), test11, TRUE, TRUE, 0);
+    // gtk_box_pack_start(GTK_BOX(testh), test1, TRUE, TRUE, 0);
 
     // gtk_box_pack_start(GTK_BOX(data_history), image, TRUE, TRUE, 0);
     // gtk_box_pack_start(GTK_BOX(data_history), label, TRUE, TRUE, 0);
 
     // gtk_box_pack_start(GTK_BOX(data_input), banner_label, TRUE, TRUE, 0);
     // gtk_box_pack_start(GTK_BOX(data_input), welcom, TRUE, TRUE, 0);
-    // gtk_stack_add_named(GTK_STACK(stack), vbox2, "home");
+    gtk_stack_add_named(GTK_STACK(stack), vbox, "home");
     GtkWidget *input_data_page = create_input_data_page(welcome_window, &form_data);
     // GtkWidget *input_data_page = create_input_data_page();
     gtk_stack_add_titled(GTK_STACK(stack), input_data_page, "inputdata", "Input Data Penerbangan");
