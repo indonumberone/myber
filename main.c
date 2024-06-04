@@ -56,7 +56,8 @@ GtkWidget *nama_maskapai_entry;
 GtkWidget *kelas;
 GtkWidget *asal;
 GtkWidget *tujuan;
-GtkWidget *jadwal_button;
+
+GtkWidget *jadwal_keberangakatan_button;
 GtkWidget *jam_spinner;
 GtkWidget *menit_spinner;
 GtkWidget *jam_tiba;
@@ -560,7 +561,7 @@ void on_save_button_clicked(GtkWidget *button, gpointer data)
     // FormData *form_data = (FormData *)data;
 
     const gchar *nama_maskapai = gtk_entry_get_text(GTK_ENTRY(nama_maskapai_entry));
-    const gchar *jadwal = gtk_button_get_label(GTK_BUTTON(jadwal_button));
+    const gchar *jadwal = gtk_button_get_label(GTK_BUTTON(jadwal_keberangakatan_button));
     gint jam = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(jam_spinner));
     gint menit = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(menit_spinner));
 
@@ -600,13 +601,19 @@ GtkWidget *create_input_data_page(GtkWidget *parent_window, FormData *form_data)
     GtkWidget *kelas_mark;
     GtkListStore *kelas_entry;
     GtkCellRenderer *renderer_kelas;
+    GtkWidget *nama_asal_entry;
+    GtkWidget *nama_tujuan_entry;
     GtkTreeIter list_kelas;
 
     GtkWidget *data_input = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
-    GtkWidget *no_penerbangan_pesawat_label = gtk_label_new("No Penerbangan:");
+    GtkWidget *no_penerbangan_pesawat_label = gtk_label_new("No Penerbangan");
     no_penerbangan_pesawat_entry = gtk_entry_new();
-    GtkWidget *nama_maskapai_label = gtk_label_new("Nama Maskapai:");
+    GtkWidget *nama_maskapai_label = gtk_label_new("Nama Maskapai");
     GtkWidget *nama_kelas_label = gtk_label_new("Jenis Kelas Pesawat");
+    GtkWidget *nama_asal_label = gtk_label_new("keberangkatan Pesawat ");
+    GtkWidget *nama_tujuan_label = gtk_label_new("Kedatangan Pesawat ");
+    nama_asal_entry = gtk_entry_new();
+    nama_tujuan_entry = gtk_entry_new();
     // menuBar = gtk_menu_bar_new();
     // /* create 1st menu item */
     // menuItem1 = gtk_menu_item_new_with_mnemonic("_Application");
@@ -655,17 +662,17 @@ GtkWidget *create_input_data_page(GtkWidget *parent_window, FormData *form_data)
     gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(nama_kelas_mark), renderer_kelas, "text", 0, NULL);
     gtk_combo_box_set_active(GTK_COMBO_BOX(nama_kelas_mark), 0);
 
-    GtkWidget *jadwal_label = gtk_label_new("Jadwal Penerbangan:");
-    jadwal_button = gtk_button_new_with_label("tanggale");
-    g_signal_connect(jadwal_button, "clicked", G_CALLBACK(show_calendar), parent_window);
+    GtkWidget *jadwal_keberangakatan_label = gtk_label_new("Jadwal Penerbangan:");
+    jadwal_keberangakatan_button = gtk_button_new_with_label("tanggale");
+    g_signal_connect(jadwal_keberangakatan_button, "clicked", G_CALLBACK(show_calendar), parent_window);
 
-    GtkWidget *jam_label = gtk_label_new("Jam Penerbangan:");
+    GtkWidget *jam_keberangakatan_label = gtk_label_new("Jam Penerbangan:");
     jam_spinner = gtk_spin_button_new_with_range(0, 23, 1);
     menit_spinner = gtk_spin_button_new_with_range(0, 59, 1);
 
     GtkWidget *save_button = gtk_button_new_with_label("Simpan");
     g_signal_connect(save_button, "clicked", G_CALLBACK(on_save_button_clicked), form_data);
-    GtkWidget *waktu = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
+    GtkWidget *waktu_keberangakatan = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
 
     gtk_box_pack_start(GTK_BOX(data_input), no_penerbangan_pesawat_label, FALSE, FALSE, 5);
     gtk_box_pack_start(GTK_BOX(data_input), no_penerbangan_pesawat_entry, FALSE, FALSE, 5);
@@ -673,44 +680,48 @@ GtkWidget *create_input_data_page(GtkWidget *parent_window, FormData *form_data)
     gtk_box_pack_start(GTK_BOX(data_input), nama_maskapai_mark, FALSE, FALSE, 5);
     gtk_box_pack_start(GTK_BOX(data_input), nama_kelas_label, FALSE, FALSE, 5);
     gtk_box_pack_start(GTK_BOX(data_input), nama_kelas_mark, FALSE, FALSE, 5);
-    gtk_box_pack_start(GTK_BOX(data_input), jadwal_label, FALSE, FALSE, 5);
-    gtk_box_pack_start(GTK_BOX(data_input), jadwal_button, FALSE, FALSE, 5);
-    gtk_box_pack_start(GTK_BOX(data_input), jam_label, FALSE, FALSE, 5);
-    gtk_box_pack_start(GTK_BOX(data_input), waktu, FALSE, FALSE, 5);
+    gtk_box_pack_start(GTK_BOX(data_input), nama_asal_label, FALSE, FALSE, 5);
+    gtk_box_pack_start(GTK_BOX(data_input), nama_asal_entry, FALSE, FALSE, 5);
+    gtk_box_pack_start(GTK_BOX(data_input), nama_tujuan_label, FALSE, FALSE, 5);
+    gtk_box_pack_start(GTK_BOX(data_input), nama_tujuan_entry, FALSE, FALSE, 5);
+    gtk_box_pack_start(GTK_BOX(data_input), jadwal_keberangakatan_label, FALSE, FALSE, 5);
+    gtk_box_pack_start(GTK_BOX(data_input), jadwal_keberangakatan_button, FALSE, FALSE, 5);
+    gtk_box_pack_start(GTK_BOX(data_input), jam_keberangakatan_label, FALSE, FALSE, 5);
+    gtk_box_pack_start(GTK_BOX(data_input), waktu_keberangakatan, FALSE, FALSE, 5);
     // gtk_box_set_center_widget(data_input, waktu);
     // gtk_box_get_center_widget(waktu);
-    gtk_box_pack_start(GTK_BOX(waktu), jam_spinner, FALSE, FALSE, 10);
-    gtk_box_pack_start(GTK_BOX(waktu), menit_spinner, FALSE, FALSE, 10);
+    gtk_box_pack_start(GTK_BOX(waktu_keberangakatan), jam_spinner, FALSE, FALSE, 10);
+    gtk_box_pack_start(GTK_BOX(waktu_keberangakatan), menit_spinner, FALSE, FALSE, 10);
     gtk_box_pack_start(GTK_BOX(data_input), save_button, FALSE, FALSE, 5);
     // g_signal_connect(nama_maskapai_entry, "changed", G_CALLBACK(cb_combo_change), NULL);
     return data_input;
 }
 
-GtkWidget *create_input_data_page_gaksido(GtkWidget *parent_window)
-{
-    GtkWidget *data_input = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
+// GtkWidget *create_input_data_page_gaksido(GtkWidget *parent_window)
+// {
+//     GtkWidget *data_input = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
 
-    GtkWidget *nama_maskapai_label = gtk_label_new("Nama Maskapai:");
-    GtkWidget *nama_maskapai_entry = gtk_entry_new();
+//     GtkWidget *nama_maskapai_label = gtk_label_new("Nama Maskapai:");
+//     GtkWidget *nama_maskapai_entry = gtk_entry_new();
 
-    GtkWidget *jadwal_label = gtk_label_new("Jadwal Penerbangan:");
-    GtkWidget *jadwal_button = gtk_button_new_with_label("Pilih Tanggal");
-    g_signal_connect(jadwal_button, "clicked", G_CALLBACK(show_calendar), parent_window);
+//     GtkWidget *jadwal_label = gtk_label_new("Jadwal Penerbangan:");
+//     GtkWidget *jadwal_button = gtk_button_new_with_label("Pilih Tanggal");
+//     g_signal_connect(jadwal_button, "clicked", G_CALLBACK(show_calendar), parent_window);
 
-    GtkWidget *jam_label = gtk_label_new("Jam Penerbangan:");
-    GtkWidget *jam_spinner = gtk_spin_button_new_with_range(0, 23, 1);
-    GtkWidget *menit_spinner = gtk_spin_button_new_with_range(0, 59, 1);
+//     GtkWidget *jam_label = gtk_label_new("Jam Penerbangan:");
+//     GtkWidget *jam_spinner = gtk_spin_button_new_with_range(0, 23, 1);
+//     GtkWidget *menit_spinner = gtk_spin_button_new_with_range(0, 59, 1);
 
-    gtk_box_pack_start(GTK_BOX(data_input), nama_maskapai_label, FALSE, FALSE, 5);
-    gtk_box_pack_start(GTK_BOX(data_input), nama_maskapai_entry, FALSE, FALSE, 5);
-    gtk_box_pack_start(GTK_BOX(data_input), jadwal_label, FALSE, FALSE, 5);
-    gtk_box_pack_start(GTK_BOX(data_input), jadwal_button, FALSE, FALSE, 5);
-    gtk_box_pack_start(GTK_BOX(data_input), jam_label, FALSE, FALSE, 5);
-    gtk_box_pack_start(GTK_BOX(data_input), jam_spinner, FALSE, FALSE, 5);
-    gtk_box_pack_start(GTK_BOX(data_input), menit_spinner, FALSE, FALSE, 5);
+//     gtk_box_pack_start(GTK_BOX(data_input), nama_maskapai_label, FALSE, FALSE, 5);
+//     gtk_box_pack_start(GTK_BOX(data_input), nama_maskapai_entry, FALSE, FALSE, 5);
+//     gtk_box_pack_start(GTK_BOX(data_input), jadwal_label, FALSE, FALSE, 5);
+//     gtk_box_pack_start(GTK_BOX(data_input), jadwal_button, FALSE, FALSE, 5);
+//     gtk_box_pack_start(GTK_BOX(data_input), jam_label, FALSE, FALSE, 5);
+//     gtk_box_pack_start(GTK_BOX(data_input), jam_spinner, FALSE, FALSE, 5);
+//     gtk_box_pack_start(GTK_BOX(data_input), menit_spinner, FALSE, FALSE, 5);
 
-    return data_input;
-}
+//     return data_input;
+// }
 
 // GtkWidget *create_input_data_page()
 // {
