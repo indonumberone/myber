@@ -826,7 +826,7 @@ void create_welcome_admin_window(GtkWidget *parent_window)
 
     // gtk_stack_add_titled(GTK_STACK(stack), data_input, "inputdata", "input data penerbangan");
 
-    gtk_stack_add_titled(GTK_STACK(stack), data_input, "historydata", "history data users");
+    gtk_stack_add_titled(GTK_STACK(stack), data_input, "historydata", "Riwayat Transaksi");
 
     g_signal_connect(welcome_window, "destroy", G_CALLBACK(destroy), NULL);
     gtk_widget_show_all(welcome_window);
