@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.5.31)  4 JUN 2024 19:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.5.31)  4 JUN 2024 22:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -258,51 +258,79 @@ Package caption Info: New subtype `subfigure' on input line 238.
 \c@subfigure=\count292
 Package caption Info: New subtype `subtable' on input line 238.
 \c@subtable=\count293
-) (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+) (/usr/share/texmf-dist/tex/latex/tools/indentfirst.sty
+Package: indentfirst 2023/07/02 v1.03 Indent first paragraph (DPC)
+) (/usr/share/texmf-dist/tex/latex/placeins/placeins.sty
+Package: placeins 2005/04/18  v 2.2
+) (/usr/share/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count294
+\lst@gtempboxa=\box53
+\lst@token=\toks26
+\lst@length=\count295
+\lst@currlwidth=\dimen172
+\lst@column=\count296
+\lst@pos=\count297
+\lst@lostspace=\dimen173
+\lst@width=\dimen174
+\lst@newlines=\count298
+\lst@lineno=\count299
+\lst@maxwidth=\dimen175
+ (/usr/share/texmf-dist/tex/latex/listings/lstpatch.sty
+File: lstpatch.sty 2024/02/21 1.10 (Carsten Heinz)
+) (/usr/share/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2024/02/21 1.10 (Carsten Heinz)
+\c@lstnumber=\count300
+\lst@skipnumbers=\count301
+\lst@framebox=\box54
+) (/usr/share/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2024/02/21 1.10 listings configuration
+))
+Package: listings 2024/02/21 1.10 (Carsten Heinz)
+ (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count294
-\l__pdf_internal_box=\box53
+\l__color_backend_stack_int=\count302
+\l__pdf_internal_box=\box55
 ) (./laporan.aux)
 \openout1 = `laporan.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
  (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count295
-\scratchdimen=\dimen172
-\scratchbox=\box54
-\nofMPsegments=\count296
-\nofMParguments=\count297
-\everyMPshowfont=\toks26
-\MPscratchCnt=\count298
-\MPscratchDim=\dimen173
-\MPnumerator=\count299
-\makeMPintoPDFobject=\count300
-\everyMPtoPDFconversion=\toks27
+\scratchcounter=\count303
+\scratchdimen=\dimen176
+\scratchbox=\box56
+\nofMPsegments=\count304
+\nofMParguments=\count305
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count306
+\MPscratchDim=\dimen177
+\MPnumerator=\count307
+\makeMPintoPDFobject=\count308
+\everyMPtoPDFconversion=\toks28
 ) (/usr/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (/usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring OFF on input line 14.
+Package hyperref Info: Link coloring OFF on input line 19.
  (./laporan.out) (./laporan.out)
 \@outlinefile=\write3
 \openout3 = `laporan.out'.
@@ -343,11 +371,13 @@ Package hyperref Info: Link coloring OFF on input line 14.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-<Logo_PENS.png, id=40, 392.46625pt x 373.395pt>
+\c@lstlisting=\count309
+<Logo_PENS.png, id=56, 392.46625pt x 373.395pt>
 File: Logo_PENS.png Graphic file (type png)
 <use Logo_PENS.png>
-Package pdftex.def Info: Logo_PENS.png  used on input line 24.
+Package pdftex.def Info: Logo_PENS.png  used on input line 29.
 (pdftex.def)             Requested size: 181.18439pt x 172.38481pt.
 [1
 
@@ -355,38 +385,64 @@ Package pdftex.def Info: Logo_PENS.png  used on input line 24.
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.90     \item \texttt
-                      {amsmath} untuk menulis rumus matematika. [1{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-Overfull \hbox (8.03113pt too wide) in paragraph at lines 98--99
-\OT1/cmr/m/n/12 LaTeX san-gat berguna un-tuk menulis ru-mus matem-atika dan meny-isip-kan gam-bar. Berikut
- []
-
-<../assets/banner.png, id=56, 501.875pt x 282.05376pt>
+l.79 
+      [1{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+<./Makefile.png, id=72, 723.45282pt x 268.00125pt>
+File: ./Makefile.png Graphic file (type png)
+<use ./Makefile.png>
+Package pdftex.def Info: ./Makefile.png  used on input line 105.
+(pdftex.def)             Requested size: 452.9679pt x 167.80296pt.
+ [2] (/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/02/21 1.10 listings language file
+) (/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/02/21 1.10 listings language file
+)
+<./Make.png, id=78, 739.26187pt x 87.32625pt>
+File: ./Make.png Graphic file (type png)
+<use ./Make.png>
+Package pdftex.def Info: ./Make.png  used on input line 119.
+(pdftex.def)             Requested size: 452.9679pt x 53.50745pt.
+<./Main.png, id=79, 737.75626pt x 137.7647pt>
+File: ./Main.png Graphic file (type png)
+<use ./Main.png>
+Package pdftex.def Info: ./Main.png  used on input line 133.
+(pdftex.def)             Requested size: 452.9679pt x 84.58498pt.
+<./Welcome.png, id=80, 877.02657pt x 625.58719pt>
+File: ./Welcome.png Graphic file (type png)
+<use ./Welcome.png>
+Package pdftex.def Info: ./Welcome.png  used on input line 144.
+(pdftex.def)             Requested size: 452.9679pt x 323.11171pt.
+ [3 <./Makefile.png> <./Make.png> <./Main.png>]
+<../assets/banner.png, id=95, 501.875pt x 282.05376pt>
 File: ../assets/banner.png Graphic file (type png)
 <use ../assets/banner.png>
-Package pdftex.def Info: ../assets/banner.png  used on input line 106.
+Package pdftex.def Info: ../assets/banner.png  used on input line 171.
 (pdftex.def)             Requested size: 226.48395pt x 127.28453pt.
-[2 <../assets/banner.png>] (./laporan.aux)
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[4 <./Welcome.png>] [5 <../assets/banner.png>] (./laporan.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
 Package rerunfilecheck Info: File `laporan.out' has not changed.
-(rerunfilecheck)             Checksum: 0AD62E12547AC26DCE02EF33208E0615;944.
+(rerunfilecheck)             Checksum: FB2AC02ED54D1B3113FB48D6C362133A;1638.
  ) 
 Here is how much of TeX's memory you used:
- 11001 strings out of 476076
- 173258 string characters out of 5793775
- 1934187 words of memory out of 5000000
- 32987 multiletter control sequences out of 15000+600000
- 565100 words of font info for 60 fonts, out of 8000000 for 9000
+ 12827 strings out of 476076
+ 198334 string characters out of 5793775
+ 1935187 words of memory out of 5000000
+ 34773 multiletter control sequences out of 15000+600000
+ 564753 words of font info for 59 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,7n,79p,356b,509s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on laporan.pdf (3 pages, 196772 bytes).
+ 75i,7n,79p,696b,1133s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on laporan.pdf (6 pages, 585876 bytes).
 PDF statistics:
- 110 PDF objects out of 1000 (max. 8388607)
- 84 compressed objects within 1 object stream
- 15 named destinations out of 1000 (max. 500000)
- 83 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 162 PDF objects out of 1000 (max. 8388607)
+ 122 compressed objects within 2 object streams
+ 30 named destinations out of 1000 (max. 500000)
+ 135 words of extra memory for PDF output out of 10000 (max. 10000000)
 
