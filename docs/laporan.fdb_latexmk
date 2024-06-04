@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1717518857.35213 "/home/chitanda/Mei24/myber/docs/laporan.tex" "laporan.pdf" "laporan" 1717518858.17157 0
-  "/home/chitanda/Mei24/myber/docs/laporan.tex" 1717518664.22435 8205 7a54547d42c40a543ef145002cb9d066 ""
+["pdflatex"] 1717519014.49019 "/home/chitanda/Mei24/myber/docs/laporan.tex" "laporan.pdf" "laporan" 1717519015.28671 0
+  "/home/chitanda/Mei24/myber/docs/laporan.tex" 1717519014.04731 8213 06430e0401f5e9beba20e44a540e1ab9 ""
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1716849630 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1716849630 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1716849630 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
@@ -92,9 +92,9 @@
   "Make.png" 1717516918.5892 19360 1dd4a2449ed0e7fbeefc1fa8aaa38b8d ""
   "Makefile.png" 1717516918.5892 47109 3e75196a77cb12eb17cadafa80e9d6c3 ""
   "Welcome.png" 1717516918.5902 364005 71c669d3d924deb305814a113f521c8f ""
-  "laporan.aux" 1717518858.09371 2326 e1a9a22857e9efc6219389fbe830f21d "pdflatex"
-  "laporan.out" 1717518858.09471 1638 fb2ac02ed54d1b3113fb48d6c362133a "pdflatex"
-  "laporan.tex" 1717518664.22435 8205 7a54547d42c40a543ef145002cb9d066 ""
+  "laporan.aux" 1717519015.2193 2326 e1a9a22857e9efc6219389fbe830f21d "pdflatex"
+  "laporan.out" 1717519015.2193 1638 fb2ac02ed54d1b3113fb48d6c362133a "pdflatex"
+  "laporan.tex" 1717519014.04731 8213 06430e0401f5e9beba20e44a540e1ab9 ""
   (generated)
   "laporan.aux"
   "laporan.log"
