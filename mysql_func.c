@@ -165,10 +165,10 @@ int login_user(char *user, char *pw, UserDetails *user_details)
     return success;
 }
 
-void insert_flight_data(char *no_pener, char *maskapai, char *kelas, char *asal, char *tujuan, char *tgl_berangkat, char *waktu_ber, char *waktu_kedatang, char *harga)
+void insert_flight_data(char *no_pener, char *maskapai, char *kelas, char *asal, char *tujuan, char *tgl_berangkat, char *waktu_ber, char *tgl_datang, char *waktu_kedatang, char *harga)
 {
     char query[256];
-    sprintf(query, "INSERT INTO data_penerbangan values(NULL,'%s', '%s', '%s', '%s', '%s','%s','%s','%s','%s');", no_pener, maskapai, kelas, asal, tujuan, tgl_berangkat, waktu_ber, waktu_kedatang, harga);
+    sprintf(query, "INSERT INTO data_penerbangan values(NULL,'%s', '%s', '%s', '%s', '%s','%s','%s','%s','%s','%s');", no_pener, maskapai, kelas, asal, tujuan, tgl_berangkat, waktu_ber, tgl_datang, waktu_kedatang, harga);
     if (mysql_query(conn, query))
     {
         fprintf(stderr, "mysql_query() failed: %s\n", mysql_error(conn));
@@ -301,7 +301,7 @@ int get_data_penerbangan(FlightDetails *flight_details)
 
         for (i = 0; i < num_fields; i++)
         {
-            flight_details[j].no_id = atoi(row[0] ? row[0] : "NULL");
+            flight_details[j].no_id = atoi(row[0] ? row[0] : 0);
             strcpy(flight_details[j].no_penerbangan, row[1] ? row[1] : "NULL");
             strcpy(flight_details[j].maskapai, row[2] ? row[2] : "NULL");
             strcpy(flight_details[j].kelas, row[3] ? row[3] : "NULL");
@@ -309,8 +309,10 @@ int get_data_penerbangan(FlightDetails *flight_details)
             strcpy(flight_details[j].tujuan, row[5] ? row[5] : "NULL");
             strcpy(flight_details[j].tgl_berangkat, row[6] ? row[6] : "NULL");
             strcpy(flight_details[j].waktu_keberangkatan, row[7] ? row[7] : "NULL");
-            strcpy(flight_details[j].waktu_kedatangan, row[8] ? row[8] : "NULL");
-            strcpy(flight_details[j].harga, row[9] ? row[9] : "NULL");
+            strcpy(flight_details[j].tgl_datang, row[8] ? row[8] : "NULL");
+            strcpy(flight_details[j].waktu_kedatangan, row[9] ? row[9] : "NULL");
+            flight_details[j].harga = atoi(row[10] ? row[10] : 0);
+
             // printf("%s", row[i] ? row[i] : "NULL");
             // printf("[%.*s] ", (int)lengths[i],
             //        row[i] ? row[i] : "NULL");

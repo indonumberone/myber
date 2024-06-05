@@ -71,7 +71,13 @@ enum
     FILE_NAME,
     FILE_MASKAPAI,
     FILE_KELAS,
-    FILE_OFFSET,
+    FILE_ASAL,
+    FILE_TUJUAN,
+    FILE_TGL_BERANGKAT,
+    FILE_WAKTU_B,
+    FILE_TGL_DATANG,
+    FILE_WAKTU_T,
+    FILE_HARGA,
     FILE_SIZE,
     FILE_DESCRIPTION,
     COLOR,
@@ -747,7 +753,7 @@ void on_save_button_clicked(GtkWidget *button, gpointer data)
     }
     else
     {
-        insert_flight_data(no_penerbangan, entry_maskapai, entry_kelas, nama_asal, nama_tujuan, jadwal_berangkat, jam_keberangkatan, jam_datang, harganya);
+        insert_flight_data(no_penerbangan, entry_maskapai, entry_kelas, nama_asal, nama_tujuan, jadwal_berangkat, jam_keberangkatan, jadwal_datang, jam_datang, harganya);
         g_print("suksess");
     }
 
@@ -962,6 +968,12 @@ GtkWidget *show_history_data(GtkWidget *parent_windows)
                                G_TYPE_STRING, /* FILE_NAME */
                                G_TYPE_STRING, /* FILE_NAME */
                                G_TYPE_STRING, /* FILE_NAME */
+                               G_TYPE_STRING, /* FILE_NAME */
+                               G_TYPE_STRING, /* FILE_NAME */
+                               G_TYPE_STRING, /* FILE_NAME */
+                               G_TYPE_STRING, /* FILE_NAME */
+                               G_TYPE_STRING, /* FILE_NAME */
+                               G_TYPE_STRING, /* FILE_NAME */
                                G_TYPE_UINT,   /* FILE_OFFSET */
                                G_TYPE_UINT,   /* FILE_SIZE */
                                G_TYPE_STRING, /* FILE_DESCRIPTION */
@@ -980,8 +992,13 @@ GtkWidget *show_history_data(GtkWidget *parent_windows)
                                           FILE_NAME, flight_details[i].no_penerbangan,
                                           FILE_MASKAPAI, flight_details[i].maskapai,
                                           FILE_KELAS, flight_details[i].kelas,
-                                          FILE_OFFSET, 0,
-                                          FILE_SIZE, 10,
+                                          FILE_ASAL, flight_details[i].asal,
+                                          FILE_TUJUAN, flight_details[i].tujuan,
+                                          FILE_TGL_BERANGKAT, flight_details[i].tgl_berangkat,
+                                          FILE_WAKTU_B, flight_details[i].waktu_keberangkatan,
+                                          FILE_TGL_DATANG, flight_details[i].tgl_datang,
+                                          FILE_WAKTU_T, flight_details[i].waktu_kedatangan,
+                                          FILE_HARGA, flight_details[i].harga,
                                           -1);
     }
 
@@ -1001,7 +1018,7 @@ GtkWidget *show_history_data(GtkWidget *parent_windows)
     view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(model));
 
     g_object_unref(model);
-    column = gtk_tree_view_column_new_with_attributes("No",
+    column = gtk_tree_view_column_new_with_attributes("No Penerbangan",
                                                       gtk_cell_renderer_text_new(),
                                                       "text", FILE_NAME,
                                                       "background", COLOR,
@@ -1022,19 +1039,54 @@ GtkWidget *show_history_data(GtkWidget *parent_windows)
                                                       NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
 
-    column = gtk_tree_view_column_new_with_attributes("Offset",
-                                                      gtk_cell_renderer_spin_new(),
-                                                      "text", FILE_OFFSET,
+    column = gtk_tree_view_column_new_with_attributes("Asal Keberangkatan",
+                                                      gtk_cell_renderer_text_new(),
+                                                      "text", FILE_ASAL,
+                                                      "background", COLOR,
                                                       NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
 
-    column = gtk_tree_view_column_new_with_attributes("Size",
+    column = gtk_tree_view_column_new_with_attributes("Tujuan ",
                                                       gtk_cell_renderer_text_new(),
-                                                      "text", FILE_SIZE,
+                                                      "text", FILE_TUJUAN,
+                                                      "background", COLOR,
                                                       NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
+    column = gtk_tree_view_column_new_with_attributes("Tanggal Berangkat",
+                                                      gtk_cell_renderer_text_new(),
+                                                      "text", FILE_TGL_BERANGKAT,
+                                                      "background", COLOR,
+                                                      NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
+    column = gtk_tree_view_column_new_with_attributes("Waktu keberangkatan",
+                                                      gtk_cell_renderer_text_new(),
+                                                      "text", FILE_WAKTU_B,
+                                                      "background", COLOR,
+                                                      NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
+    column = gtk_tree_view_column_new_with_attributes("Tanggal kedatangan",
+                                                      gtk_cell_renderer_text_new(),
+                                                      "text", FILE_TGL_DATANG,
+                                                      "background", COLOR,
+                                                      NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
+
+    column = gtk_tree_view_column_new_with_attributes("Waktu kedatangan",
+                                                      gtk_cell_renderer_text_new(),
+                                                      "text", FILE_WAKTU_T,
+                                                      "background", COLOR,
+                                                      NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
+
+    column = gtk_tree_view_column_new_with_attributes("Harga Tiket Peaswat",
+                                                      gtk_cell_renderer_text_new(),
+                                                      "text", FILE_HARGA,
+                                                      "background", COLOR,
+                                                      NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
+
     GtkWidget *button;
-    button = gtk_button_new_with_label("Add row");
+    button = gtk_button_new_with_label("PILIH DATA");
     g_signal_connect(button, "clicked", G_CALLBACK(add_row), model);
 
     GtkWidget *scrollview = gtk_scrolled_window_new(NULL, NULL);
@@ -1069,7 +1121,7 @@ void create_welcome_admin_window(GtkWidget *parent_window)
 
     welcome_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(welcome_window), "Admin Panel");
-    gtk_window_set_default_size(GTK_WINDOW(welcome_window), 900, 600);
+    gtk_window_set_default_size(GTK_WINDOW(welcome_window), 1800, 600);
     gtk_container_set_border_width(GTK_CONTAINER(welcome_window), 10);
 
     grid = gtk_grid_new();

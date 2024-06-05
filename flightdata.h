@@ -11,8 +11,9 @@ typedef struct
     char tujuan[50];
     char tgl_berangkat[50];
     char waktu_keberangkatan[50];
+    char tgl_datang[50];
     char waktu_kedatangan[50];
-    char harga[50];
+    int harga;
 } FlightDetails;
 
 extern FlightDetails current_flight;
