@@ -11,5 +11,7 @@ void register_user(char *user, char *nama, char *pw);
 void insert_flight_data(char *no_pener, char *maskapai, char *kelas, char *asal, char *tujuan, char *tgl_berangkat, char *waktu_ber, char *waktu_kedatang, char *harga);
 int blocked(char *user);
 int freeblock(char *user);
-int test(char *test);
+int test();
+int get_jumlah_penerbangan();
+int get_data_penerbangan(FlightDetails *flight_details);
 #endif

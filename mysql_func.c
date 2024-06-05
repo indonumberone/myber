@@ -235,41 +235,134 @@ int blocked(char *user)
     return 0;
 }
 
-int test(char *test)
+int get_jumlah_penerbangan()
 {
-    // char *inilo;
-    // if (mysql_query(conn, "SELECT * FROM data_penerbangan"))
-    // {
-    //     fprintf(stderr, "SELECT * FROM data_penerbangan failed: %s\n", mysql_error(conn));
-    //     mysql_close(conn);
-    //     exit(1);
-    // }
+    unsigned int num_fields;
+    unsigned int num_rows;
+    unsigned int i;
 
-    // res = mysql_store_result(conn);
-    // if (res == NULL)
-    // {
-    //     fprintf(stderr, "mysql_store_result() failed: %s\n", mysql_error(conn));
-    //     mysql_close(conn);
-    //     exit(1);
-    // }
+    if (mysql_query(conn, "SELECT * FROM data_penerbangan"))
+    {
+        fprintf(stderr, "SELECT * FROM data_penerbangan failed: %s\n", mysql_error(conn));
+        mysql_close(conn);
+        exit(1);
+    }
 
-    // int num_fields = mysql_num_fields(res);
+    res = mysql_store_result(conn);
+    if (res == NULL)
+    {
+        fprintf(stderr, "mysql_store_result() failed: %s\n", mysql_error(conn));
+        mysql_close(conn);
+        exit(1);
+    }
 
+    num_rows = mysql_num_rows(res);
+    return num_rows;
+}
+
+int get_data_penerbangan(FlightDetails *flight_details)
+{
+    unsigned int num_fields;
+    unsigned int num_rows;
+    unsigned int count;
+    unsigned int i;
+
+    if (mysql_query(conn, "SELECT * FROM data_penerbangan"))
+    {
+        fprintf(stderr, "SELECT * FROM data_penerbangan failed: %s\n", mysql_error(conn));
+        mysql_close(conn);
+        exit(1);
+    }
+
+    res = mysql_store_result(conn);
+    if (res == NULL)
+    {
+        fprintf(stderr, "mysql_store_result() failed: %s\n", mysql_error(conn));
+        mysql_close(conn);
+        exit(1);
+    }
+
+    num_fields = mysql_num_fields(res);
+    num_rows = mysql_num_rows(res);
+
+    // FlightDetails flight_details[num_fields];
+
+for (int j = 0; j < num_rows; j++) 
     // while ((row = mysql_fetch_row(res)))
-    // {
-    //     int itu = 0;
-    //     for (int i = 0; i < num_fields; i++)
-    //     {
+    {
+        row = mysql_fetch_row(res);
+            // count = 0;
+        // unsigned long *lengths;
+        // lengths = mysql_fetch_lengths(res);
 
-    //         printf("%s i ke %d ", row[i] ? row[i] : "NULL", i);
-    //         memcpy(&inilo[itu][i], row[i], sizeof(inilo));
-    //     }
-    //     printf("\n");
-    //     printf("iki %d ,&s", strlen(inilo), test[1]);
-    //     itu++;
-    // }
+        // for (int j = 0; j < num_rows; j++) {
 
-    // mysql_free_result(res);
+            for (i = 0; i < num_fields; i++)
+            {
+                flight_details[j].no_id = atoi(row[0] ? row[0] : "NULL");
+                strcpy(flight_details[j].no_penerbangan, row[1] ? row[1] : "NULL");
+                strcpy(flight_details[j].maskapai, row[2] ? row[2] : "NULL");
+                strcpy(flight_details[j].kelas, row[3] ? row[3] : "NULL");
+                strcpy(flight_details[j].asal, row[4] ? row[4] : "NULL");
+                strcpy(flight_details[j].tujuan, row[5] ? row[5] : "NULL");
+                strcpy(flight_details[j].tgl_berangkat, row[6] ? row[6] : "NULL");
+                strcpy(flight_details[j].waktu_keberangkatan, row[7] ? row[7] : "NULL");
+                strcpy(flight_details[j].waktu_kedatangan, row[8] ? row[8] : "NULL");
+                strcpy(flight_details[j].harga, row[9] ? row[9] : "NULL");
+                // printf("%s", row[i] ? row[i] : "NULL");
+                // printf("[%.*s] ", (int)lengths[i],
+                //        row[i] ? row[i] : "NULL");
+            }
+            printf("\n");
+            // count++;
+        // }
+        
+    }
+
+    // printf("%d", count);
+
+    mysql_free_result(res);
+    // printf("%s", flight_details[0].no_penerbangan);
+    // printf("%s", flight_details[1].no_penerbangan);
+    // printf("%s", flight_details[2].no_penerbangan);
+    // printf("%s", flight_details[3].no_penerbangan);
+}
+
+int test()
+{
+    char *inilo;
+    if (mysql_query(conn, "SELECT * FROM data_penerbangan"))
+    {
+        fprintf(stderr, "SELECT * FROM data_penerbangan failed: %s\n", mysql_error(conn));
+        mysql_close(conn);
+        exit(1);
+    }
+
+    res = mysql_store_result(conn);
+    if (res == NULL)
+    {
+        fprintf(stderr, "mysql_store_result() failed: %s\n", mysql_error(conn));
+        mysql_close(conn);
+        exit(1);
+    }
+
+    int num_fields = mysql_num_fields(res);
+
+    while ((row = mysql_fetch_row(res)))
+    {
+        int itu = 0;
+        for (int i = 0; i < num_fields; i++)
+        {
+
+            printf("%s i ke %d ", row[i] ? row[i] : "NULL", i);
+            // memcpy(&inilo[itu][i], row[i], sizeof(inilo));
+        }
+        printf("\n");
+        // printf("iki %d ,&s", strlen(inilo), test[1]);
+        itu++;
+    }
+
+    mysql_free_result(res);
 }
 
 // set global event_scheduler = 1;

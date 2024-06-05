@@ -25,7 +25,7 @@ void logout_memory();
 void print_user_info();
 void insertmaskapai(GtkWidget *nama_maskapai_entry, GtkTreeIter list_maskapai);
 
-FlightDetails current_data;
+FlightDetails current_flight;
 UserDetails current_user;
 
 GtkWidget *customers_login_window;
@@ -69,6 +69,8 @@ gchar *entry_kelas;
 enum
 {
     FILE_NAME,
+    FILE_MASKAPAI,
+    FILE_KELAS,
     FILE_OFFSET,
     FILE_SIZE,
     FILE_DESCRIPTION,
@@ -113,11 +115,26 @@ void kelas_list(GtkComboBox *combo, gpointer user_data)
 
 void add_row(GtkWidget *widget, gpointer data)
 {
+    // int num_fields = get_jumlah_penerbangan();
+    // FlightDetails flight_details[num_fields];
+
+    // int res = get_data_penerbangan(flight_details);
+    // printf("%s", flight_details[0].no_penerbangan);
+    // printf("%s", flight_details[1].no_penerbangan);
+    // printf("%s", flight_details[2].no_penerbangan);
+    // printf("%s", flight_details[3].no_penerbangan);
+    // int num_fields = get_jumlah_penerbangan();
+    // FlightDetails flight_details[num_fields];
+    // int res = get_data_penerbangan(flight_details);
+    // printf("%s", flight_details[0].no_penerbangan);
+
     gtk_list_store_insert_with_values(data, NULL, -1,
                                       COLOR, "blue",
                                       -1);
-    char *iki;
-    test(iki);
+    // char *iki;
+    // test();
+    // get_data_penerbangan();
+    // cetak_data_pesawat();
 }
 
 int main(int argc, char *argv[])
@@ -304,6 +321,19 @@ void login_process_user(GtkWidget *widget, gpointer data)
         printf("hasil %d try %d\n", hasil, try);
     }
 }
+
+// void cetak_data_pesawat() {
+//     printf("no_id 1 : %s\n", flight_details[0].no_id);
+//     printf("no pen: %s\n", flight_details[0].no_penerbangan);
+//     printf("maskapai: %d\n", flight_details[0].maskapai);
+// }
+
+// void ambil_data_pesawat() {
+
+//     FlightDetails flight_details[3];
+
+//     get_data_penerbangan(flight_details[3], sizeof(flight_details) / sizeof(*flight_details));
+// }
 
 void create_user(GtkWidget *widget, gpointer data)
 {
@@ -896,29 +926,64 @@ GtkWidget *show_history_data(GtkWidget *parent_windows)
 
     model = gtk_list_store_new(N_COLUMNS,
                                G_TYPE_STRING, /* FILE_NAME */
+                               G_TYPE_STRING, /* FILE_NAME */
+                               G_TYPE_STRING, /* FILE_NAME */
                                G_TYPE_UINT,   /* FILE_OFFSET */
                                G_TYPE_UINT,   /* FILE_SIZE */
                                G_TYPE_STRING, /* FILE_DESCRIPTION */
                                G_TYPE_STRING  /* COLOR */
     );
-    gtk_list_store_insert_with_values(model, NULL, -1,
-                                      FILE_NAME, "test name",
-                                      FILE_OFFSET, 0,
-                                      FILE_SIZE, 10,
-                                      -1);
-    gtk_list_store_insert_with_values(model, NULL, -1,
-                                      FILE_NAME, "Dummy",
-                                      FILE_OFFSET, 123,
-                                      COLOR, "black",
-                                      -1);
+
+    int num_rows = get_jumlah_penerbangan();
+    printf("%d", num_rows);
+    FlightDetails flight_details[num_rows];
+
+    int res = get_data_penerbangan(flight_details);
+
+    for (int i = 0; i < num_rows; i++)
+    {
+        gtk_list_store_insert_with_values(model, NULL, -1,
+                                          FILE_NAME, flight_details[i].no_penerbangan,
+                                          FILE_MASKAPAI, flight_details[i].maskapai,
+                                          FILE_KELAS, flight_details[i].kelas,
+                                          FILE_OFFSET, 0,
+                                          FILE_SIZE, 10,
+                                          -1);
+    }
+
+    // gtk_list_store_insert_with_values(model, NULL, -1,
+    //                                   FILE_NAME, "test name",
+    //                                   FILE_OFFSET, 0,
+    //                                   FILE_SIZE, 10,
+    //                                   -1);
+
+    // gtk_list_store_insert_with_values(model, NULL, -1,
+    //                                   FILE_NAME, "Dummy",
+    //                                   FILE_OFFSET, 123,
+    //                                   COLOR, "black",
+    //                                   -1);
 
     /* VIEW */
     view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(model));
 
     g_object_unref(model);
-    column = gtk_tree_view_column_new_with_attributes("Name",
+    column = gtk_tree_view_column_new_with_attributes("No",
                                                       gtk_cell_renderer_text_new(),
                                                       "text", FILE_NAME,
+                                                      "background", COLOR,
+                                                      NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
+
+    column = gtk_tree_view_column_new_with_attributes("Maskapai",
+                                                      gtk_cell_renderer_text_new(),
+                                                      "text", FILE_MASKAPAI,
+                                                      "background", COLOR,
+                                                      NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
+
+    column = gtk_tree_view_column_new_with_attributes("Kelas",
+                                                      gtk_cell_renderer_text_new(),
+                                                      "text", FILE_KELAS,
                                                       "background", COLOR,
                                                       NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
@@ -945,6 +1010,7 @@ GtkWidget *show_history_data(GtkWidget *parent_windows)
     gtk_widget_set_vexpand(scrollview, TRUE);
     gtk_container_add(GTK_CONTAINER(show_history_page), scrollview);
     gtk_container_add(GTK_CONTAINER(show_history_page), button);
+
     return show_history_page;
 }
 
