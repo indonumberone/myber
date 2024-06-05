@@ -619,7 +619,7 @@ void on_save_button_clicked(GtkWidget *button, gpointer data)
     const gchar *nama_tujuan = gtk_entry_get_text(GTK_ENTRY(nama_tujuan_entry));
     const gchar *jadwal_berangkat = gtk_button_get_label(GTK_BUTTON(jadwal_keberangakatan_button));
     const gchar *jadwal_datang = gtk_button_get_label(GTK_BUTTON(jadwal_kedatangan_button));
-    const gint *harga = gtk_entry_get_text(GTK_ENTRY(harga_entry));
+    const gchar *harganya = gtk_entry_get_text(GTK_ENTRY(harga_entry));
 
     // const gchar *nama_tujuan_entry = gtk_entry_get_text(GTK_ENTRY(maskapaine_entry));
     gint jam_berangkat = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(jam_keberangkatan));
@@ -627,15 +627,16 @@ void on_save_button_clicked(GtkWidget *button, gpointer data)
     gint jam_kedatangannya = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(jam_kedatangan));
     gint menit_kedatangannya = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(menit_kedatangan));
 
+    char jam_keberangkatan[100];
+    sprintf(jam_keberangkatan, "%02d:%02d:00", jam_berangkat, menit_berangkat);
+    char jam_datang[100];
+    sprintf(jam_datang, "%02d:%02d:00", jam_kedatangannya, menit_kedatangannya);
+
     // g_print("no penerbangan: %s\n", no_penerbangan);
     // g_print("Maskapai: %s\n", entry_maskapai);
     // g_print("Kelas: %s\n", entry_kelas);
     // g_print("Asal: %s\n", nama_asal);
     // g_print("Tujuan: %s\n", nama_tujuan);
-    char *jam_keberangkatan;
-    sprintf(jam_keberangkatan, "%02d:%02d:00", jam_berangkat, menit_berangkat);
-    char *jam_datang;
-    sprintf(jam_datang, "%02d:%02d:00", jam_kedatangannya, menit_kedatangannya);
     //  printf("%s iki jam", jam_keberangkatan);
     //  g_print("jadwal berangkat: %s\n", jadwal_berangkat);
     //  g_print("jam berangkat: %s", jam_berangkat);
@@ -643,7 +644,7 @@ void on_save_button_clicked(GtkWidget *button, gpointer data)
     //  g_print("jam datang: %s\n", jam_keberangkatan);
     //  g_print("jam brangkat: %s\n", jam_datang);
     //  g_print("harga %d\n", harga);
-    //  insert_flight_data(no_penerbangan, entry_maskapai, entry_kelas, nama_asal, nama_tujuan, jadwal_berangkat, jam_keberangkatan, jam_datang, harga);
+    insert_flight_data(no_penerbangan, entry_maskapai, entry_kelas, nama_asal, nama_tujuan, jadwal_berangkat, jam_keberangkatan, jam_datang, harganya);
     g_print("suksess");
 
     //  strcpy(flight_details.asal, nama_asal);
