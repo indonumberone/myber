@@ -1,6 +1,6 @@
 #include <gtk/gtk.h>
 #include <stdio.h>
-// #include <string.h>
+#include <string.h>
 #include "mysql_func.h"
 #include "userinfo.h"
 #include "flightdata.h"
@@ -34,6 +34,8 @@ GtkWidget *username_entry;
 GtkWidget *name_entry;
 GtkWidget *password_entry;
 GtkWidget *intine_window;
+GtkWidget *alert_warningin;
+
 GtkWidget *welcome_window;
 GtkWidget *customer_register_window;
 GtkWidget *banner_label;
@@ -224,22 +226,20 @@ void login_process_admin(GtkWidget *widget, gpointer data)
 {
 
     GtkWidget *current_window = GTK_WIDGET(data);
-    gtk_widget_hide(admin_login_window);
 
     const gchar *username = gtk_entry_get_text(GTK_ENTRY(username_entry));
     const gchar *password = gtk_entry_get_text(GTK_ENTRY(password_entry));
 
     if (check_user(username) == 0)
     {
-        gchar *alert_block = g_strdup_printf("User tidak ditemukan");
-        gtk_label_set_text(GTK_LABEL(banner_label), alert_block);
-        g_free(alert_block);
+        gchar *alert_warning = g_strdup_printf("User tidak ditemukan");
+        gtk_label_set_text(GTK_LABEL(banner_label), alert_warning);
+        g_free(alert_warning);
 
-        gtk_widget_show_all(admin_login_window);
+        gtk_widget_show_all(current_window);
     }
     else
     {
-
         int hasil = login_admin(username, password);
         if (hasil == 0)
         {
@@ -613,6 +613,8 @@ void show_calendar(GtkWidget *button, gpointer data)
 
 void on_save_button_clicked(GtkWidget *button, gpointer data)
 {
+
+    // GtkWidget *current_window = GTK_WIDGET(data);
     // FormData *form_data = (FormData *)data;
     const gchar *no_penerbangan = gtk_entry_get_text(GTK_ENTRY(no_penerbangan_pesawat_entry));
     const gchar *nama_asal = gtk_entry_get_text(GTK_ENTRY(nama_asal_entry));
@@ -620,17 +622,70 @@ void on_save_button_clicked(GtkWidget *button, gpointer data)
     const gchar *jadwal_berangkat = gtk_button_get_label(GTK_BUTTON(jadwal_keberangakatan_button));
     const gchar *jadwal_datang = gtk_button_get_label(GTK_BUTTON(jadwal_kedatangan_button));
     const gchar *harganya = gtk_entry_get_text(GTK_ENTRY(harga_entry));
-
-    // const gchar *nama_tujuan_entry = gtk_entry_get_text(GTK_ENTRY(maskapaine_entry));
     gint jam_berangkat = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(jam_keberangkatan));
     gint menit_berangkat = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(menit_keberangkatan));
     gint jam_kedatangannya = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(jam_kedatangan));
     gint menit_kedatangannya = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(menit_kedatangan));
-
+    g_print("value ne %s\t\t\tiki\n", no_penerbangan);
     char jam_keberangkatan[100];
     sprintf(jam_keberangkatan, "%02d:%02d:00", jam_berangkat, menit_berangkat);
     char jam_datang[100];
     sprintf(jam_datang, "%02d:%02d:00", jam_kedatangannya, menit_kedatangannya);
+    printf("nilai ne %d\t\n", strlen(jam_keberangkatan));
+    if (strlen(no_penerbangan) == 0)
+    {
+        gchar *alert_block = g_strdup_printf("no penerbangan kosong");
+        gtk_label_set_text(GTK_LABEL(alert_warningin), alert_block);
+        g_free(alert_block);
+        // gtk_widget_show_all(create_input_data_page);
+    }
+    else if (strlen(entry_maskapai) == 0)
+    {
+        gchar *alert_block = g_strdup_printf("Nama maskapai kosong");
+        gtk_label_set_text(GTK_LABEL(alert_warningin), alert_block);
+        g_free(alert_block);
+    }
+    else if (strlen(entry_kelas) == 0)
+    {
+        gchar *alert_block = g_strdup_printf("Kelas penumpang kosong");
+        gtk_label_set_text(GTK_LABEL(alert_warningin), alert_block);
+        g_free(alert_block);
+    }
+    else if (strlen(nama_asal) == 0)
+    {
+        gchar *alert_block = g_strdup_printf("keberangkatan kosong");
+        gtk_label_set_text(GTK_LABEL(alert_warningin), alert_block);
+        g_free(alert_block);
+    }
+    else if (strlen(nama_tujuan) == 0)
+    {
+        gchar *alert_block = g_strdup_printf("kedatangan kosong");
+        gtk_label_set_text(GTK_LABEL(alert_warningin), alert_block);
+        g_free(alert_block);
+    }
+    else if (strlen(jadwal_berangkat) == 26)
+    {
+        gchar *alert_block = g_strdup_printf("jadwal keberangkatan kosong");
+        gtk_label_set_text(GTK_LABEL(alert_warningin), alert_block);
+        g_free(alert_block);
+    }
+    else if (strlen(jadwal_datang) == 0)
+    {
+        gchar *alert_block = g_strdup_printf("jadwal kedatangan kosong");
+        gtk_label_set_text(GTK_LABEL(alert_warningin), alert_block);
+        g_free(alert_block);
+    }
+    else if (strlen(harganya) == 0)
+    {
+        gchar *alert_block = g_strdup_printf("harganya kosong");
+        gtk_label_set_text(GTK_LABEL(alert_warningin), alert_block);
+        g_free(alert_block);
+    }
+    else
+    {
+        insert_flight_data(no_penerbangan, entry_maskapai, entry_kelas, nama_asal, nama_tujuan, jadwal_berangkat, jam_keberangkatan, jam_datang, harganya);
+        g_print("suksess");
+    }
 
     // g_print("no penerbangan: %s\n", no_penerbangan);
     // g_print("Maskapai: %s\n", entry_maskapai);
@@ -644,8 +699,6 @@ void on_save_button_clicked(GtkWidget *button, gpointer data)
     //  g_print("jam datang: %s\n", jam_keberangkatan);
     //  g_print("jam brangkat: %s\n", jam_datang);
     //  g_print("harga %d\n", harga);
-    insert_flight_data(no_penerbangan, entry_maskapai, entry_kelas, nama_asal, nama_tujuan, jadwal_berangkat, jam_keberangkatan, jam_datang, harganya);
-    g_print("suksess");
 
     //  strcpy(flight_details.asal, nama_asal);
     //  strcpy(flight_details.tujuan, nama_tujuan);
@@ -777,10 +830,16 @@ GtkWidget *create_input_data_page(GtkWidget *parent_window)
     menit_kedatangan = gtk_spin_button_new_with_range(0, 59, 1);
 
     GtkWidget *save_button = gtk_button_new_with_label("Simpan");
-    g_signal_connect(save_button, "clicked", G_CALLBACK(on_save_button_clicked), NULL);
+    g_signal_connect(save_button, "clicked", G_CALLBACK(on_save_button_clicked), parent_window);
     GtkWidget *waktu_keberangakatan = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
     GtkWidget *waktu_kedatangan = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
-
+    alert_warningin = gtk_label_new(NULL);
+    PangoAttrList *attr_list = pango_attr_list_new();
+    PangoAttribute *attr_size = pango_attr_size_new_absolute(30 * PANGO_SCALE);
+    pango_attr_list_insert(attr_list, attr_size);
+    gtk_label_set_attributes(GTK_LABEL(alert_warningin), attr_list);
+    pango_attr_list_unref(attr_list);
+    gtk_box_pack_start(GTK_BOX(data_input), alert_warningin, FALSE, FALSE, 5);
     gtk_box_pack_start(GTK_BOX(data_input), no_penerbangan_pesawat_label, FALSE, FALSE, 5);
     gtk_box_pack_start(GTK_BOX(data_input), no_penerbangan_pesawat_entry, FALSE, FALSE, 5);
     gtk_box_pack_start(GTK_BOX(data_input), nama_maskapai_label, FALSE, FALSE, 5);
@@ -891,7 +950,7 @@ GtkWidget *show_history_data(GtkWidget *parent_windows)
 
 void create_welcome_admin_window(GtkWidget *parent_window)
 {
-
+    gtk_widget_hide(parent_window);
     GtkWidget *data_history;
     GtkWidget *data_input;
     GtkWidget *hdata_history;
