@@ -165,12 +165,10 @@ int login_user(char *user, char *pw, UserDetails *user_details)
     return success;
 }
 
-void insert_flight_data(char *asal, char *tujuan)
+void insert_flight_data(char *no_pener, char *maskapai, char *kelas, char *asal, char *tujuan, char *tgl_berangkat, char *waktu_ber, char *waktu_kedatang, char *harga)
 {
     char query[256];
-
-    sprintf(query, "INSERT INTO test values('%s', '%s');", asal, tujuan);
-
+    sprintf(query, "INSERT INTO data_penerbangan values(NULL,'%s', '%s', '%s', '%s', '%s','%s','%s','%s','%s');", no_pener, maskapai, kelas, asal, tujuan, tgl_berangkat, waktu_ber, waktu_kedatang, harga);
     if (mysql_query(conn, query))
     {
         fprintf(stderr, "mysql_query() failed: %s\n", mysql_error(conn));
@@ -237,35 +235,41 @@ int blocked(char *user)
     return 0;
 }
 
-int test()
+int test(char *test)
 {
-    if (mysql_query(conn, "SELECT * FROM data_penerbangan"))
-    {
-        fprintf(stderr, "SELECT * FROM data_penerbangan failed: %s\n", mysql_error(conn));
-        mysql_close(conn);
-        exit(1);
-    }
+    // char *inilo;
+    // if (mysql_query(conn, "SELECT * FROM data_penerbangan"))
+    // {
+    //     fprintf(stderr, "SELECT * FROM data_penerbangan failed: %s\n", mysql_error(conn));
+    //     mysql_close(conn);
+    //     exit(1);
+    // }
 
-    res = mysql_store_result(conn);
-    if (res == NULL)
-    {
-        fprintf(stderr, "mysql_store_result() failed: %s\n", mysql_error(conn));
-        mysql_close(conn);
-        exit(1);
-    }
+    // res = mysql_store_result(conn);
+    // if (res == NULL)
+    // {
+    //     fprintf(stderr, "mysql_store_result() failed: %s\n", mysql_error(conn));
+    //     mysql_close(conn);
+    //     exit(1);
+    // }
 
-    int num_fields = mysql_num_fields(res);
+    // int num_fields = mysql_num_fields(res);
 
-    while ((row = mysql_fetch_row(res)))
-    {
-        for (int i = 0; i < num_fields; i++)
-        {
+    // while ((row = mysql_fetch_row(res)))
+    // {
+    //     int itu = 0;
+    //     for (int i = 0; i < num_fields; i++)
+    //     {
 
-            printf("%s i ke %d ", row[i] ? row[i] : "NULL", i);
-        }
-        printf("\n");
-    }
-    mysql_free_result(res);
+    //         printf("%s i ke %d ", row[i] ? row[i] : "NULL", i);
+    //         memcpy(&inilo[itu][i], row[i], sizeof(inilo));
+    //     }
+    //     printf("\n");
+    //     printf("iki %d ,&s", strlen(inilo), test[1]);
+    //     itu++;
+    // }
+
+    // mysql_free_result(res);
 }
 
 // set global event_scheduler = 1;
