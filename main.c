@@ -343,22 +343,56 @@ void create_user(GtkWidget *widget, gpointer data)
     const gchar *username = gtk_entry_get_text(GTK_ENTRY(username_entry));
     const gchar *name = gtk_entry_get_text(GTK_ENTRY(name_entry));
     const gchar *password = gtk_entry_get_text(GTK_ENTRY(password_entry));
-
+    printf("size e user%d", strlen(username));
+    printf("size e nama%d", strlen(name));
+    printf("size e pass%d", strlen(password));
     g_print("Username: %s\n", username);
     g_print("Name: %s\n", name);
     g_print("Password: %s\n", password);
+    if (strlen(username) == 0)
+    {
+        gchar *alert_block = g_strdup_printf("USERNAME WAJIB DIISI!!!");
+        gtk_label_set_text(GTK_LABEL(banner_label), alert_block);
+        g_free(alert_block);
+        gtk_widget_show_all(customer_register_window);
+    }
+    else if (strlen(name) == 0)
+    {
+        gchar *alert_block = g_strdup_printf("NAMA WAJIB DIISI!!!");
+        gtk_label_set_text(GTK_LABEL(banner_label), alert_block);
+        g_free(alert_block);
+        gtk_widget_show_all(customer_register_window);
+    }
+    else if (strlen(password) == 0)
+    {
+        gchar *alert_block = g_strdup_printf("PASSWORD WAJIB DIISI!!!");
+        gtk_label_set_text(GTK_LABEL(banner_label), alert_block);
+        g_free(alert_block);
+        gtk_widget_show_all(customer_register_window);
+    }
+    else
+    {
 
-    register_user(username, name, password);
+        int hasile = register_user(username, name, password);
+        if (hasile == 0)
+        {
+            gchar *alert_block = g_strdup_printf("Berhasil register, silahkan login!");
+            gtk_label_set_text(GTK_LABEL(banner_label), alert_block);
+            g_free(alert_block);
+            create_login_user_window(current_window);
+        }
+        else if (hasile == 1)
+        {
+            gchar *alert_block = g_strdup_printf("Username sudah digunakan");
+            gtk_label_set_text(GTK_LABEL(banner_label), alert_block);
+            g_free(alert_block);
+            gtk_widget_show_all(customer_register_window);
+        }
+    }
 
     printf("User: %s, Pw: %s", username, password);
 
-    create_login_user_window(current_window);
-
-    gchar *alert_block = g_strdup_printf("Berhasil register, silahkan login!");
-    gtk_label_set_text(GTK_LABEL(banner_label), alert_block);
-    g_free(alert_block);
-
-    gtk_widget_show_all(customers_login_window);
+    // gtk_widget_show_all(customers_login_window);
 }
 
 void create_login_admin_window(GtkWidget *parent_window)

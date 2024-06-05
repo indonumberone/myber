@@ -207,7 +207,7 @@ int login_admin(char *user, char *pw)
     return success;
 }
 
-void register_user(char *user, char *nama, char *pw)
+int register_user(char *user, char *nama, char *pw)
 {
     char query[256];
 
@@ -217,7 +217,9 @@ void register_user(char *user, char *nama, char *pw)
     if (mysql_query(conn, query))
     {
         fprintf(stderr, "mysql_query() failed: %s\n", mysql_error(conn));
+        return 1;
     }
+    return 0;
 }
 
 int blocked(char *user)
@@ -287,36 +289,35 @@ int get_data_penerbangan(FlightDetails *flight_details)
 
     // FlightDetails flight_details[num_fields];
 
-for (int j = 0; j < num_rows; j++) 
+    for (int j = 0; j < num_rows; j++)
     // while ((row = mysql_fetch_row(res)))
     {
         row = mysql_fetch_row(res);
-            // count = 0;
+        // count = 0;
         // unsigned long *lengths;
         // lengths = mysql_fetch_lengths(res);
 
         // for (int j = 0; j < num_rows; j++) {
 
-            for (i = 0; i < num_fields; i++)
-            {
-                flight_details[j].no_id = atoi(row[0] ? row[0] : "NULL");
-                strcpy(flight_details[j].no_penerbangan, row[1] ? row[1] : "NULL");
-                strcpy(flight_details[j].maskapai, row[2] ? row[2] : "NULL");
-                strcpy(flight_details[j].kelas, row[3] ? row[3] : "NULL");
-                strcpy(flight_details[j].asal, row[4] ? row[4] : "NULL");
-                strcpy(flight_details[j].tujuan, row[5] ? row[5] : "NULL");
-                strcpy(flight_details[j].tgl_berangkat, row[6] ? row[6] : "NULL");
-                strcpy(flight_details[j].waktu_keberangkatan, row[7] ? row[7] : "NULL");
-                strcpy(flight_details[j].waktu_kedatangan, row[8] ? row[8] : "NULL");
-                strcpy(flight_details[j].harga, row[9] ? row[9] : "NULL");
-                // printf("%s", row[i] ? row[i] : "NULL");
-                // printf("[%.*s] ", (int)lengths[i],
-                //        row[i] ? row[i] : "NULL");
-            }
-            printf("\n");
-            // count++;
+        for (i = 0; i < num_fields; i++)
+        {
+            flight_details[j].no_id = atoi(row[0] ? row[0] : "NULL");
+            strcpy(flight_details[j].no_penerbangan, row[1] ? row[1] : "NULL");
+            strcpy(flight_details[j].maskapai, row[2] ? row[2] : "NULL");
+            strcpy(flight_details[j].kelas, row[3] ? row[3] : "NULL");
+            strcpy(flight_details[j].asal, row[4] ? row[4] : "NULL");
+            strcpy(flight_details[j].tujuan, row[5] ? row[5] : "NULL");
+            strcpy(flight_details[j].tgl_berangkat, row[6] ? row[6] : "NULL");
+            strcpy(flight_details[j].waktu_keberangkatan, row[7] ? row[7] : "NULL");
+            strcpy(flight_details[j].waktu_kedatangan, row[8] ? row[8] : "NULL");
+            strcpy(flight_details[j].harga, row[9] ? row[9] : "NULL");
+            // printf("%s", row[i] ? row[i] : "NULL");
+            // printf("[%.*s] ", (int)lengths[i],
+            //        row[i] ? row[i] : "NULL");
+        }
+        printf("\n");
+        // count++;
         // }
-        
     }
 
     // printf("%d", count);
