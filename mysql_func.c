@@ -5,6 +5,7 @@
 #include "mysql_func.h"
 #include "userinfo.h"
 #include "flightdata.h"
+#include "ticket.h"
 
 MYSQL *conn;
 MYSQL_RES *res;
@@ -168,7 +169,7 @@ int login_user(char *user, char *pw, UserDetails *user_details)
 int get_order_history(char *name, TicketDetails *ticket_details)
 {
     char query[256];
-    sprintf(query, "SELECT id_tiket, nama, no_penerbangan FROM tiket WHERE nama = '%s', name);
+    sprintf(query, "SELECT id_tiket, nama, no_penerbangan FROM tiket WHERE  = '%s'", name);
 
     if (mysql_query(conn, query))
     {
@@ -182,9 +183,9 @@ int get_order_history(char *name, TicketDetails *ticket_details)
 
     if (success)
     {
-        strcpy(user_details->username, row[0]);
-        strcpy(user_details->name, row[1]);
-        user_details->is_admin = atoi(row[2]);
+        ticket_details->id_tiket = atoi(row[0]);
+        strcpy(ticket_details->nama, row[1]);
+        strcpy(ticket_details->no_penerbangan, row[2]);
     }
 
     mysql_free_result(res);
