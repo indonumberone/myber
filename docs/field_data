@@ -1,13 +1,3 @@
-create table tiket(
-id_tiket int,
-no_tiket int not null auto_increment,
-nama varchar(100) not null,
-no_penerbangan varchar(100) not null,
-PRIMARY KEY (no_tiket),
-FOREIGN KEY (id_tiket) REFERENCES data_penerbangan(no_id)
-);
-
-
 create table data_penerbangan(
 no_id int auto_increment not null,
 no_penerbangan varchar(100) not null,
@@ -23,14 +13,36 @@ harga int not null,
 PRIMARY KEY (no_id)
 );
 
-create table users(
-username varchar(100) not null,
+
+create table tiket(
+id_tiket int,
+no_tiket int not null auto_increment,
 nama varchar(100) not null,
-password varchar(100) not null,
-blocked Boolean default false,
-blocked_until timestamp null,
-admin Boolean default false,
-order_id int,
-PRIMARY KEY (username),
-FOREIGN KEY (order_id) REFERENCES tiket(no_tiket)
+no_penerbangan varchar(100) not null,
+PRIMARY KEY (no_tiket),
+FOREIGN KEY (id_tiket) REFERENCES data_penerbangan(no_id),
+FOREIGN KEY (no_tiket) REFERENCES orders(order_id)
+);
+
+
+
+CREATE TABLE users (
+    username VARCHAR(100) NOT NULL,
+    nama VARCHAR(100) NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    blocked BOOLEAN DEFAULT FALSE,
+    blocked_until TIMESTAMP NULL,
+    admin BOOLEAN DEFAULT FALSE,
+    userId INT NOT NULL,
+    PRIMARY KEY (username, userId),
+    UNIQUE KEY (userId)
+);
+
+
+CREATE TABLE orders (
+    order_id INT NOT NULL,
+    order_date DATE NOT NULL,
+    custId INT,
+    PRIMARY KEY (order_id),
+    FOREIGN KEY (custId) REFERENCES users(userId)
 );
