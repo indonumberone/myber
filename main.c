@@ -52,7 +52,7 @@ GtkWidget *no_penerbangan_pesawat_entry;
 GtkWidget *nama_asal_entry;
 GtkWidget *nama_tujuan_entry;
 GtkListStore *kelas_entry;
-
+GtkTreeSelection *current_selection = NULL;
 GtkWidget *jam_keberangkatan;
 GtkWidget *menit_keberangkatan;
 GtkWidget *jam_kedatangan;
@@ -66,8 +66,6 @@ GtkWidget *harga_entry;
 
 gchar *entry_maskapai;
 gchar *entry_kelas;
-GtkTreeSelection *current_selection = NULL;
-
 enum
 {
     FILE_NAME,
@@ -592,7 +590,7 @@ void show_calendar(GtkWidget *button, gpointer data)
     GtkWidget *dialog, *calendar;
     GtkWindow *parent = GTK_WINDOW(data);
 
-    dialog = gtk_dialog_new_with_buttons("pilih tanggale", parent, GTK_DIALOG_MODAL, "OK", GTK_RESPONSE_OK, "Cancel", GTK_RESPONSE_CANCEL, NULL);
+    dialog = gtk_dialog_new_with_buttons("Tanggal", parent, GTK_DIALOG_MODAL, "OK", GTK_RESPONSE_OK, "Cancel", GTK_RESPONSE_CANCEL, NULL);
     calendar = gtk_calendar_new();
     gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), calendar, FALSE, FALSE, 0);
     gtk_widget_show_all(dialog);
@@ -754,8 +752,8 @@ GtkWidget *create_input_data_page(GtkWidget *parent_window)
     no_penerbangan_pesawat_entry = gtk_entry_new();
     GtkWidget *nama_maskapai_label = gtk_label_new("Nama Maskapai");
     GtkWidget *nama_kelas_label = gtk_label_new("Jenis Kelas Pesawat");
-    GtkWidget *nama_asal_label = gtk_label_new("keberangkatan Pesawat ");
-    GtkWidget *nama_tujuan_label = gtk_label_new("Kedatangan Pesawat ");
+    GtkWidget *nama_asal_label = gtk_label_new("Asal Keberangkatan Pesawat ");
+    GtkWidget *nama_tujuan_label = gtk_label_new("Tujuan Kedatangan Pesawat ");
     GtkWidget *nama_harga_label = gtk_label_new("Harga");
     nama_asal_entry = gtk_entry_new();
     nama_tujuan_entry = gtk_entry_new();
@@ -813,7 +811,7 @@ GtkWidget *create_input_data_page(GtkWidget *parent_window)
     gtk_combo_box_set_active(GTK_COMBO_BOX(nama_kelas_mark), 0);
 
     GtkWidget *jadwal_keberangakatan_label = gtk_label_new("Jadwal Penerbangan:");
-    jadwal_keberangakatan_button = gtk_button_new_with_label("Pilih Jadwal Keberangkatan");
+    jadwal_keberangakatan_button = gtk_button_new_with_label("Pilih Tanggal");
     g_signal_connect(jadwal_keberangakatan_button, "clicked", G_CALLBACK(show_calendar), parent_window);
 
     GtkWidget *jam_keberangakatan_label = gtk_label_new("Jam Penerbangan:");
@@ -821,7 +819,7 @@ GtkWidget *create_input_data_page(GtkWidget *parent_window)
     menit_keberangkatan = gtk_spin_button_new_with_range(0, 59, 1);
 
     GtkWidget *jadwal_kedatangan_label = gtk_label_new("Jadwal Kedatangan:");
-    jadwal_kedatangan_button = gtk_button_new_with_label("tanggal");
+    jadwal_kedatangan_button = gtk_button_new_with_label("Pilih Tanggal");
     g_signal_connect(jadwal_kedatangan_button, "clicked", G_CALLBACK(show_calendar), parent_window);
 
     GtkWidget *jam_kedatangan_label = gtk_label_new("Jam Kedatangan:");
@@ -1273,20 +1271,11 @@ GtkWidget *show_history_data(GtkWidget *parent_windows)
                                                       NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
 
-    GtkWidget *button;
-    button = gtk_button_new_with_label("PILIH DATA");
-    g_signal_connect(button, "clicked", G_CALLBACK(on_button_clicked), NULL);
-
-    GtkTreeSelection *selection;
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(view));
-    g_signal_connect(selection, "changed", G_CALLBACK(on_selection_changed), NULL);
-
     GtkWidget *scrollview = gtk_scrolled_window_new(NULL, NULL);
     gtk_container_add(GTK_CONTAINER(scrollview), view);
     gtk_widget_set_hexpand(scrollview, TRUE);
     gtk_widget_set_vexpand(scrollview, TRUE);
     gtk_container_add(GTK_CONTAINER(show_history_page), scrollview);
-    gtk_container_add(GTK_CONTAINER(show_history_page), button);
 
     return show_history_page;
 }
@@ -1367,7 +1356,7 @@ void create_welcome_admin_window(GtkWidget *parent_window)
 
     // gtk_stack_add_titled(GTK_STACK(stack), data_input, "inputdata", "input data penerbangan");
 
-    gtk_stack_add_titled(GTK_STACK(stack), history_data_page, "historydata", "Riwayat Transaksi");
+    gtk_stack_add_titled(GTK_STACK(stack), history_data_page, "historydata", "Data Penerbangan");
 
     g_signal_connect(welcome_window, "destroy", G_CALLBACK(destroy), NULL);
     gtk_widget_show_all(welcome_window);

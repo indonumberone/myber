@@ -16,7 +16,7 @@ PRIMARY KEY (no_id)
 
 create table tiket(
 id_tiket int,
-no_tiket int not null auto_increment,
+no_tiket int not null ,
 nama varchar(100) not null,
 no_penerbangan varchar(100) not null,
 PRIMARY KEY (no_tiket),
@@ -33,16 +33,13 @@ CREATE TABLE users (
     blocked BOOLEAN DEFAULT FALSE,
     blocked_until TIMESTAMP NULL,
     admin BOOLEAN DEFAULT FALSE,
-    userId INT NOT NULL,
-    PRIMARY KEY (username, userId),
-    UNIQUE KEY (userId)
-);
-
+    PRIMARY KEY (username)
+)
 
 CREATE TABLE orders (
-    order_id INT NOT NULL,
+    order_id INT NOT NULL auto_increment,
     order_date DATE NOT NULL,
-    custId INT,
+    username VARCHAR(100),
     PRIMARY KEY (order_id),
-    FOREIGN KEY (custId) REFERENCES users(userId)
+    FOREIGN KEY (username) REFERENCES users(username)
 );
