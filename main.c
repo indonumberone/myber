@@ -585,78 +585,6 @@ void show_history_penjualan(GtkWidget *widget, gpointer data)
     gtk_label_set_text(GTK_LABEL(content_area), "Ini adalah halaman History Penjualan.");
 }
 
-void create_welcome_user_window(GtkWidget *parent_window)
-{
-
-    GtkWidget *vbox;
-    GtkWidget *vbox2;
-    GtkWidget *label;
-    GtkWidget *welcome_window;
-    GtkWidget *stackSideBar;
-    GtkWidget *grid;
-    GtkWidget *stack;
-    GtkWidget *penjualan_button;
-    GtkWidget *history_penjualan_button;
-    GtkWidget *testarray;
-
-    welcome_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(welcome_window), "Welcome Window");
-    gtk_window_set_default_size(GTK_WINDOW(welcome_window), 900, 600);
-    gtk_container_set_border_width(GTK_CONTAINER(welcome_window), 10);
-
-    grid = gtk_grid_new();
-    gtk_grid_set_row_homogeneous(GTK_GRID(grid), TRUE);
-    gtk_grid_set_column_homogeneous(GTK_GRID(grid), TRUE);
-    gtk_container_add(GTK_CONTAINER(welcome_window), grid);
-
-    stackSideBar = gtk_stack_sidebar_new();
-    gtk_grid_attach(GTK_GRID(grid), stackSideBar, 0, 0, 1, 1);
-
-    stack = gtk_stack_new();
-    gtk_grid_attach(GTK_GRID(grid), stack, 1, 0, 1, 1);
-
-    gtk_stack_sidebar_set_stack(GTK_STACK_SIDEBAR(stackSideBar), GTK_STACK(stack));
-    // dikek i banner gambar
-    // testarray[1] = gtk_label_new("iki array ke 1");
-    // testarray[2] = gtk_label_new("iki array ke 2");
-    char selamat_datang[256];
-    sprintf(selamat_datang, "Selamat datang, %s!", current_user.name);
-    label = gtk_label_new(NULL);
-    gtk_label_set_text(GTK_LABEL(label), selamat_datang);
-    PangoAttrList *attr_list = pango_attr_list_new();
-    PangoAttribute *attr_size = pango_attr_size_new_absolute(20 * PANGO_SCALE);
-    pango_attr_list_insert(attr_list, attr_size);
-    gtk_label_set_attributes(GTK_LABEL(label), attr_list);
-    pango_attr_list_unref(attr_list);
-    GtkWidget *tanggalan = gtk_calendar_new();
-    GtkWidget *image = gtk_image_new_from_file("assets/logo_welcome.png");
-    gtk_box_pack_start(GTK_BOX(grid), image, TRUE, TRUE, 0);
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
-    GtkWidget *welcom = gtk_label_new("Welcome!");
-    banner_label = gtk_label_new("test");
-
-    vbox2 = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
-    gtk_box_pack_start(GTK_BOX(vbox2), image, TRUE, TRUE, 0);
-    gtk_box_pack_start(GTK_BOX(vbox2), label, TRUE, TRUE, 0);
-    gtk_box_pack_start(GTK_BOX(vbox2), tanggalan, TRUE, TRUE, 0);
-
-    gtk_box_pack_start(GTK_BOX(vbox), banner_label, TRUE, TRUE, 0);
-    gtk_box_pack_start(GTK_BOX(vbox), welcom, TRUE, TRUE, 0);
-    gtk_stack_add_named(GTK_STACK(stack), vbox2, "home");
-
-    penjualan_button = gtk_button_new_with_label("Penjualan");
-    g_signal_connect(G_OBJECT(penjualan_button), "clicked", G_CALLBACK(show_penjualan), NULL);
-
-    history_penjualan_button = gtk_button_new_with_label("History");
-    g_signal_connect(G_OBJECT(history_penjualan_button), "clicked", G_CALLBACK(show_history_penjualan), NULL);
-
-    gtk_stack_add_titled(GTK_STACK(stack), vbox, "menu1", "menu ke 1");
-
-    gtk_stack_add_titled(GTK_STACK(stack), penjualan_button, "menu2", "menu ke 2");
-
-    g_signal_connect(welcome_window, "destroy", G_CALLBACK(destroy), NULL);
-    gtk_widget_show_all(welcome_window);
-}
 
 void show_calendar(GtkWidget *button, gpointer data)
 {
@@ -941,6 +869,165 @@ GtkWidget *create_input_data_page(GtkWidget *parent_window)
     return data_input;
 }
 
+GtkWidget *show_pembelian_data(GtkWidget *parent_windows)
+{
+    GtkListStore *model;
+    GtkWidget *view;
+    GtkTreeViewColumn *column;
+    GtkWidget *show_history_page = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+    // gchar *sample_text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit,\n"
+    //                      "sed do eiusmod tempor incididunt ut labore et dolore magna\n"
+    //                      "aliqua. Ut enim ad minim veniam, quis nostrud exercitation\n"
+    //                      "ullamco laboris nisi ut aliquip ex ea commodo consequat.\n"
+    //                      "Duis aute irure dolor in reprehenderit in voluptate velit\n"
+    //                      "esse cillum dolore eu fugiat nulla pariatur. Excepteur sint\n"
+    //                      "occaecat cupidatat non proident, sunt in culpa qui officia\n"
+    //                      "deserunt mollit anim id est laborum.";
+    // GtkWidget *test = gtk_label_new("Kedatangan Pesawat ");
+    // textview = gtk_text_view_new();
+    // gtk_widget_set_size_request(textview, 400, 200); // This is but a request. The sizes are not guaranteed.
+    // scrolledwindow = gtk_scrolled_window_new(NULL, NULL);
+    // gtk_box_pack_start(GTK_BOX(show_history_page), scrolledwindow, FALSE, FALSE, 5);
+    // buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(textview));
+    // gtk_text_buffer_set_text(buffer, sample_text, -1);
+    // gtk_box_pack_start(GTK_BOX(scrolledwindow), textview, FALSE, FALSE, 5);
+
+    model = gtk_list_store_new(N_COLUMNS,
+                               G_TYPE_STRING, /* FILE_NAME */
+                               G_TYPE_STRING, /* FILE_NAME */
+                               G_TYPE_STRING, /* FILE_NAME */
+                               G_TYPE_STRING, /* FILE_NAME */
+                               G_TYPE_STRING, /* FILE_NAME */
+                               G_TYPE_STRING, /* FILE_NAME */
+                               G_TYPE_STRING, /* FILE_NAME */
+                               G_TYPE_STRING, /* FILE_NAME */
+                               G_TYPE_STRING, /* FILE_NAME */
+                               G_TYPE_UINT,   /* FILE_OFFSET */
+                               G_TYPE_UINT,   /* FILE_SIZE */
+                               G_TYPE_STRING, /* FILE_DESCRIPTION */
+                               G_TYPE_STRING  /* COLOR */
+    );
+
+    int num_rows = get_jumlah_penerbangan();
+    printf("%d", num_rows);
+    FlightDetails flight_details[num_rows];
+
+    int res = get_data_penerbangan(flight_details);
+
+    for (int i = 0; i < num_rows; i++)
+    {
+        gtk_list_store_insert_with_values(model, NULL, -1,
+                                          FILE_NAME, flight_details[i].no_penerbangan,
+                                          FILE_MASKAPAI, flight_details[i].maskapai,
+                                          FILE_KELAS, flight_details[i].kelas,
+                                          FILE_ASAL, flight_details[i].asal,
+                                          FILE_TUJUAN, flight_details[i].tujuan,
+                                          FILE_TGL_BERANGKAT, flight_details[i].tgl_berangkat,
+                                          FILE_WAKTU_B, flight_details[i].waktu_keberangkatan,
+                                          FILE_TGL_DATANG, flight_details[i].tgl_datang,
+                                          FILE_WAKTU_T, flight_details[i].waktu_kedatangan,
+                                          FILE_HARGA, flight_details[i].harga,
+                                          -1);
+    }
+
+    // gtk_list_store_insert_with_values(model, NULL, -1,
+    //                                   FILE_NAME, "test name",
+    //                                   FILE_OFFSET, 0,
+    //                                   FILE_SIZE, 10,
+    //                                   -1);
+
+    // gtk_list_store_insert_with_values(model, NULL, -1,
+    //                                   FILE_NAME, "Dummy",
+    //                                   FILE_OFFSET, 123,
+    //                                   COLOR, "black",
+    //                                   -1);
+
+    /* VIEW */
+    view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(model));
+
+    g_object_unref(model);
+    column = gtk_tree_view_column_new_with_attributes("No Penerbangan",
+                                                      gtk_cell_renderer_text_new(),
+                                                      "text", FILE_NAME,
+                                                      "background", COLOR,
+                                                      NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
+
+    column = gtk_tree_view_column_new_with_attributes("Maskapai",
+                                                      gtk_cell_renderer_text_new(),
+                                                      "text", FILE_MASKAPAI,
+                                                      "background", COLOR,
+                                                      NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
+
+    column = gtk_tree_view_column_new_with_attributes("Kelas",
+                                                      gtk_cell_renderer_text_new(),
+                                                      "text", FILE_KELAS,
+                                                      "background", COLOR,
+                                                      NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
+
+    column = gtk_tree_view_column_new_with_attributes("Asal Keberangkatan",
+                                                      gtk_cell_renderer_text_new(),
+                                                      "text", FILE_ASAL,
+                                                      "background", COLOR,
+                                                      NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
+
+    column = gtk_tree_view_column_new_with_attributes("Tujuan ",
+                                                      gtk_cell_renderer_text_new(),
+                                                      "text", FILE_TUJUAN,
+                                                      "background", COLOR,
+                                                      NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
+    column = gtk_tree_view_column_new_with_attributes("Tanggal Berangkat",
+                                                      gtk_cell_renderer_text_new(),
+                                                      "text", FILE_TGL_BERANGKAT,
+                                                      "background", COLOR,
+                                                      NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
+    column = gtk_tree_view_column_new_with_attributes("Waktu keberangkatan",
+                                                      gtk_cell_renderer_text_new(),
+                                                      "text", FILE_WAKTU_B,
+                                                      "background", COLOR,
+                                                      NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
+    column = gtk_tree_view_column_new_with_attributes("Tanggal kedatangan",
+                                                      gtk_cell_renderer_text_new(),
+                                                      "text", FILE_TGL_DATANG,
+                                                      "background", COLOR,
+                                                      NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
+
+    column = gtk_tree_view_column_new_with_attributes("Waktu kedatangan",
+                                                      gtk_cell_renderer_text_new(),
+                                                      "text", FILE_WAKTU_T,
+                                                      "background", COLOR,
+                                                      NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
+
+    column = gtk_tree_view_column_new_with_attributes("Harga Tiket Pesawat",
+                                                      gtk_cell_renderer_text_new(),
+                                                      "text", FILE_HARGA,
+                                                      "background", COLOR,
+                                                      NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
+
+    GtkWidget *button;
+    button = gtk_button_new_with_label("PILIH DATA");
+    g_signal_connect(button, "clicked", G_CALLBACK(add_row), model);
+
+    GtkWidget *scrollview = gtk_scrolled_window_new(NULL, NULL);
+    gtk_container_add(GTK_CONTAINER(scrollview), view);
+    // gtk_container_add(GTK_CONTAINER(scrollview), view);
+    gtk_widget_set_hexpand(scrollview, TRUE);
+    gtk_widget_set_vexpand(scrollview, TRUE);
+    gtk_container_add(GTK_CONTAINER(show_history_page), scrollview);
+    gtk_container_add(GTK_CONTAINER(show_history_page), button);
+
+    return show_history_page;
+}
+
 GtkWidget *show_history_data(GtkWidget *parent_windows)
 {
     GtkListStore *model;
@@ -1121,7 +1208,7 @@ void create_welcome_admin_window(GtkWidget *parent_window)
 
     welcome_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(welcome_window), "Admin Panel");
-    gtk_window_set_default_size(GTK_WINDOW(welcome_window), 1800, 600);
+    gtk_window_set_default_size(GTK_WINDOW(welcome_window), 1700, 800);
     gtk_container_set_border_width(GTK_CONTAINER(welcome_window), 10);
 
     grid = gtk_grid_new();
@@ -1177,6 +1264,84 @@ void create_welcome_admin_window(GtkWidget *parent_window)
     // gtk_stack_add_titled(GTK_STACK(stack), data_input, "inputdata", "input data penerbangan");
 
     gtk_stack_add_titled(GTK_STACK(stack), history_data_page, "historydata", "Riwayat Transaksi");
+
+    g_signal_connect(welcome_window, "destroy", G_CALLBACK(destroy), NULL);
+    gtk_widget_show_all(welcome_window);
+}
+
+
+void create_welcome_user_window(GtkWidget *parent_window)
+{
+
+    GtkWidget *vbox;
+    GtkWidget *vbox2;
+    GtkWidget *label;
+    GtkWidget *welcome_window;
+    GtkWidget *stackSideBar;
+    GtkWidget *grid;
+    GtkWidget *stack;
+    GtkWidget *penjualan_button;
+    GtkWidget *history_penjualan_button;
+    GtkWidget *testarray;
+
+    welcome_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_title(GTK_WINDOW(welcome_window), "Welcome Window");
+    gtk_window_set_default_size(GTK_WINDOW(welcome_window), 1700, 900);
+    gtk_container_set_border_width(GTK_CONTAINER(welcome_window), 10);
+
+    grid = gtk_grid_new();
+    gtk_grid_set_row_homogeneous(GTK_GRID(grid), TRUE);
+    gtk_grid_set_column_homogeneous(GTK_GRID(grid), TRUE);
+    gtk_container_add(GTK_CONTAINER(welcome_window), grid);
+
+    stackSideBar = gtk_stack_sidebar_new();
+    gtk_grid_attach(GTK_GRID(grid), stackSideBar, 0, 0, 1, 5);
+
+    stack = gtk_stack_new();
+    gtk_grid_attach(GTK_GRID(grid), stack, 1, 0, 4, 4);
+
+    gtk_stack_sidebar_set_stack(GTK_STACK_SIDEBAR(stackSideBar), GTK_STACK(stack));
+    // dikek i banner gambar
+    // testarray[1] = gtk_label_new("iki array ke 1");
+    // testarray[2] = gtk_label_new("iki array ke 2");
+    char selamat_datang[256];
+    sprintf(selamat_datang, "Selamat datang, %s!", current_user.name);
+    label = gtk_label_new(NULL);
+    gtk_label_set_text(GTK_LABEL(label), selamat_datang);
+    PangoAttrList *attr_list = pango_attr_list_new();
+    PangoAttribute *attr_size = pango_attr_size_new_absolute(20 * PANGO_SCALE);
+    pango_attr_list_insert(attr_list, attr_size);
+    gtk_label_set_attributes(GTK_LABEL(label), attr_list);
+    pango_attr_list_unref(attr_list);
+    GtkWidget *tanggalan = gtk_calendar_new();
+    GtkWidget *image = gtk_image_new_from_file("assets/logo_welcome.png");
+    gtk_box_pack_start(GTK_BOX(grid), image, TRUE, TRUE, 0);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+    GtkWidget *welcom = gtk_label_new("Welcome!");
+    banner_label = gtk_label_new("test");
+
+    vbox2 = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+    gtk_box_pack_start(GTK_BOX(vbox2), image, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(vbox2), label, TRUE, TRUE, 0);
+    // gtk_box_pack_start(GTK_BOX(vbox2), tanggalan, TRUE, TRUE, 0);
+
+    gtk_box_pack_start(GTK_BOX(vbox), banner_label, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(vbox), welcom, TRUE, TRUE, 0);
+    gtk_stack_add_named(GTK_STACK(stack), vbox2, "home");
+
+
+
+    penjualan_button = gtk_button_new_with_label("Penjualan");
+    g_signal_connect(G_OBJECT(penjualan_button), "clicked", G_CALLBACK(show_penjualan), NULL);
+
+    history_penjualan_button = gtk_button_new_with_label("History");
+    g_signal_connect(G_OBJECT(history_penjualan_button), "clicked", G_CALLBACK(show_history_penjualan), NULL);
+
+  GtkWidget *input_data_page = show_pembelian_data(welcome_window);
+
+    gtk_stack_add_titled(GTK_STACK(stack), input_data_page, "order", "Beli Tiket");
+
+    gtk_stack_add_titled(GTK_STACK(stack), penjualan_button, "menu2", "menu ke 2");
 
     g_signal_connect(welcome_window, "destroy", G_CALLBACK(destroy), NULL);
     gtk_widget_show_all(welcome_window);
