@@ -15,16 +15,11 @@ PRIMARY KEY (no_id)
 
 
 create table tiket(
-id_tiket int,
-no_tiket int not null ,
+id_tiket int auto_increment,
 nama varchar(100) not null,
 no_penerbangan varchar(100) not null,
-PRIMARY KEY (no_tiket),
-FOREIGN KEY (id_tiket) REFERENCES data_penerbangan(no_id),
-FOREIGN KEY (no_tiket) REFERENCES orders(order_id)
+PRIMARY KEY (id_tiket)
 );
-
-
 
 CREATE TABLE users (
     username VARCHAR(100) NOT NULL,

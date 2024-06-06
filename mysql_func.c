@@ -28,7 +28,7 @@ int connect_mysql()
     char *server = "localhost";
     char *user = "root";
     char *password = "myber";
-    char *database = "myber";
+    char *database = "miber";
 
     conn = mysql_init(NULL);
 
@@ -163,6 +163,92 @@ int login_user(char *user, char *pw, UserDetails *user_details)
 
     mysql_free_result(res);
     return success;
+}
+
+int get_order_history(char *name, TicketDetails *ticket_details)
+{
+    char query[256];
+    sprintf(query, "SELECT id_tiket, nama, no_penerbangan FROM tiket WHERE nama = '%s', name);
+
+    if (mysql_query(conn, query))
+    {
+        fprintf(stderr, "mysql_query() failed: %s\n", mysql_error(conn));
+        return -1;
+    }
+
+    res = mysql_store_result(conn);
+    MYSQL_ROW row = mysql_fetch_row(res);
+    int success = (row != NULL);
+
+    if (success)
+    {
+        strcpy(user_details->username, row[0]);
+        strcpy(user_details->name, row[1]);
+        user_details->is_admin = atoi(row[2]);
+    }
+
+    mysql_free_result(res);
+    return success;
+}
+
+
+void create_orders(char *username)
+{
+    char query[256];
+    sprintf(query, "INSERT INTO orders values(NULL, CURRENT_DATE(), '%s');", username);
+    if (mysql_query(conn, query))
+    {
+        fprintf(stderr, "mysql_query() failed: %s\n", mysql_error(conn));
+    }
+}
+
+int get_jumlah_orders()
+{
+    unsigned int num_fields;
+    unsigned int num_rows;
+    unsigned int i;
+
+    if (mysql_query(conn, "SELECT * FROM orders"))
+    {
+        fprintf(stderr, "SELECT * FROM orders failed: %s\n", mysql_error(conn));
+        mysql_close(conn);
+        exit(1);
+    }
+
+    res = mysql_store_result(conn);
+    if (res == NULL)
+    {
+        fprintf(stderr, "mysql_store_result() failed: %s\n", mysql_error(conn));
+        mysql_close(conn);
+        exit(1);
+    }
+
+    num_rows = mysql_num_rows(res);
+    return num_rows;
+}
+
+void create_ticket(char *nama, char *no_penerbangan)
+{
+    char query[256];
+    sprintf(query, "INSERT INTO tiket values(NULL, '%s', '%s');", nama, no_penerbangan);
+    if (mysql_query(conn, query))
+    {
+        fprintf(stderr, "mysql_query() failed: %s\n", mysql_error(conn));
+    }
+
+    // res = mysql_store_result(conn);
+    // MYSQL_ROW row = mysql_fetch_row(res);
+    // int success = (row != NULL);
+
+    // if (success)
+    // {
+    //     strcpy(user_details->username, row[0]);
+    //     strcpy(user_details->name, row[1]);
+    //     user_details->is_admin = atoi(row[2]);
+    // }
+
+    // mysql_free_result(res);
+    // return success;
 }
 
 void insert_flight_data(char *no_pener, char *maskapai, char *kelas, char *asal, char *tujuan, char *tgl_berangkat, char *waktu_ber, char *tgl_datang, char *waktu_kedatang, char *harga)

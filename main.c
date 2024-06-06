@@ -37,8 +37,11 @@ GtkWidget *intine_window;
 GtkWidget *alert_warningin;
 
 GtkWidget *welcome_window;
+GtkWidget *orders_window;
+GtkWidget *tickets_window;
 GtkWidget *customer_register_window;
 GtkWidget *banner_label;
+GtkWidget *tiket_label;
 GtkWidget *content_area;
 GtkWidget *no_penerbangan;
 GtkWidget *nama_maskapai_entry;
@@ -873,8 +876,85 @@ void on_selection_changed(GtkTreeSelection *selection, gpointer data)
     current_selection = selection;
 }
 
+void on_checkout_clicked(GtkWidget *widget, gpointer data)
+{
+    GtkWidget *current_window = GTK_WIDGET(data);
+    gtk_widget_hide(current_window);
+
+    tickets_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_title(GTK_WINDOW(tickets_window), "Welcome Window");
+    gtk_window_set_default_size(GTK_WINDOW(tickets_window), 500, 500);
+    gtk_container_set_border_width(GTK_CONTAINER(tickets_window), 10);
+    // GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
+
+    GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+    gtk_container_add(GTK_CONTAINER(tickets_window), vbox);
+
+    char notif_order[256];
+    sprintf(notif_order, "Silahkan Cetak Tiket Anda!");
+    banner_label = gtk_label_new(NULL);
+    gtk_label_set_text(GTK_LABEL(banner_label), notif_order);
+    PangoAttrList *attr_list = pango_attr_list_new();
+    PangoAttribute *attr_size = pango_attr_size_new_absolute(20 * PANGO_SCALE);
+    pango_attr_list_insert(attr_list, attr_size);
+    gtk_label_set_attributes(GTK_LABEL(banner_label), attr_list);
+    pango_attr_list_unref(attr_list);
+
+    GtkWidget *image = gtk_image_new_from_file("assets/tickes.jpg");
+
+    char detail_tiket[256];
+    GtkWidget *ticket_label ;
+    sprintf(detail_tiket, "A/n: %s", current_user.name);
+    ticket_label = gtk_label_new(NULL);
+    gtk_label_set_text(GTK_LABEL(ticket_label), detail_tiket);
+    
+    PangoAttrList *attr_list2 = pango_attr_list_new();
+    PangoAttribute *attr_size2 = pango_attr_size_new_absolute(20 * PANGO_SCALE);
+    pango_attr_list_insert(attr_list2, attr_size2);
+    gtk_label_set_attributes(GTK_LABEL(ticket_label), attr_list2);
+    pango_attr_list_unref(attr_list2);
+
+
+
+    gtk_box_pack_start(GTK_BOX(vbox), banner_label, FALSE, FALSE, 0);
+    //gtk_box_pack_start(GTK_BOX(vbox), detail_tiket, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(vbox), image, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(vbox), ticket_label, FALSE, FALSE, 0);
+   // gtk_box_pack_start(GTK_BOX(vbox), button_checkout, FALSE, FALSE, 0);
+    gtk_widget_show_all(tickets_window);
+}
+
+
+
 void on_button_clicked(GtkButton *button, gpointer data)
 {
+    // GtkWidget *orderwindow;
+
+    orders_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_title(GTK_WINDOW(orders_window), "Welcome Window");
+    gtk_window_set_default_size(GTK_WINDOW(orders_window), 500, 500);
+    gtk_container_set_border_width(GTK_CONTAINER(orders_window), 10);
+    //GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
+
+    GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+    gtk_container_add(GTK_CONTAINER(orders_window), vbox);
+
+    char notif_order[256];
+    sprintf(notif_order, "Silahkan melakukan pembayaran!");
+    banner_label = gtk_label_new(NULL);
+    gtk_label_set_text(GTK_LABEL(banner_label), notif_order);
+    PangoAttrList *attr_list = pango_attr_list_new();
+    PangoAttribute *attr_size = pango_attr_size_new_absolute(20 * PANGO_SCALE);
+    pango_attr_list_insert(attr_list, attr_size);
+    gtk_label_set_attributes(GTK_LABEL(banner_label), attr_list);
+    pango_attr_list_unref(attr_list);
+
+    GtkWidget *image = gtk_image_new_from_file("assets/qr.png");
+
+
+    GtkWidget *button_checkout = gtk_button_new_with_label("CHECKOUT");
+    g_signal_connect(button_checkout, "clicked", G_CALLBACK(on_checkout_clicked), orders_window);
+
     if (current_selection == NULL)
     {
         // No selection made
@@ -922,8 +1002,7 @@ void on_button_clicked(GtkButton *button, gpointer data)
         g_print("Waktu Kedatangan: %s\n", waktu_kedatangan);
         g_print("Harga: %u\n", harga);
 
-        // Free the allocated strings
-        g_free(no_penerbangan);
+        //g_free(no_penerbangan);
         g_free(maskapai);
         g_free(kelas);
         g_free(asal);
@@ -932,8 +1011,20 @@ void on_button_clicked(GtkButton *button, gpointer data)
         g_free(waktu_keberangkatan);
         g_free(tgl_datang);
         g_free(waktu_kedatangan);
+
+        char nomor_penerbangan[256];
+        sprintf(nomor_penerbangan, "%s", no_penerbangan);
+        create_ticket(current_user.name, nomor_penerbangan);
+        create_orders(current_user.name);
     }
+
+    gtk_box_pack_start(GTK_BOX(vbox), banner_label, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(vbox), image, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(vbox), button_checkout, FALSE, FALSE, 0);
+    gtk_widget_show_all(orders_window);
 }
+
+
 
 void on_row_activated(GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, gpointer user_data)
 {
