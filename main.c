@@ -66,6 +66,8 @@ GtkWidget *harga_entry;
 
 gchar *entry_maskapai;
 gchar *entry_kelas;
+GtkTreeSelection *current_selection = NULL;
+
 enum
 {
     FILE_NAME,
@@ -867,6 +869,74 @@ GtkWidget *create_input_data_page(GtkWidget *parent_window)
 
     return data_input;
 }
+
+void on_selection_changed(GtkTreeSelection *selection, gpointer data)
+{
+    current_selection = selection;
+}
+
+void on_button_clicked(GtkButton *button, gpointer data)
+{
+    if (current_selection == NULL)
+    {
+        // No selection made
+        g_print("No row selected.\n");
+        return;
+    }
+
+    GtkTreeModel *model;
+    GtkTreeIter iter;
+    if (gtk_tree_selection_get_selected(current_selection, &model, &iter))
+    {
+        gchar *no_penerbangan;
+        gchar *maskapai;
+        gchar *kelas;
+        gchar *asal;
+        gchar *tujuan;
+        gchar *tgl_berangkat;
+        gchar *waktu_keberangkatan;
+        gchar *tgl_datang;
+        gchar *waktu_kedatangan;
+        guint harga;
+
+        gtk_tree_model_get(model, &iter,
+                           FILE_NAME, &no_penerbangan,
+                           FILE_MASKAPAI, &maskapai,
+                           FILE_KELAS, &kelas,
+                           FILE_ASAL, &asal,
+                           FILE_TUJUAN, &tujuan,
+                           FILE_TGL_BERANGKAT, &tgl_berangkat,
+                           FILE_WAKTU_B, &waktu_keberangkatan,
+                           FILE_TGL_DATANG, &tgl_datang,
+                           FILE_WAKTU_T, &waktu_kedatangan,
+                           FILE_HARGA, &harga,
+                           -1);
+
+        // Use the data (e.g., print it or pass it to another function)
+        g_print("No Penerbangan: %s\n", no_penerbangan);
+        g_print("Maskapai: %s\n", maskapai);
+        g_print("Kelas: %s\n", kelas);
+        g_print("Asal: %s\n", asal);
+        g_print("Tujuan: %s\n", tujuan);
+        g_print("Tanggal Berangkat: %s\n", tgl_berangkat);
+        g_print("Waktu Keberangkatan: %s\n", waktu_keberangkatan);
+        g_print("Tanggal Datang: %s\n", tgl_datang);
+        g_print("Waktu Kedatangan: %s\n", waktu_kedatangan);
+        g_print("Harga: %u\n", harga);
+
+        // Free the allocated strings
+        g_free(no_penerbangan);
+        g_free(maskapai);
+        g_free(kelas);
+        g_free(asal);
+        g_free(tujuan);
+        g_free(tgl_berangkat);
+        g_free(waktu_keberangkatan);
+        g_free(tgl_datang);
+        g_free(waktu_kedatangan);
+    }
+}
+
 void on_row_activated(GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, gpointer user_data)
 {
     GtkTreeModel *model = (GtkTreeModel *)user_data;
@@ -1070,7 +1140,11 @@ GtkWidget *show_pembelian_data(GtkWidget *parent_windows)
 
     GtkWidget *button;
     button = gtk_button_new_with_label("BELI TIKET");
-    g_signal_connect(button, "clicked", G_CALLBACK(add_row), model);
+    g_signal_connect(button, "clicked", G_CALLBACK(on_button_clicked), NULL);
+
+    GtkTreeSelection *selection;
+    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(view));
+    g_signal_connect(selection, "changed", G_CALLBACK(on_selection_changed), NULL);
 
     GtkWidget *scrollview = gtk_scrolled_window_new(NULL, NULL);
     gtk_container_add(GTK_CONTAINER(scrollview), view);
@@ -1201,7 +1275,11 @@ GtkWidget *show_history_data(GtkWidget *parent_windows)
 
     GtkWidget *button;
     button = gtk_button_new_with_label("PILIH DATA");
-    g_signal_connect(button, "clicked", G_CALLBACK(add_row), model);
+    g_signal_connect(button, "clicked", G_CALLBACK(on_button_clicked), NULL);
+
+    GtkTreeSelection *selection;
+    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(view));
+    g_signal_connect(selection, "changed", G_CALLBACK(on_selection_changed), NULL);
 
     GtkWidget *scrollview = gtk_scrolled_window_new(NULL, NULL);
     gtk_container_add(GTK_CONTAINER(scrollview), view);
