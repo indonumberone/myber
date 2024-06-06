@@ -1069,7 +1069,7 @@ GtkWidget *show_pembelian_data(GtkWidget *parent_windows)
     gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
 
     GtkWidget *button;
-    button = gtk_button_new_with_label("PILIH DATA");
+    button = gtk_button_new_with_label("BELI TIKET");
     g_signal_connect(button, "clicked", G_CALLBACK(add_row), model);
 
     GtkWidget *scrollview = gtk_scrolled_window_new(NULL, NULL);
@@ -1366,7 +1366,7 @@ void create_welcome_user_window(GtkWidget *parent_window)
 
     gtk_stack_add_titled(GTK_STACK(stack), input_data_page, "order", "Beli Tiket");
 
-    gtk_stack_add_titled(GTK_STACK(stack), penjualan_button, "menu2", "menu ke 2");
+    gtk_stack_add_titled(GTK_STACK(stack), penjualan_button, "menu2", "Riwayat Pembelian");
 
     g_signal_connect(welcome_window, "destroy", G_CALLBACK(destroy), NULL);
     gtk_widget_show_all(welcome_window);
