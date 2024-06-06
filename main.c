@@ -585,7 +585,6 @@ void show_history_penjualan(GtkWidget *widget, gpointer data)
     gtk_label_set_text(GTK_LABEL(content_area), "Ini adalah halaman History Penjualan.");
 }
 
-
 void show_calendar(GtkWidget *button, gpointer data)
 {
     GtkWidget *dialog, *calendar;
@@ -868,9 +867,65 @@ GtkWidget *create_input_data_page(GtkWidget *parent_window)
 
     return data_input;
 }
+void on_row_activated(GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, gpointer user_data)
+{
+    GtkTreeModel *model = (GtkTreeModel *)user_data;
+    GtkTreeIter iter;
+
+    if (gtk_tree_model_get_iter(model, &iter, path))
+    {
+        gchar *no_penerbangan;
+        gchar *maskapai;
+        gchar *kelas;
+        gchar *asal;
+        gchar *tujuan;
+        gchar *tgl_berangkat;
+        gchar *waktu_keberangkatan;
+        gchar *tgl_datang;
+        gchar *waktu_kedatangan;
+        guint harga;
+
+        gtk_tree_model_get(model, &iter,
+                           FILE_NAME, &no_penerbangan,
+                           FILE_MASKAPAI, &maskapai,
+                           FILE_KELAS, &kelas,
+                           FILE_ASAL, &asal,
+                           FILE_TUJUAN, &tujuan,
+                           FILE_TGL_BERANGKAT, &tgl_berangkat,
+                           FILE_WAKTU_B, &waktu_keberangkatan,
+                           FILE_TGL_DATANG, &tgl_datang,
+                           FILE_WAKTU_T, &waktu_kedatangan,
+                           FILE_HARGA, &harga,
+                           -1);
+
+        // Tampilkan atau gunakan data yang diambil
+        g_print("No Penerbangan: %s\n", no_penerbangan);
+        g_print("Maskapai: %s\n", maskapai);
+        g_print("Kelas: %s\n", kelas);
+        g_print("Asal: %s\n", asal);
+        g_print("Tujuan: %s\n", tujuan);
+        g_print("Tanggal Berangkat: %s\n", tgl_berangkat);
+        g_print("Waktu Keberangkatan: %s\n", waktu_keberangkatan);
+        g_print("Tanggal Kedatangan: %s\n", tgl_datang);
+        g_print("Waktu Kedatangan: %s\n", waktu_kedatangan);
+        g_print("Harga: %u\n", harga);
+
+        // Jangan lupa untuk membebaskan memori yang dialokasikan oleh gtk_tree_model_get
+        g_free(no_penerbangan);
+        g_free(maskapai);
+        g_free(kelas);
+        g_free(asal);
+        g_free(tujuan);
+        g_free(tgl_berangkat);
+        g_free(waktu_keberangkatan);
+        g_free(tgl_datang);
+        g_free(waktu_kedatangan);
+    }
+}
 
 GtkWidget *show_pembelian_data(GtkWidget *parent_windows)
 {
+    GtkTreeIter iter;
     GtkListStore *model;
     GtkWidget *view;
     GtkTreeViewColumn *column;
@@ -1034,23 +1089,6 @@ GtkWidget *show_history_data(GtkWidget *parent_windows)
     GtkWidget *view;
     GtkTreeViewColumn *column;
     GtkWidget *show_history_page = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
-    // gchar *sample_text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit,\n"
-    //                      "sed do eiusmod tempor incididunt ut labore et dolore magna\n"
-    //                      "aliqua. Ut enim ad minim veniam, quis nostrud exercitation\n"
-    //                      "ullamco laboris nisi ut aliquip ex ea commodo consequat.\n"
-    //                      "Duis aute irure dolor in reprehenderit in voluptate velit\n"
-    //                      "esse cillum dolore eu fugiat nulla pariatur. Excepteur sint\n"
-    //                      "occaecat cupidatat non proident, sunt in culpa qui officia\n"
-    //                      "deserunt mollit anim id est laborum.";
-    // GtkWidget *test = gtk_label_new("Kedatangan Pesawat ");
-    // textview = gtk_text_view_new();
-    // gtk_widget_set_size_request(textview, 400, 200); // This is but a request. The sizes are not guaranteed.
-    // scrolledwindow = gtk_scrolled_window_new(NULL, NULL);
-    // gtk_box_pack_start(GTK_BOX(show_history_page), scrolledwindow, FALSE, FALSE, 5);
-    // buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(textview));
-    // gtk_text_buffer_set_text(buffer, sample_text, -1);
-    // gtk_box_pack_start(GTK_BOX(scrolledwindow), textview, FALSE, FALSE, 5);
-
     model = gtk_list_store_new(N_COLUMNS,
                                G_TYPE_STRING, /* FILE_NAME */
                                G_TYPE_STRING, /* FILE_NAME */
@@ -1089,21 +1127,9 @@ GtkWidget *show_history_data(GtkWidget *parent_windows)
                                           -1);
     }
 
-    // gtk_list_store_insert_with_values(model, NULL, -1,
-    //                                   FILE_NAME, "test name",
-    //                                   FILE_OFFSET, 0,
-    //                                   FILE_SIZE, 10,
-    //                                   -1);
-
-    // gtk_list_store_insert_with_values(model, NULL, -1,
-    //                                   FILE_NAME, "Dummy",
-    //                                   FILE_OFFSET, 123,
-    //                                   COLOR, "black",
-    //                                   -1);
-
     /* VIEW */
     view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(model));
-
+    g_signal_connect(view, "row-activated", G_CALLBACK(on_row_activated), model);
     g_object_unref(model);
     column = gtk_tree_view_column_new_with_attributes("No Penerbangan",
                                                       gtk_cell_renderer_text_new(),
@@ -1158,11 +1184,12 @@ GtkWidget *show_history_data(GtkWidget *parent_windows)
                                                       NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
 
-    column = gtk_tree_view_column_new_with_attributes("Waktu kedatangan",
-                                                      gtk_cell_renderer_text_new(),
-                                                      "text", FILE_WAKTU_T,
-                                                      "background", COLOR,
-                                                      NULL);
+    column =
+        ("Waktu kedatangan",
+         gtk_cell_renderer_text_new(),
+         "text", FILE_WAKTU_T,
+         "background", COLOR,
+         NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
 
     column = gtk_tree_view_column_new_with_attributes("Harga Tiket Peaswat",
@@ -1178,7 +1205,6 @@ GtkWidget *show_history_data(GtkWidget *parent_windows)
 
     GtkWidget *scrollview = gtk_scrolled_window_new(NULL, NULL);
     gtk_container_add(GTK_CONTAINER(scrollview), view);
-    // gtk_container_add(GTK_CONTAINER(scrollview), view);
     gtk_widget_set_hexpand(scrollview, TRUE);
     gtk_widget_set_vexpand(scrollview, TRUE);
     gtk_container_add(GTK_CONTAINER(show_history_page), scrollview);
@@ -1269,7 +1295,6 @@ void create_welcome_admin_window(GtkWidget *parent_window)
     gtk_widget_show_all(welcome_window);
 }
 
-
 void create_welcome_user_window(GtkWidget *parent_window)
 {
 
@@ -1309,12 +1334,14 @@ void create_welcome_user_window(GtkWidget *parent_window)
     label = gtk_label_new(NULL);
     gtk_label_set_text(GTK_LABEL(label), selamat_datang);
     PangoAttrList *attr_list = pango_attr_list_new();
-    PangoAttribute *attr_size = pango_attr_size_new_absolute(20 * PANGO_SCALE);
+    PangoAttribute *attr_size = pango_attr_size_new_absolute(30 * PANGO_SCALE);
+    PangoAttribute *attr_style = pango_attr_weight_new(PANGO_WEIGHT_BOLD);
+    pango_attr_list_insert(attr_list, attr_size);
     pango_attr_list_insert(attr_list, attr_size);
     gtk_label_set_attributes(GTK_LABEL(label), attr_list);
     pango_attr_list_unref(attr_list);
     GtkWidget *tanggalan = gtk_calendar_new();
-    GtkWidget *image = gtk_image_new_from_file("assets/logo_welcome.png");
+    GtkWidget *image = gtk_image_new_from_file("assets/banner2.png");
     gtk_box_pack_start(GTK_BOX(grid), image, TRUE, TRUE, 0);
     vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
     GtkWidget *welcom = gtk_label_new("Welcome!");
@@ -1329,15 +1356,13 @@ void create_welcome_user_window(GtkWidget *parent_window)
     gtk_box_pack_start(GTK_BOX(vbox), welcom, TRUE, TRUE, 0);
     gtk_stack_add_named(GTK_STACK(stack), vbox2, "home");
 
-
-
     penjualan_button = gtk_button_new_with_label("Penjualan");
     g_signal_connect(G_OBJECT(penjualan_button), "clicked", G_CALLBACK(show_penjualan), NULL);
 
     history_penjualan_button = gtk_button_new_with_label("History");
     g_signal_connect(G_OBJECT(history_penjualan_button), "clicked", G_CALLBACK(show_history_penjualan), NULL);
 
-  GtkWidget *input_data_page = show_pembelian_data(welcome_window);
+    GtkWidget *input_data_page = show_pembelian_data(welcome_window);
 
     gtk_stack_add_titled(GTK_STACK(stack), input_data_page, "order", "Beli Tiket");
 
