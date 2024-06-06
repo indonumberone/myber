@@ -1320,7 +1320,7 @@ void create_welcome_admin_window(GtkWidget *parent_window)
     // testarray[1] = gtk_label_new("iki array ke 1");
     // testarray[2] = gtk_label_new("iki array ke 2");
     char selamat_datang[256];
-    sprintf(selamat_datang, "Selamat datang admin, %s!", current_user.name);
+    sprintf(selamat_datang, "Selamat Datang Admin!");
     label = gtk_label_new(NULL);
     gtk_label_set_text(GTK_LABEL(label), selamat_datang);
     PangoAttrList *attr_list = pango_attr_list_new();
@@ -1337,7 +1337,7 @@ void create_welcome_admin_window(GtkWidget *parent_window)
     penjualan_button = gtk_button_new_with_label("Penjualan");
     g_signal_connect(G_OBJECT(penjualan_button), "clicked", G_CALLBACK(show_penjualan), NULL);
 
-    GtkWidget *image = gtk_image_new_from_file("assets/logo_welcome.png");
+    GtkWidget *image = gtk_image_new_from_file("assets/banner2.png");
     gtk_box_pack_start(GTK_BOX(vbox), image, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
     // gtk_box_pack_start(GTK_BOX(testh), test11, TRUE, TRUE, 0);
