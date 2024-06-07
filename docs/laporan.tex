@@ -387,10 +387,11 @@ digunakan untuk membuat sebuah button dengan text ditengah tengah button. ketika
 \end{figure}
 \FloatBarrier
 Dari kode diatas terdapat sebuah variabel statis dengan tipe data integer yang bernilai 3, kemudian terdapat variabel yang digunakan untuk mendapatkan text input username dan password
-kemudian dari variabel variabel tersebut dijadikan argumen pada fungsi \texttt{\detokenize{chec_user()}} yang digunakan untuk mengecek pada databases apakah ada username dan password seperti apa yang diinputkan .
+kemudian dari variabel variabel tersebut dijadikan argumen pada fungsi \texttt{\detokenize{check_user()}} yang maksukan ke dalam variael hasil yang digunakan untuk mengecek pada databases apakah ada username dan password seperti apa yang diinputkan .
 jika ada maka lanjut keproses dibahwanya terdapat sebuah fungsi \texttt{\detokenize{login_user()}} dengan 3 argumen, pada argumen yang ke3 adalah sebuah struct yang digunakan nantinya untuk menyimpan username nama dan isAdmin.
-
-\section{Kesimpulan}
+kemudian terdapat percabangan if didalam if yang pertama digunakan untuk mengecek apakah user ini keblokir atau tidak.
+jika ke blokir maka kan menampilkan alert pada GtkLabel kemudian kemudian pada else if dibawahnya mengecek jika hasil == 0  jika iya berarti password yang dimasukanoleh si user salah dan try yang bernilai 3 akan di kurangi 1.
+kemudian pada else if dibawahnya digunakanuntuk mengecek apakah hasl ==1 jika iya maka windows selanjunya akan di tampilkan.
 Keseluruhan alur dari program ini merupakan sebuah manajemen data tiket pesawat oleh dua tipe pengguna.
 Dari sisi Admin bertugas sebagai orang yang menginput data penjualan tiket. Sedangkan dari sisi Customer yang akan membeli tiket yang telah diinputkan oleh Admin sebelumnya.
 Pada mekanisme Login, Customer bisa melakukan Register dan Login sedangkan Admin hanya bisa melakukan Login karena kredensial dari Admin sendiri sudah dibuatkan dari database. Selain itu, terdapat mekanisme untuk melakukan blocking atau ban
