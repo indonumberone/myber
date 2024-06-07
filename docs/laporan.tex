@@ -466,9 +466,84 @@ jika pada database ada dan username password dan isAdmin bernilai 1 maka akan di
 Ini adalah tampilan dashboard admin
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.5\textwidth]{./img/dashboard admin/kode_dahboard_admin.png}
-    \caption{fungsi \texttt{\detokenize{login_admin()}}}
+    \includegraphics[width=0.5\textwidth]{./img/dashboard_admin/tampilan_awal.png}
+    \caption{tampiilan awal dashboard admin}
 \end{figure}
+\FloatBarrier
+Pada tampilan dashboard admin ini terdapat 2 menu pada side bar menu pertama adalah menu yang digunakan untuk menginput data kedalam mysql,
+berikut ini adalah tampiilannya
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/dashboard_admin/input_data_tampilan.png}
+    \caption{tampiilan input data}
+\end{figure}
+\FloatBarrier
+Pada tampiilan ini digunakan oleh admin untuk melakukan input database penerbangan pesawat
+kemudian untuk menu kedua dari dashboard admin ini adalah menu data penerbangan, berikut ini adalah tampiilannya
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/dashboard_admin/data_penerbangan_tampilan.png}
+    \caption{tampiilan data penerbangan}
+
+\end{figure}
+\FloatBarrier
+Pada tampilan ini digunakan untuk menampilkan data penerbangan yang sudah diinputkan kedalam database, untuk kode dari dashboard admin ini 
+dapat dilihat berikut ini
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/dashboard_admin/kode_dahboard_admin.png}
+    \caption{kode dari dashboard admin}
+\end{figure}
+\FloatBarrier
+Pada kode diatas window yang telah dibuat kemudian dimasukan sebuah grid, dalam grid tersebut mempunyai 2 widget yaitu sidebar dan stack
+, kemudian di sidebar terdapat 2 menu yaitu input data penerbangan dan data penerbangan 
+pada menu input data penerbangan ketika di klik akan menampilkan sebuah fungsi widget yaitu \texttt{\detokenize{create_input_data()}} untuk isi dari
+fungsi widget ini bisa dilihat dalam gambar dibawah ini.
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/dashboard_admin/input_data_widget.png}
+    \caption{widget input data}
+\end{figure}
+\FloatBarrier
+pada widget ini terdapat sebuah fungsi untuk membuat layaknya drop down dengan menggunakan gtkCombobox,
+pada widget ini juga terdapat sebuah fungsi untuk menampilkan widget kalender dengan menggunakan salah satu widget dalam gtk yaitu  \texttt{\detokenize{gtk_calender_new}},
+pada widget ini juga terdapat fungsi spin button yang digunakan untuk menginputkan jam dan menit yang nantinya akan digunakan untuk membuat data penerbangan
+dan terdapat pula sebuah button yang mempunyai sebuah callback ke sebuah fungsi  \texttt{\detokenize{on_save_button_clicked}} untuk isi dari fungsi 
+\texttt{\detokenize{on_save_button_clicked}} adlah seperti berikut ini:
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/dashboard_admin/button_tambah_data.png}
+    \caption{fungsi \texttt{\detokenize{on_save_button_clicked}}}
+\end{figure}
+\FloatBarrier 
+Dalam fungsi ini digunakan untuk mengambil data dari inputan admin dan mengecek apakah user sudah menginput semua inputan yang dibutuh kan jika belum maka akan ada alert label yang akan di tampilkan, 
+jika user sudah menginputkan semua data maka fungsi \texttt{\detokenize{insert_fligh_data}} akan di eksekusi, untuk isi dari fungsi \texttt{\detokenize{insert_fligh_data}} dapat dilihat pada gambar dibawah ini
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/dashboard_admin/inputdata_ke_mysql.png}
+    \caption{fungsi \texttt{\detokenize{insert_fligh_data}}}
+\end{figure}
+\FloatBarrier
+pada fungsi ini digunakan untuk menginputkan data dari gtk kedalam mysql dengan menggunakan insert into nama table. kemudian dari menu dashboard admin ini pada menu kedua yaitu menu 
+untuk menampilkan data penerbangan untuk kode dari menu ini dapat dilihat dibahwah ini
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/dashboard_admin/history_widget.png}
+    \caption{fungsi \texttt{\detokenize{menu show data penerbangan}}}
+\end{figure}
+\FloatBarrier
+pada kode diatas window yang sudah dibuat kemudian dimasukan gtk list yang berisi kolom dan baris, untuk nilai dari baris sendiri didapatkan dari mengambil data dari mysql dari fungsi \texttt{\detokenize{get_data_penerbangan}} 
+isi dari fungsi \texttt{\detokenize{get_data_penerbangan}} dapat dilihat pada gambar dibawah ini.
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/dashboard_admin/get_penerbangan.png}
+    \caption{fungsi \texttt{\detokenize{get_data_penerbangan}}}
+\end{figure}
+\FloatBarrier
+Pada kode diatas terdapat parameter struct flightDetails dari struct tersebut figunakan untuk menyimpan data dari database mysql.
+dan kemudian data dari mysql itu akan dirender dan di tampilkan pada menu ke 2 show data penerbangan
+\subsection{Dashboard User}
+Ini adalah tampilan dashboard users
 \section{Kesimpulan}
 Keseluruhan alur dari program ini merupakan sebuah manajemen data tiket pesawat oleh dua tipe pengguna.
 Dari sisi Admin bertugas sebagai orang yang menginput data penjualan tiket. Sedangkan dari sisi Customer yang akan membeli tiket yang telah diinputkan oleh Admin sebelumnya.
