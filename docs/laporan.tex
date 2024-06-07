@@ -334,7 +334,12 @@ Berikut ini adalah tampilan kode dari halaman register
     \caption{Kode halaman register dari gtk}
 \end{figure}
 \FloatBarrier
-Dari kode diatas variabel yang berisi fungsi gtk entry new digunakan untuk mengambil teks yang diinputkan oleh user,kemudian jika user menekan button create akun maka
+Dari kode diatas dibuat sebuah window bernama \texttt{\detokenize{customer_register_window()}} yang digunakan
+sebagai window pada halaman register. kemudian dibuat sebuah box dengan nama vbox dengan orientasi vertikal yang dimasukan ke dalam container window,
+dibuat box dengan orientasi vertikal ini bertujuan agar setiap ada widget baru yang nantinya akan ditambahkan ke dalam
+vbox ini akan tertata secara vertikal menurun.
+
+kemudian variabel yang berisi fungsi gtk entry new digunakan untuk mengambil teks yang diinputkan oleh user,kemudian jika user menekan button create akun maka
 maka fungsi callback dari button akan mengarahkan ke fungsi create user
 \begin{figure}[!htbp]
     \centering
@@ -348,13 +353,43 @@ Create Your Account!!,pengecekan ini bertujuan agar user yang ingin membuat sebu
 semua text input yang digunakan maka variabel tadi akan dijadikan argumen untuk fungsi register user
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.4\textwidth]{./img/register_user.png}
-    \caption{Kode dari fungsi create user}
+    \includegraphics[width=0.5\textwidth]{./img/register_user.png}
+    \caption{Kode untuk menginputkan data kedalam mysql}
 \end{figure}
 \FloatBarrier
 Dari kode diatas digunakan untuk menginputkan kedalam database mysql dengan menggunakan insert into, jika username ada yang sama akan mengembalikan 1 jika username tidak ada yang sama maka akan mengembalikan 
 nilai 0 dari nilai diatas di kembalikan ke fungsi create user dan kemudian di handling jika pengembalian fungsi regster user itu 1 maka akan username tersebut telah dipakai , jika 0 maka user berhasil mendaftar dan data berhasil 
 disimpan dalam database mysql,dan akan diredirect ke halaman login.
+
+\subsection{Halaman Login User}
+Halaman Login User adalah halaman yang digunakan untuk user masuk kedalam akunya dan menuju ke dashboard tampiilan user
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/login_user.png}
+    \caption{Tampilan Awal dari Login User}
+\end{figure}
+\FloatBarrier
+Tampilan diatas adalah tampilan Login User, dari tampilan itu user disuruh untuk mengisi username dan password untuk masuk ke tampilan selanjutnya. Untuk melihat
+logic pada tampilan ini bekerja kita bisa melihat di dalam fungsi beikut ini.
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/kode_login_user.png}
+    \caption{Kode fungsi login user pada gtk}
+\end{figure}
+\FloatBarrier
+Dari kode diatas \texttt{\detokenize{gtk_label_new()}} digunakan untuk memberikan tampilan teks ke gtk window yang telah dibuat
+kemudian \texttt{\detokenize{gtk_entry_new()}} digunakan untuk menangkap text input yang diinputkan oleh user. kemudian \texttt{\detokenize{gtk_buuton_new_with_label()}}
+digunakan untuk membuat sebuah button dengan text ditengah tengah button. ketika button itu di klik maka fungsi callback dari gtk akan memanggil fungsi \texttt{\detokenize{login_process_user()}} 
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/login_process_user.png}
+    \caption{Kode dari login process user}
+\end{figure}
+\FloatBarrier
+Dari kode diatas terdapat sebuah variabel statis dengan tipe data integer yang bernilai 3, kemudian terdapat variabel yang digunakan untuk mendapatkan text input username dan password
+kemudian dari variabel variabel tersebut dijadikan argumen pada fungsi \texttt{\detokenize{chec_user()}} yang digunakan untuk mengecek pada databases apakah ada username dan password seperti apa yang diinputkan .
+jika ada maka lanjut keproses dibahwanya terdapat sebuah fungsi \texttt{\detokenize{login_user()}} dengan 3 argumen, pada argumen yang ke3 adalah sebuah struct yang digunakan nantinya untuk menyimpan username nama dan isAdmin.
+
 \section{Kesimpulan}
 Keseluruhan alur dari program ini merupakan sebuah manajemen data tiket pesawat oleh dua tipe pengguna.
 Dari sisi Admin bertugas sebagai orang yang menginput data penjualan tiket. Sedangkan dari sisi Customer yang akan membeli tiket yang telah diinputkan oleh Admin sebelumnya.

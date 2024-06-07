@@ -415,7 +415,6 @@ void create_login_user_window(GtkWidget *parent_window)
     GtkWidget *back_button;
     GtkWidget *image;
 
-    // printf("apalah %s\n", parent_window);
     customers_login_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     g_signal_connect(customers_login_window, "destroy", G_CALLBACK(destroy), NULL);
     gtk_container_set_border_width(GTK_CONTAINER(customers_login_window), WINDOW_SIZE);
