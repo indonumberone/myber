@@ -387,11 +387,78 @@ digunakan untuk membuat sebuah button dengan text ditengah tengah button. ketika
 \end{figure}
 \FloatBarrier
 Dari kode diatas terdapat sebuah variabel statis dengan tipe data integer yang bernilai 3, kemudian terdapat variabel yang digunakan untuk mendapatkan text input username dan password
-kemudian dari variabel variabel tersebut dijadikan argumen pada fungsi \texttt{\detokenize{check_user()}} yang maksukan ke dalam variael hasil yang digunakan untuk mengecek pada databases apakah ada username dan password seperti apa yang diinputkan .
-jika ada maka lanjut keproses dibahwanya terdapat sebuah fungsi \texttt{\detokenize{login_user()}} dengan 3 argumen, pada argumen yang ke3 adalah sebuah struct yang digunakan nantinya untuk menyimpan username nama dan isAdmin.
+kemudian dari variabel variabel tersebut dijadikan argumen pada fungsi \texttt{\detokenize{check_user()}}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/check_user_mysql.png}
+    \caption{fungsi \texttt{\detokenize{check_user()}}}
+\end{figure}
+\FloatBarrier
+fungsi \texttt{\detokenize{check_user()}} ini digunakan untuk mengecek pada databases apakah ada username sudah ada pada database belum.
+jika ada maka lanjut keproses dibahwanya terdapat sebuah fungsi \texttt{\detokenize{login_user()}} 
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/login_user_mysql.png}
+    \caption{fungsi \texttt{\detokenize{login_user()}}}
+\end{figure}
+\FloatBarrier
+fungsi \texttt{\detokenize{login_user()}} membutuhkan 3 argumen, pada argumen yang ke satu dan dua digunakan untuk menginputkan username dan password kemudian untuk argumen ke 3 adalah sebuah struct yang digunakan nantinya untuk menyimpan username nama dan isAdmin.
 kemudian terdapat percabangan if didalam if yang pertama digunakan untuk mengecek apakah user ini keblokir atau tidak.
-jika ke blokir maka kan menampilkan alert pada GtkLabel kemudian kemudian pada else if dibawahnya mengecek jika hasil == 0  jika iya berarti password yang dimasukanoleh si user salah dan try yang bernilai 3 akan di kurangi 1.
-kemudian pada else if dibawahnya digunakanuntuk mengecek apakah hasl ==1 jika iya maka windows selanjunya akan di tampilkan.
+jika ke blokir maka akan menampilkan alert pada GtkLabel kemudian kemudian pada else if dibawahnya mengecek jika hasil == 0  jika iya berarti password yang dimasukanoleh si user salah dan try yang bernilai 3 akan di kurangi 1.
+kemudian pada else if dibawahnya digunaka untuk mengecek apakah hasl ==1 jika iya maka windows selanjunya akan di tampilkan.
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/blocked_mysql.png}
+    \caption{fungsi \texttt{\detokenize{blocked()}}}
+\end{figure}
+\FloatBarrier
+fungsi \texttt{\detokenize{blocked()}} digunakan untuk memblokir sementara jika user lebih dari 3x gagal dalam memasukan password. 
+\subsection{Login Admin}
+Halaman ini adalah halaman untuk login admin 
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/login_admin/tapilan_login.png}
+    \caption{Tampilan Login Admin}
+\end{figure}
+\FloatBarrier
+Pada Halaman login ini digunakan admin untuk login ke halaman dashboard admin. pada halaman ini 
+admin diperintahkan untuk memasukkan username dan password untuk login jika username yang di inputkan salah maka akan menampilkan username/ password salah seperti berikut
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/login_admin/user_not_found.png}
+    \caption{Username atau Password salah}
+\end{figure}
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/login_admin/login_window.png}
+    \caption{Tampilan Login Admin}
+\end{figure}
+\FloatBarrier
+Pada kode diatas adalah kode untuk membuat window untuk ditampilkan, cara kerjanya sama seperti login user yaitu membuat 
+window terlebih dahulu kemudian membuat box vertikal kemudian box vertikal itu dimasukan kedalam window
+untuk menampilkan teks pada gtk dapat menggunakan fungsi dari gtk itu sendiri yaitu dengan fungsi \texttt{\detokenize{gtk_label_new()}} kemudian
+untuk memberikan ruang teks input pada gtk dapat menggunakan fungsi \texttt{\detokenize{gtk_entry_new()}}, kemudian untuk membuat sebuah button pada gtk dapat 
+menggunakan fungsi \texttt{\detokenize{gtk_entry_new()}} dari gtk widget yang sudah dibuat tadi kemudian dimasukan kedalam box vertikal tadi yang sudah dibuat
+untuk membuat button ketika ditekan melakukan sebuah tindakan dapat menggunakan sebuah call yang telah disediakan gtk, dalam call back ini akan mengarahkan
+kefungsi \texttt{\detokenize{login_process_admin}}
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/login_admin/login_proses.png}
+    \caption{fungsi \texttt{\detokenize{login_process_admin}}}
+\end{figure}
+\FloatBarrier
+Fungsi ini adalah fungsi yang dipanggil oleh callback button login, dalam fungsi ini digunakan untuk masuk kedalam dashboard admin. didalam fungsi ini terdapat
+fungsi check user yang digunakan untuk mengecek username apakah sudah ada didalam database. jika ada maka fungsi \texttt{\detokenize{login_admin()}} akan dieksekusi
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/login_admin/login_mysql.png}
+    \caption{fungsi \texttt{\detokenize{login_admin()}}}
+\end{figure}
+\FloatBarrier
+Dalam fungsi \texttt{\detokenize{login_admin()}} ini digunakan untuk mencari username dan password serta isAdmin 1 dari database mysql 
+jika pada database ada dan username password dan isAdmin bernilai 1 maka akan diarahkan ke dashboard admin
 
 \section{Kesimpulan}
 Keseluruhan alur dari program ini merupakan sebuah manajemen data tiket pesawat oleh dua tipe pengguna.
