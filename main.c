@@ -565,9 +565,6 @@ void show_calendar(GtkWidget *button, gpointer data)
 
 void on_save_button_clicked(GtkWidget *button, gpointer data)
 {
-
-    // GtkWidget *current_window = GTK_WIDGET(data);
-    // FormData *form_data = (FormData *)data;
     const gchar *no_penerbangan = gtk_entry_get_text(GTK_ENTRY(no_penerbangan_pesawat_entry));
     const gchar *nama_asal = gtk_entry_get_text(GTK_ENTRY(nama_asal_entry));
     const gchar *nama_tujuan = gtk_entry_get_text(GTK_ENTRY(nama_tujuan_entry));
@@ -589,7 +586,6 @@ void on_save_button_clicked(GtkWidget *button, gpointer data)
         gchar *alert_block = g_strdup_printf("no penerbangan kosong");
         gtk_label_set_text(GTK_LABEL(alert_warningin), alert_block);
         g_free(alert_block);
-        // gtk_widget_show_all(create_input_data_page);
     }
     else if (strlen(entry_maskapai) == 0)
     {
@@ -1279,8 +1275,6 @@ void create_welcome_admin_window(GtkWidget *parent_window)
     hdata_input = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
     data_input = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
     data_history = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
-    penjualan_button = gtk_button_new_with_label("Penjualan");
-    g_signal_connect(G_OBJECT(penjualan_button), "clicked", G_CALLBACK(show_penjualan), NULL);
 
     GtkWidget *image = gtk_image_new_from_file("assets/banner2.png");
     gtk_box_pack_start(GTK_BOX(vbox), image, FALSE, FALSE, 0);
@@ -1289,10 +1283,8 @@ void create_welcome_admin_window(GtkWidget *parent_window)
     gtk_stack_add_named(GTK_STACK(stack), vbox, "home");
     GtkWidget *input_data_page = create_input_data_page(welcome_window);
     GtkWidget *history_data_page = show_history_data(welcome_window);
-    // GtkWidget *input_data_page = create_input_data_page();
-    gtk_stack_add_titled(GTK_STACK(stack), input_data_page, "inputdata", "Input Data Penerbangan");
 
-    // gtk_stack_add_titled(GTK_STACK(stack), data_input, "inputdata", "input data penerbangan");
+    gtk_stack_add_titled(GTK_STACK(stack), input_data_page, "inputdata", "Input Data Penerbangan");
 
     gtk_stack_add_titled(GTK_STACK(stack), history_data_page, "historydata", "Data Penerbangan");
 

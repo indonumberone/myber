@@ -194,20 +194,6 @@ void insert_flight_data(char *no_pener, char *maskapai, char *kelas, char *asal,
     {
         fprintf(stderr, "mysql_query() failed: %s\n", mysql_error(conn));
     }
-
-    // res = mysql_store_result(conn);
-    // MYSQL_ROW row = mysql_fetch_row(res);
-    // int success = (row != NULL);
-
-    // if (success)
-    // {
-    //     strcpy(user_details->username, row[0]);
-    //     strcpy(user_details->name, row[1]);
-    //     user_details->is_admin = atoi(row[2]);
-    // }
-
-    // mysql_free_result(res);
-    // return success;
 }
 
 int login_admin(char *user, char *pw)
@@ -330,17 +316,9 @@ int get_data_penerbangan(FlightDetails *flight_details)
             // printf("%s", row[i] ? row[i] : "NULL");
         }
         printf("\n");
-        // count++;
-        // }
-    }
-
-    // printf("%d", count);
+     }
 
     mysql_free_result(res);
-    // printf("%s", flight_details[0].no_penerbangan);
-    // printf("%s", flight_details[1].no_penerbangan);
-    // printf("%s", flight_details[2].no_penerbangan);
-    // printf("%s", flight_details[3].no_penerbangan);
 }
 
 int test()
