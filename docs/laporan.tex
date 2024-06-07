@@ -227,15 +227,74 @@ Ini merupakan tampilan halaman pembelian tiket
 \end{figure}
 \FloatBarrier 
 
+\subsection{Customer - Riwayat Pembeliam Tiket}
+Ini merupakan tampilan dari riwayat pembelian tiket oleh Customer
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./Riwayat-User.png}
+    \caption{Halaman Pembelian Tiket}
+
+\end{figure}
+\FloatBarrier 
+
 \section{Kode Program}
-Kode program dari aplikasi kami lampirkan dalam folder, dan juga pada repository github berikut :
+Kode program dari aplikasi kami lampirkan dalam folder myber beserta file myber-dev.zip, serta pada repository github berikut :
 \begin{itemize}
     \item \url{https://github.com/indonumberone/myber}
 \end{itemize}
 
 \section{Analisa}
 
+\subsection{Alur Program}
+Setelah melakukan kompilasi dan compiler menghasilkan sebuah file main. Selanjutnya adalah melakukan eksekusi file binary tersebut. Keseluruhan alur dari aplikasi ini adalah sebagai berikut.
+
+\subsubsection{Welcome Screen}
+Welcome screen merupakan tampilan awal ketika menjalankan aplikasi ini.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./Welcome.png}
+    \caption{Welcome Screen}
+
+\end{figure}
+\FloatBarrier 
+
+Pengguna dalam hal ini ada dua tipe pengguna yaitu Admin dan Customer. 
+Dari sisi Customer, terdapat dua buah fungsi pada bagian ini yaitu untuk Register dan Login.
+Sedangkan dari sisi Admin hanya bisa melakukan login, karena kredensial Admin sudah dibuat secara terpisah pada database.
+
+Kode dari halaman ini terdapat dalam fungsi utama yaitu main pada file main.c 
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./docs_main.png}
+    \caption{Sebagian Kode Program untuk Welcome Screen}
+
+\end{figure}
+\FloatBarrier 
+
+Kode tersebut memanggil beberapa entitas dari GTK seperti membuat window beserta memanggil GtkWidget yang merupakan base class dari widget yang ada pada GTK.
+Dari GtkWidget kemudian bisa dibuat beberapa elemen lain yang nantinya akan membentuk user interface dari aplikasi ini.
+
+Contohnya adalah dalam pembuatan teks atau tulisan, teks dalam GTK disebut sebagai label. Untuk membuat label pertama yang dilakukan adalah memanggil GtkLabel lalu menggunakan Constructor new dari GtkLabel untuk membuat sebuah label baru.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./docs_label.png}
+    \caption{GtkLabel}
+
+\end{figure}
+\FloatBarrier 
+
+Sebagai contoh, diatas merupakan kode program dari fungsi \texttt{\detokenize{create_login_user_window()}}
+Teks-teks seperti Username, Password, Login dan Kembali ke halaman awal dibuat dengan menggunakan GtkLabel. Dimana dalam membuat Constructor adalah dengan memanggil fungsi
+\texttt{\detokenize{gtk_label_new("isi_teks);}}. Setelah itu adalah menampilkannya ke dalam window dengan memanggil fungsi \texttt{\detokenize{gtk_widget_show_all(window_saat_ini);}}
+
+Dokumentasi dari GtkLabel yang lebih lengkap terdapat pada halaman \url{https://docs.gtk.org/gtk3/ctor.Widget.new.html}
 
 \section{Kesimpulan}
+Keseluruhan alur dari program ini merupakan sebuah manajemen data tiket pesawat oleh dua tipe pengguna.
+Dari sisi Admin bertugas sebagai orang yang menginput data penjualan tiket. Sedangkan dari sisi Customer yang akan membeli tiket yang telah diinputkan oleh Admin sebelumnya.
+Pada mekanisme Login, Customer bisa melakukan Register dan Login sedangkan Admin hanya bisa melakukan Login karena kredensial dari Admin sendiri sudah dibuatkan dari database. Selain itu, terdapat mekanisme untuk melakukan blocking atau ban
+sementara apabila pengguna salah memasukkan passwordnya lebih dari 3 kali, hal ini dilakukan untuk mengantisipasi adanya fraud atau spam. Lalu terdapat error handling yang lain seperti ketika memasukkan User yang belum ada.
 
 \end{document}
