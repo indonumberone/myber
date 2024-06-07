@@ -1,9 +1,9 @@
-test.c
-main
+.vscode/*
 /docs/laporan.aux
 /docs/laporan.fdb_latexmk
 /docs/laporan.fls
 /docs/laporan.log
 /docs/laporan.out
 /docs/laporan.synctex.gz
-.vscode/
+main
+test.c
