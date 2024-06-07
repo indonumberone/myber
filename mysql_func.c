@@ -388,6 +388,8 @@ int get_data_penerbangan(FlightDetails *flight_details)
 
         for (i = 0; i < num_fields; i++)
         {
+
+            
             flight_details[j].no_id = atoi(row[0] ? row[0] : 0);
             strcpy(flight_details[j].no_penerbangan, row[1] ? row[1] : "NULL");
             strcpy(flight_details[j].maskapai, row[2] ? row[2] : "NULL");
@@ -400,8 +402,8 @@ int get_data_penerbangan(FlightDetails *flight_details)
             strcpy(flight_details[j].waktu_kedatangan, row[9] ? row[9] : "NULL");
             flight_details[j].harga = atoi(row[10] ? row[10] : 0);
 
-            // printf("%s", row[i] ? row[i] : "NULL");
-            // printf("[%.*s] ", (int)lengths[i],
+            printf("%s", row[i] ? row[i] : "NULL");
+            // printf("[%.*s] ", (int)num_rows[i],
             //        row[i] ? row[i] : "NULL");
         }
         printf("\n");

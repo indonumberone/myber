@@ -1,3 +1,11 @@
+set global event_scheduler = 1;
+
+CREATE EVENT check_blocked 
+ON SCHEDULE EVERY 1 MINUTE 
+DO update users set blocked = 0 
+where blocked_until < current_timestamp();
+
+
 create table data_penerbangan(
 no_id int auto_increment not null,
 no_penerbangan varchar(100) not null,
