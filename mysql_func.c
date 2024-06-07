@@ -10,18 +10,6 @@
 MYSQL *conn;
 MYSQL_RES *res;
 MYSQL_ROW row;
-// // turu
-// struct data_penerbangan
-// {
-//     char no_penerbangan[NULL],
-//         char makapai[NULL],
-//         char kelas[NULL],
-//         char asal[NULL],
-//         char tujuan[NULL],
-//         // char date[NULL],
-//         char pukul[NULL],
-//         int harga,
-// };
 
 int connect_mysql()
 {
@@ -29,7 +17,7 @@ int connect_mysql()
     char *server = "localhost";
     char *user = "root";
     char *password = "myber";
-    char *database = "miber";
+    char *database = "myber";
 
     conn = mysql_init(NULL);
 
@@ -43,43 +31,8 @@ int connect_mysql()
 
     printf("[db] Berhasil terhubung ke MySQL....\n");
     return 0;
-    // if (mysql_query(conn, "SELECT * FROM users"))
-    // {
-    //     fprintf(stderr, "mysql_query() failed\n");
-    //     mysql_close(conn);
-    //     return 1;
-    // }
-    // if (mysql_query(conn, "SELECT data FROM users"))
-    // {
-    //     fprintf(stderr, "mysql_query() failed\n");
-    //     mysql_close(conn);
-    //     return 1;
-    // }
-
-    // res = mysql_use_result(conn);
-
-    // if (res == NULL)
-    // {
-    //     fprintf(stderr, "mysql_use_result() failed\n");
-    //     mysql_close(conn);
-    //     return 1;
-    // }
-
-    // while ((row = mysql_fetch_row(res)) >0)
-    // {
-    //     // Mengambil data dan menyimpannya ke dalam variabel
-    //     // Misalnya:
-    //     // int id = atoi(row[0]);
-    //     // char *name = row[1];
-    //     // ...
-
-    //     // Contoh cetak data
-    //     printf("Data: %s\n", row[1]);
-    // }
-
-    // mysql_free_result(res);
-    // mysql_close(conn);
 }
+
 int check_block(char *user)
 {
 
@@ -121,24 +74,6 @@ int check_user(char *user)
     mysql_free_result(res);
     return success;
 }
-
-// int login_user(char *user, char *pw)
-// {
-//     char query[256];
-//     sprintf(query, "SELECT username FROM users WHERE username = '%s' AND password = '%s' AND blocked = 0 AND admin = 0", user, pw);
-
-//     if (mysql_query(conn, query))
-//     {
-//         fprintf(stderr, "mysql_query() failed: %s\n", mysql_error(conn));
-//         return -1;
-//     }
-
-//     res = mysql_store_result(conn);
-//     MYSQL_ROW row = mysql_fetch_row(res);
-//     int success = (row != NULL);
-//     mysql_free_result(res);
-//     return success;
-// }
 
 int login_user(char *user, char *pw, UserDetails *user_details)
 {
@@ -191,7 +126,6 @@ int get_order_history(char *name, TicketDetails *ticket_details)
     mysql_free_result(res);
     return success;
 }
-
 
 void create_orders(char *username)
 {
@@ -374,22 +308,15 @@ int get_data_penerbangan(FlightDetails *flight_details)
     num_fields = mysql_num_fields(res);
     num_rows = mysql_num_rows(res);
 
-    // FlightDetails flight_details[num_fields];
-
     for (int j = 0; j < num_rows; j++)
     // while ((row = mysql_fetch_row(res)))
     {
         row = mysql_fetch_row(res);
         // count = 0;
-        // unsigned long *lengths;
-        // lengths = mysql_fetch_lengths(res);
-
-        // for (int j = 0; j < num_rows; j++) {
 
         for (i = 0; i < num_fields; i++)
         {
 
-            
             flight_details[j].no_id = atoi(row[0] ? row[0] : 0);
             strcpy(flight_details[j].no_penerbangan, row[1] ? row[1] : "NULL");
             strcpy(flight_details[j].maskapai, row[2] ? row[2] : "NULL");
@@ -402,9 +329,7 @@ int get_data_penerbangan(FlightDetails *flight_details)
             strcpy(flight_details[j].waktu_kedatangan, row[9] ? row[9] : "NULL");
             flight_details[j].harga = atoi(row[10] ? row[10] : 0);
 
-            printf("%s", row[i] ? row[i] : "NULL");
-            // printf("[%.*s] ", (int)num_rows[i],
-            //        row[i] ? row[i] : "NULL");
+            // printf("%s", row[i] ? row[i] : "NULL");
         }
         printf("\n");
         // count++;
@@ -456,6 +381,3 @@ int test()
 
     mysql_free_result(res);
 }
-
-// set global event_scheduler = 1;
-/* CREATE EVENT check_blocked ON SCHEDULE EVERY 1 MINUTE DO update users set blocked = 0 where blocked_until < current_timestamp();*/
