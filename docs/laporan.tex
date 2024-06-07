@@ -544,6 +544,51 @@ Pada kode diatas terdapat parameter struct flightDetails dari struct tersebut fi
 dan kemudian data dari mysql itu akan dirender dan di tampilkan pada menu ke 2 show data penerbangan
 \subsection{Dashboard User}
 Ini adalah tampilan dashboard users
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/tampilan_dahboard_user.png}
+    \caption{tampiilan dashboard user}
+\end{figure}
+\FloatBarrier
+pada menu dahsboard user tersedia menu yang digunakan untuk pembelian tiket pesawat apabila tiket itu dibeli maka akan muncul tampiilan checkout seperti berikut ini.
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/checkout.png}
+    \caption{tampiilan checkout}
+\end{figure}
+\FloatBarrier
+Dari tampilan ini apabila button checkout ditekan maka akan menghasilkan tampiilan seperti ini.
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/tiket.png}
+    \caption{tampiilan tiket}
+\end{figure}
+\FloatBarrier
+dari tampiilan ini akan mencetak tiket dan nama username, untuk kode dari dahsboard ini dapat dilihat dari kode berikut ini.
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/widget_pembelian.png}
+    \caption{window show pembelian}
+\end{figure}
+\FloatBarrier
+Dari kode diatas data dari database mysql kemudian diambil dan di renderke widget, proses dari pengambilan data ini sama dengan proses show data penerbangan pada menu admin,
+yang membedakan disini terdapat tombol beli tike yang mempunyai sebuah callback dengan fungsi \texttt{\detokenize{on_button_clicked}}
+untuk kode dari fungsi ini dapat dilihat dari gambar berikut ini.
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/checkout_button.png}
+    \caption{fungsi \texttt{\detokenize{on_button_clicked}}}
+\end{figure}
+\FloatBarrier
+Dari kode diatas data penerbangan yang dipilih oleh user kemudian di proses dan dimasukan kedalam database,setelah dimasukan kedatabase kemudian diarahkan ke cetak tiket, untuk kodenya dapat 
+dilihat pada gambar dibawah ini
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/cetak_tiket.png}
+    \caption{fungsi \texttt{\detokenize{on_checkout_clicked}}}
+\end{figure}
+\FloatBarrier
+pada fungsi \texttt{\detokenize{on_checkout_clicked}} digunakan untuk mencetak tiket yang telah dibuat dan menampilkan nama user yang membeli
 \section{Kesimpulan}
 Keseluruhan alur dari program ini merupakan sebuah manajemen data tiket pesawat oleh dua tipe pengguna.
 Dari sisi Admin bertugas sebagai orang yang menginput data penjualan tiket. Sedangkan dari sisi Customer yang akan membeli tiket yang telah diinputkan oleh Admin sebelumnya.

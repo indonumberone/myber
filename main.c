@@ -1323,9 +1323,6 @@ void create_welcome_user_window(GtkWidget *parent_window)
     gtk_grid_attach(GTK_GRID(grid), stack, 1, 0, 4, 4);
 
     gtk_stack_sidebar_set_stack(GTK_STACK_SIDEBAR(stackSideBar), GTK_STACK(stack));
-    // dikek i banner gambar
-    // testarray[1] = gtk_label_new("iki array ke 1");
-    // testarray[2] = gtk_label_new("iki array ke 2");
     char selamat_datang[256];
     sprintf(selamat_datang, "Selamat datang, %s!", current_user.name);
     label = gtk_label_new(NULL);
@@ -1342,7 +1339,6 @@ void create_welcome_user_window(GtkWidget *parent_window)
     gtk_box_pack_start(GTK_BOX(grid), image, TRUE, TRUE, 0);
     vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
     GtkWidget *welcom = gtk_label_new("Welcome!");
-    banner_label = gtk_label_new("test");
 
     vbox2 = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
     gtk_box_pack_start(GTK_BOX(vbox2), image, TRUE, TRUE, 0);
