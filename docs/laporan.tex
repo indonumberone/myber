@@ -287,10 +287,74 @@ Contohnya adalah dalam pembuatan teks atau tulisan, teks dalam GTK disebut sebag
 
 Sebagai contoh, diatas merupakan kode program dari fungsi \texttt{\detokenize{create_login_user_window()}}
 Teks-teks seperti Username, Password, Login dan Kembali ke halaman awal dibuat dengan menggunakan GtkLabel. Dimana dalam membuat Constructor adalah dengan memanggil fungsi
-\texttt{\detokenize{gtk_label_new("isi_teks);}}. Setelah itu adalah menampilkannya ke dalam window dengan memanggil fungsi \texttt{\detokenize{gtk_widget_show_all(window_saat_ini);}}
-
+\texttt{\detokenize{gtk_label_new("isi_teks);}}. Setelah itu adalah menampilkannya ke dalam window dengan memanggil fungsi \texttt{\detokenize{gtk_widget_show_all(window_saat_ini)}}
 Dokumentasi dari GtkLabel yang lebih lengkap terdapat pada halaman \url{https://docs.gtk.org/gtk3/ctor.Widget.new.html}
-
+\subsection{Halaman Register}
+Pada Halaman Register digunakan user untuk membuat akun aplikasi MyBer.
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.45\textwidth]{./img/create_user_screen.png}
+    \caption{Halaman Register}
+\end{figure}
+\FloatBarrier
+Pada halaman ini jika user ingin membuat sebuah akun maka wajib mengisi semua text input yang disediakan, jika user belum menginputkan semua text input yang digunakan maka akan alert atau warning yang muncul, seperti berikut ini:
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/username_kosong.png}
+    \caption{Username kosong}
+\end{figure}
+\FloatBarrier
+Pada gambar diatas terjadi ketika user tidak menginputkan username
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.45\textwidth]{./img/nama_kosong.png}
+    \caption{nama kosong}
+\end{figure}
+\FloatBarrier
+Pada gambar diatas terjadi ketika user tidak menginputkan nama 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{./img/password_kosong.png}
+    \caption{password kosong}
+\end{figure}
+\FloatBarrier
+Pada gambar diatas terjadi ketika user tidak menginputkan password
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{./img/username_dipakai.png}
+    \caption{username telah dipakai}
+\end{figure}
+\FloatBarrier
+Pada gambar diatas terjadi ketika username yang diinputkan oleh user telah dipakai oleh userlain.
+\FloatBarrier
+Berikut ini adalah tampilan kode dari halaman register
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/kode_halaman_register_gtk.png}
+    \caption{Kode halaman register dari gtk}
+\end{figure}
+\FloatBarrier
+Dari kode diatas variabel yang berisi fungsi gtk entry new digunakan untuk mengambil teks yang diinputkan oleh user,kemudian jika user menekan button create akun maka
+maka fungsi callback dari button akan mengarahkan ke fungsi create user
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/kode_fungsi_createuser.png}
+    \caption{Kode dari fungsi create user}
+\end{figure}
+\FloatBarrier
+Dari kode diatas username yang telah diinputkan akan di ambil dan disimpan dalam sebuah variabel seperti username,nama.password, dari variabel tersebut kemudian di cek apakah
+panjang dari variabel(variabel username,nama,password) sama dengan 0 jika sama dengan 0 maka akan mengganti nilai label yang awalanya berisi
+Create Your Account!!,pengecekan ini bertujuan agar user yang ingin membuat sebuah akun wajib mengisi text input yang disediakan, jika user telah mengisi
+semua text input yang digunakan maka variabel tadi akan dijadikan argumen untuk fungsi register user
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{./img/register_user.png}
+    \caption{Kode dari fungsi create user}
+\end{figure}
+\FloatBarrier
+Dari kode diatas digunakan untuk menginputkan kedalam database mysql dengan menggunakan insert into, jika username ada yang sama akan mengembalikan 1 jika username tidak ada yang sama maka akan mengembalikan 
+nilai 0 dari nilai diatas di kembalikan ke fungsi create user dan kemudian di handling jika pengembalian fungsi regster user itu 1 maka akan username tersebut telah dipakai , jika 0 maka user berhasil mendaftar dan data berhasil 
+disimpan dalam database mysql,dan akan diredirect ke halaman login.
 \section{Kesimpulan}
 Keseluruhan alur dari program ini merupakan sebuah manajemen data tiket pesawat oleh dua tipe pengguna.
 Dari sisi Admin bertugas sebagai orang yang menginput data penjualan tiket. Sedangkan dari sisi Customer yang akan membeli tiket yang telah diinputkan oleh Admin sebelumnya.

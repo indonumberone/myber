@@ -90,7 +90,7 @@ void maskapai_list(GtkComboBox *combo, gpointer user_data)
 {
     gint index = gtk_combo_box_get_active(combo);
     if (index)
-    { 
+    {
         GtkTreeModel *model;
         GtkTreeIter iter;
         model = gtk_combo_box_get_model(combo);
@@ -103,7 +103,7 @@ void kelas_list(GtkComboBox *combo, gpointer user_data)
 {
     gint index = gtk_combo_box_get_active(combo);
     if (index)
-    { 
+    {
         GtkTreeModel *model;
         GtkTreeIter iter;
         model = gtk_combo_box_get_model(combo);
@@ -641,7 +641,6 @@ void on_save_button_clicked(GtkWidget *button, gpointer data)
     }
 }
 
-
 GtkWidget *create_input_data_page(GtkWidget *parent_window)
 {
 
@@ -980,20 +979,19 @@ GtkWidget *show_pembelian_data(GtkWidget *parent_windows)
     GtkWidget *show_history_page = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
 
     model = gtk_list_store_new(N_COLUMNS,
-                               G_TYPE_STRING, 
-                               G_TYPE_STRING, 
-                               G_TYPE_STRING, 
-                               G_TYPE_STRING, 
-                               G_TYPE_STRING, 
-                               G_TYPE_STRING, 
-                               G_TYPE_STRING, 
-                               G_TYPE_STRING, 
-                               G_TYPE_STRING, 
-                               G_TYPE_UINT,   
-                               G_TYPE_UINT,   
-                               G_TYPE_STRING, 
-                               G_TYPE_STRING  
-    );
+                               G_TYPE_STRING,
+                               G_TYPE_STRING,
+                               G_TYPE_STRING,
+                               G_TYPE_STRING,
+                               G_TYPE_STRING,
+                               G_TYPE_STRING,
+                               G_TYPE_STRING,
+                               G_TYPE_STRING,
+                               G_TYPE_STRING,
+                               G_TYPE_UINT,
+                               G_TYPE_UINT,
+                               G_TYPE_STRING,
+                               G_TYPE_STRING);
 
     int num_rows = get_jumlah_penerbangan();
     printf("%d", num_rows);
@@ -1114,20 +1112,19 @@ GtkWidget *show_history_data(GtkWidget *parent_windows)
     GtkTreeViewColumn *column;
     GtkWidget *show_history_page = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
     model = gtk_list_store_new(N_COLUMNS,
-                               G_TYPE_STRING, 
-                               G_TYPE_STRING, 
-                               G_TYPE_STRING, 
-                               G_TYPE_STRING, 
-                               G_TYPE_STRING, 
-                               G_TYPE_STRING, 
-                               G_TYPE_STRING, 
-                               G_TYPE_STRING, 
-                               G_TYPE_STRING, 
-                               G_TYPE_UINT,   
-                               G_TYPE_UINT,   
-                               G_TYPE_STRING, 
-                               G_TYPE_STRING  
-    );
+                               G_TYPE_STRING,
+                               G_TYPE_STRING,
+                               G_TYPE_STRING,
+                               G_TYPE_STRING,
+                               G_TYPE_STRING,
+                               G_TYPE_STRING,
+                               G_TYPE_STRING,
+                               G_TYPE_STRING,
+                               G_TYPE_STRING,
+                               G_TYPE_UINT,
+                               G_TYPE_UINT,
+                               G_TYPE_STRING,
+                               G_TYPE_STRING);
 
     int num_rows = get_jumlah_penerbangan();
     printf("%d", num_rows);

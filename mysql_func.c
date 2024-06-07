@@ -233,8 +233,6 @@ int register_user(char *user, char *nama, char *pw)
     char query[256];
 
     sprintf(query, "INSERT INTO users (username, nama, password) VALUES ('%s', '%s', '%s')", user, nama, pw);
-    // sprintf(query, "SELECT username FROM users WHERE username = '%s' AND password = '%s' AND blocked = 0", user, pw);
-
     if (mysql_query(conn, query))
     {
         fprintf(stderr, "mysql_query() failed: %s\n", mysql_error(conn));
